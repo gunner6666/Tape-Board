@@ -39,6 +39,45 @@ jobs:
           java-version: 21
       - run: npm install
       - run: npx cap add android
+      - name: Keep app clear of the status and navigation bars
+        run: |
+          f=$(find android/app/src/main/java -name MainActivity.java | head -n 1)
+          echo "Patching $f"
+          cat > "$f" <<'EOF'
+          package com.rheller.tapeboard;
+
+          import android.graphics.Color;
+          import android.os.Bundle;
+          import android.view.View;
+          import androidx.core.graphics.Insets;
+          import androidx.core.view.ViewCompat;
+          import androidx.core.view.WindowCompat;
+          import androidx.core.view.WindowInsetsCompat;
+          import androidx.core.view.WindowInsetsControllerCompat;
+          import com.getcapacitor.BridgeActivity;
+
+          public class MainActivity extends BridgeActivity {
+            @Override
+            public void onCreate(Bundle savedInstanceState) {
+              super.onCreate(savedInstanceState);
+              WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+              View content = findViewById(android.R.id.content);
+              content.setBackgroundColor(Color.BLACK);
+              WindowInsetsControllerCompat bars =
+                  WindowCompat.getInsetsController(getWindow(), content);
+              bars.setAppearanceLightStatusBars(false);
+              bars.setAppearanceLightNavigationBars(false);
+              ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
+                Insets i = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                        | WindowInsetsCompat.Type.displayCutout()
+                        | WindowInsetsCompat.Type.ime());
+                v.setPadding(i.left, i.top, i.right, i.bottom);
+                return WindowInsetsCompat.CONSUMED;
+              });
+            }
+          }
+          EOF
       - run: npx cap sync android
       - name: Build debug APK
         working-directory: android
