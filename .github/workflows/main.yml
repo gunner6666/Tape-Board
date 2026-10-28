@@ -37,7 +37,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - uses: android-actions/setup-android@v3
       - run: npm install
       - run: npx cap add android
       - run: npx cap sync android
