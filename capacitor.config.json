@@ -2,7 +2,7 @@
   "appId": "com.rheller.tapeboard",
   "appName": "Tape Board",
   "webDir": "www",
-  "backgroundColor": "#0d1115",
+  "backgroundColor": "#000000",
   "android": {
     "adjustMarginsForEdgeToEdge": "force"
   }
