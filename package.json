@@ -1,0 +1,42 @@
+{
+  "name": "tape-board",
+  "productName": "Tape Board",
+  "version": "1.0.0",
+  "description": "Copper tape circuit designer for 3D printed boards",
+  "author": "R. Heller",
+  "license": "MIT",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win --publish never",
+    "android:add": "cap add android",
+    "android:sync": "cap sync android",
+    "android:open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/filesystem": "^7.0.0",
+    "@capacitor/share": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.rheller.tapeboard",
+    "productName": "Tape Board",
+    "files": ["electron/**", "www/**", "package.json"],
+    "directories": { "output": "dist" },
+    "win": {
+      "target": ["nsis", "portable"],
+      "artifactName": "Tape-Board-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
