@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tape Board – copper tape circuit designer</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201024%201024%22%20width%3D%221024%22%20height%3D%221024%22%3E%20%20%3Cdefs%3E%20%20%20%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23454b52%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232a2e33%22/%3E%20%20%20%20%3C/linearGradient%3E%20%20%20%20%3ClinearGradient%20id%3D%22top%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231b5a4b%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230f3a31%22/%3E%20%20%20%20%3C/linearGradient%3E%20%20%20%20%3ClinearGradient%20id%3D%22cu%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f5ad6c%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d98640%22/%3E%20%20%20%20%3C/linearGradient%3E%20%20%20%20%3ClinearGradient%20id%3D%22hd%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2365778a%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234b5b6a%22/%3E%20%20%20%20%3C/linearGradient%3E%20%20%20%20%3ClinearGradient%20id%3D%22sv%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23a3adb5%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%22.5%22%20stop-color%3D%22%23c3cbd1%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2398a3ac%22/%3E%20%20%20%20%3C/linearGradient%3E%20%20%20%20%3CradialGradient%20id%3D%22gl%22%20cx%3D%22.5%22%20cy%3D%22.5%22%20r%3D%22.5%22%3E%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ffd9ae%22%20stop-opacity%3D%221%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%22.35%22%20stop-color%3D%22%23f5ad6c%22%20stop-opacity%3D%22.75%22/%3E%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f5ad6c%22%20stop-opacity%3D%220%22/%3E%20%20%20%20%3C/radialGradient%3E%20%20%3C/defs%3E%20%20%3C%21--%20background%20tile%20--%3E%20%20%3Crect%20width%3D%221024%22%20height%3D%221024%22%20rx%3D%22224%22%20fill%3D%22url%28%23bg%29%22/%3E%20%20%3Cg%20id%3D%22mark%22%20transform%3D%22translate%280%2052%29%22%3E%20%20%20%20%3C%21--%20slab%20sides%20%28printed%20layers%29%20--%3E%20%20%20%20%3Cpolygon%20points%3D%22212%2C503%20512%2C676%20512%2C740%20212%2C567%22%20fill%3D%22%230b2b24%22/%3E%20%20%20%20%3Cpolygon%20points%3D%22512%2C676%20812%2C503%20812%2C567%20512%2C740%22%20fill%3D%22%2308201b%22/%3E%20%20%20%20%3C%21--%20slab%20top%20--%3E%20%20%20%20%3Cpolygon%20points%3D%22512%2C330%20812%2C503%20512%2C676%20212%2C503%22%20fill%3D%22url%28%23top%29%22/%3E%20%20%20%20%3Cpolygon%20points%3D%22512%2C330%20812%2C503%20512%2C676%20212%2C503%22%20fill%3D%22none%22%20stroke%3D%22%232dd4a8%22%20stroke-width%3D%227%22%20stroke-linejoin%3D%22round%22%20stroke-opacity%3D%22.85%22/%3E%20%20%20%20%3C%21--%20trace%20shadows%20--%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%2306241c%22%20stroke-width%3D%2228%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M356%2C494%20L440%2C543%20L530%2C491%20L632%2C550%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M440%2C543%20L518%2C588%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M530%2C491%20L608%2C446%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3Cg%20fill%3D%22%2306241c%22%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22356%22%20cy%3D%22494%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22632%22%20cy%3D%22550%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22518%22%20cy%3D%22588%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22608%22%20cy%3D%22446%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3C%21--%20copper%20tape%20traces%20--%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22url%28%23cu%29%22%20stroke-width%3D%2228%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M356%2C482%20L440%2C531%20L530%2C479%20L632%2C538%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M440%2C531%20L518%2C576%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M530%2C479%20L608%2C434%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23ffd2a3%22%20stroke-opacity%3D%22.5%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M356%2C476%20L440%2C525%20L530%2C473%20L632%2C532%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M440%2C525%20L518%2C570%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M530%2C473%20L608%2C428%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3C%21--%20pads%20with%20holes%20--%3E%20%20%20%20%3Cg%20fill%3D%22url%28%23cu%29%22%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22356%22%20cy%3D%22482%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22632%22%20cy%3D%22538%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22518%22%20cy%3D%22576%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22608%22%20cy%3D%22434%22%20rx%3D%2246%22%20ry%3D%2226%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3Cg%20fill%3D%22%230d1115%22%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22356%22%20cy%3D%22482%22%20rx%3D%2217%22%20ry%3D%229.5%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22632%22%20cy%3D%22538%22%20rx%3D%2217%22%20ry%3D%229.5%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22518%22%20cy%3D%22576%22%20rx%3D%2217%22%20ry%3D%229.5%22/%3E%20%20%20%20%20%20%3Cellipse%20cx%3D%22608%22%20cy%3D%22434%22%20rx%3D%2217%22%20ry%3D%229.5%22/%3E%20%20%20%20%3C/g%3E%20%20%20%20%3C%21--%20printhead%20shadow%20on%20the%20board%20--%3E%20%20%20%20%3Cellipse%20cx%3D%22614%22%20cy%3D%22448%22%20rx%3D%2236%22%20ry%3D%2213%22%20fill%3D%22%23000%22%20fill-opacity%3D%22.28%22/%3E%20%20%20%20%3C%21--%203D%20printer%20head%20--%3E%20%20%20%20%3Cg%20id%3D%22head%22%3E%20%20%20%20%20%20%3C%21--%20carriage%20--%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22538%2C196%20678%2C196%20708%2C179%20568%2C179%22%20fill%3D%22%237f93a5%22/%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22678%2C196%20708%2C179%20708%2C245%20678%2C262%22%20fill%3D%22%233a4854%22/%3E%20%20%20%20%20%20%3Crect%20x%3D%22538%22%20y%3D%22196%22%20width%3D%22140%22%20height%3D%2266%22%20fill%3D%22url%28%23hd%29%22/%3E%20%20%20%20%20%20%3Crect%20x%3D%22538%22%20y%3D%22196%22%20width%3D%22140%22%20height%3D%226%22%20fill%3D%22%232dd4a8%22%20fill-opacity%3D%22.85%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%22574%22%20cy%3D%22231%22%20r%3D%2215%22%20fill%3D%22%23141a20%22%20stroke%3D%22%232dd4a8%22%20stroke-opacity%3D%22.6%22%20stroke-width%3D%224%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%22574%22%20cy%3D%22231%22%20r%3D%224%22%20fill%3D%22%232dd4a8%22%20fill-opacity%3D%22.8%22/%3E%20%20%20%20%20%20%3Crect%20x%3D%22604%22%20y%3D%22222%22%20width%3D%2256%22%20height%3D%228%22%20rx%3D%223%22%20fill%3D%22%23141a20%22%20fill-opacity%3D%22.7%22/%3E%20%20%20%20%20%20%3Crect%20x%3D%22604%22%20y%3D%22238%22%20width%3D%2238%22%20height%3D%228%22%20rx%3D%223%22%20fill%3D%22%23141a20%22%20fill-opacity%3D%22.7%22/%3E%20%20%20%20%20%20%3C%21--%20heat%20sink%20fins%20--%3E%20%20%20%20%20%20%3Crect%20x%3D%22600%22%20y%3D%22262%22%20width%3D%2216%22%20height%3D%2264%22%20fill%3D%22%234a5967%22/%3E%20%20%20%20%20%20%3Cg%20fill%3D%22%236d8093%22%3E%20%20%20%20%20%20%20%20%3Crect%20x%3D%22572%22%20y%3D%22270%22%20width%3D%2272%22%20height%3D%229%22%20rx%3D%222%22/%3E%20%20%20%20%20%20%20%20%3Crect%20x%3D%22572%22%20y%3D%22288%22%20width%3D%2272%22%20height%3D%229%22%20rx%3D%222%22/%3E%20%20%20%20%20%20%20%20%3Crect%20x%3D%22572%22%20y%3D%22306%22%20width%3D%2272%22%20height%3D%229%22%20rx%3D%222%22/%3E%20%20%20%20%20%20%3C/g%3E%20%20%20%20%20%20%3C%21--%20heater%20block%20--%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22573%2C326%20643%2C326%20661%2C316%20591%2C316%22%20fill%3D%22%23d3dade%22/%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22643%2C326%20661%2C316%20661%2C360%20643%2C370%22%20fill%3D%22%23838e97%22/%3E%20%20%20%20%20%20%3Crect%20x%3D%22573%22%20y%3D%22326%22%20width%3D%2270%22%20height%3D%2244%22%20fill%3D%22url%28%23sv%29%22/%3E%20%20%20%20%20%20%3C%21--%20nozzle%20--%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22590%2C370%20626%2C370%20614%2C414%20602%2C414%22%20fill%3D%22url%28%23sv%29%22/%3E%20%20%20%20%20%20%3Cpolygon%20points%3D%22590%2C370%20626%2C370%20622%2C382%20594%2C382%22%20fill%3D%22%236f7a83%22%20fill-opacity%3D%22.45%22/%3E%20%20%20%20%3C/g%3E%20%20%3C/g%3E%3C/svg%3E">
+<style>
+:root{--bg:#0d1115;--panel:#141a20;--panel2:#1a222a;--bd:#27313a;--tx:#e4eaee;--mu:#8795a1;--ac:#2dd4a8;--acd:#06241c;--cu:#e0914f;--cud:#1d1006;--r:7px}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tx);background:var(--bg);display:grid;grid-template-columns:272px minmax(0,1fr) 272px;grid-template-rows:52px minmax(0,1fr);-webkit-font-smoothing:antialiased}
+header{grid-column:1/-1;display:flex;align-items:center;gap:18px;padding:0 14px;background:var(--panel);border-bottom:1px solid var(--bd)}
+.brand{display:flex;align-items:center;gap:10px;min-width:244px}.brand b{font-size:15px;letter-spacing:-.01em}.brand span{color:var(--mu);font-size:11.5px;display:block;line-height:1.1}
+.seg{display:flex;gap:2px;background:var(--bg);padding:3px;border:1px solid var(--bd);border-radius:9px}
+.seg button{display:flex;align-items:center;gap:7px;padding:6px 11px;border:0;background:transparent;color:var(--mu);border-radius:6px;font-weight:500}
+.seg button:hover{color:var(--tx);background:var(--panel2)}.seg button.on{background:var(--ac);color:var(--acd)}
+.seg svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+kbd{font:600 10px ui-monospace,Menlo,monospace;padding:1px 5px;border-radius:4px;background:rgba(255,255,255,.08);color:inherit;opacity:.75}
+.seg button.on kbd{background:rgba(0,0,0,.15)}
+.acts{margin-left:auto;display:flex;gap:8px}
+aside{background:var(--panel);overflow:auto;padding:6px 14px 18px;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+aside:first-of-type{border-right:1px solid var(--bd)}aside:last-of-type{border-left:1px solid var(--bd)}
+section{padding:14px 0;border-bottom:1px solid var(--bd);display:flex;flex-direction:column;gap:9px}section:last-child{border-bottom:0}
+h3{margin:0;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);font-weight:700}
+p.s{margin:0;color:var(--mu);font-size:11.5px;line-height:1.5}
+label{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#c3cdd4}
+label.chk{justify-content:flex-start;gap:8px}
+input,select,textarea,button{font:inherit;color:inherit}
+input[type=number],select{width:112px;padding:5px 8px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx)}
+input[type=number]:disabled{opacity:.4}
+select.w{width:100%}input[type=checkbox]{accent-color:var(--ac);width:15px;height:15px;margin:0}
+textarea{width:100%;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:8px 10px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:#cfe3dc;resize:vertical}
+button{padding:7px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--panel2);cursor:pointer;text-align:center;font-weight:500}
+button:hover{border-color:#3b4955;background:#212b34}
+button.primary{background:var(--cu);border-color:var(--cu);color:var(--cud);font-weight:650}button.primary:hover{filter:brightness(1.08)}
+button.accent{background:var(--ac);border-color:var(--ac);color:var(--acd);font-weight:650}button.accent:hover{filter:brightness(1.08)}
+button.ghost{background:transparent}
+:is(button,input,select,textarea):focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px}.w{width:100%}
+#parts button{font-size:12px;padding:7px 4px;color:#c3cdd4}#parts button.on{border-color:var(--ac);background:rgba(45,212,168,.12);color:var(--ac)}
+main{position:relative;min-height:0;background:radial-gradient(ellipse at 50% 40%,#131a20,var(--bg) 70%)}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+#hint{position:absolute;top:12px;left:50%;transform:translateX(-50%);max-width:calc(100% - 24px);background:rgba(20,26,32,.92);border:1px solid var(--bd);color:#cfd9df;padding:7px 14px;border-radius:999px;font-size:12.5px;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#st{position:absolute;left:14px;bottom:12px;color:var(--mu);font:11.5px ui-monospace,Menlo,monospace;pointer-events:none}
+#zc{position:absolute;right:14px;bottom:12px;display:flex;background:var(--panel);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+#zc button{border:0;border-radius:0;background:transparent;padding:5px 13px}#zc button+button{border-left:1px solid var(--bd)}
+#stats{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px;font-size:12.5px;line-height:1.7;color:#c3cdd4}#stats b{color:var(--tx);font-variant-numeric:tabular-nums}
+#cbar{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--ac);border-radius:12px;padding:8px 10px 8px 16px;box-shadow:0 8px 30px rgba(0,0,0,.45);white-space:nowrap}
+#cbar[hidden]{display:none}#cbar.flash{animation:fl .45s}@keyframes fl{40%{background:#1f3a34;transform:translateX(-50%) scale(1.03)}}
+#cbar span{color:#cfd9df}
+#help{position:fixed;inset:0;background:rgba(5,8,10,.65);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+#help.open{display:flex}
+#hcard{background:var(--panel);border:1px solid var(--bd);border-radius:14px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:22px 26px 26px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#hcard h2{margin:0 0 4px;font-size:19px}#hcard h4{margin:20px 0 6px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ac)}
+#hcard p,#hcard li{color:#c3cdd4;line-height:1.55;margin:4px 0}#hcard ul,#hcard ol{margin:4px 0;padding-left:20px}#hcard b{color:var(--tx)}
+#hx{float:right;padding:4px 10px}
+#hcard code{font:12px ui-monospace,Menlo,monospace;background:var(--bg);padding:1px 5px;border-radius:4px;color:#cfe3dc}#hcard pre{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;overflow:auto;font:12px/1.55 ui-monospace,Menlo,monospace;color:#cfe3dc;margin:8px 0}#hcard table{border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px}#hcard td,#hcard th{border:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top;color:#c3cdd4}#hcard th{background:var(--panel2);color:var(--tx)}
+#hcard a.sup{float:right;margin-right:8px;padding:5px 12px;border-radius:6px;background:var(--cu);color:var(--cud);font-weight:650;text-decoration:none;border:1px solid var(--cu)}#hcard a.sup:hover{filter:brightness(1.08)}
+@media(max-width:900px){body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 62vh auto auto;height:auto}html,body{height:auto}header{flex-wrap:wrap;padding:10px 14px}.brand{min-width:0}.acts{margin-left:0}main{order:1;grid-row:2}aside{overflow:visible}}
+@media(max-width:900px){html,body{max-width:100%;overflow-x:hidden}header,main,aside{min-width:0;max-width:100%}header>*{min-width:0;max-width:100%}.seg{flex-wrap:wrap;max-width:100%}.seg button{padding:6px 9px}.seg kbd,#cbar kbd{display:none}.acts{flex-wrap:wrap}#cbar{white-space:normal;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 16px);bottom:44px}input[type=number],select{max-width:100%}}
+</style></head><body>
+<header>
+ <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="170 200 684 620" width="46" height="42" aria-hidden="true"><defs><linearGradient id="tb-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#454b52"/><stop offset="1" stop-color="#2a2e33"/></linearGradient><linearGradient id="tb-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b5a4b"/><stop offset="1" stop-color="#0f3a31"/></linearGradient><linearGradient id="tb-cu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5ad6c"/><stop offset="1" stop-color="#d98640"/></linearGradient><linearGradient id="tb-hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#65778a"/><stop offset="1" stop-color="#4b5b6a"/></linearGradient><linearGradient id="tb-sv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a3adb5"/><stop offset=".5" stop-color="#c3cbd1"/><stop offset="1" stop-color="#98a3ac"/></linearGradient><radialGradient id="tb-gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd9ae" stop-opacity="1"/><stop offset=".35" stop-color="#f5ad6c" stop-opacity=".75"/><stop offset="1" stop-color="#f5ad6c" stop-opacity="0"/></radialGradient></defs><g id="mark" transform="translate(0 52)"><!-- slab sides (printed layers) --><polygon points="212,503 512,676 512,740 212,567" fill="#0b2b24"/><polygon points="512,676 812,503 812,567 512,740" fill="#08201b"/><!-- slab top --><polygon points="512,330 812,503 512,676 212,503" fill="url(#tb-top)"/><polygon points="512,330 812,503 512,676 212,503" fill="none" stroke="#2dd4a8" stroke-width="7" stroke-linejoin="round" stroke-opacity=".85"/><!-- trace shadows --><g fill="none" stroke="#06241c" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M356,494 L440,543 L530,491 L632,550"/><path d="M440,543 L518,588"/><path d="M530,491 L608,446"/></g><g fill="#06241c"><ellipse cx="356" cy="494" rx="46" ry="26"/><ellipse cx="632" cy="550" rx="46" ry="26"/><ellipse cx="518" cy="588" rx="46" ry="26"/><ellipse cx="608" cy="446" rx="46" ry="26"/></g><!-- copper tape traces --><g fill="none" stroke="url(#tb-cu)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M356,482 L440,531 L530,479 L632,538"/><path d="M440,531 L518,576"/><path d="M530,479 L608,434"/></g><g fill="none" stroke="#ffd2a3" stroke-opacity=".5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M356,476 L440,525 L530,473 L632,532"/><path d="M440,525 L518,570"/><path d="M530,473 L608,428"/></g><!-- pads with holes --><g fill="url(#tb-cu)"><ellipse cx="356" cy="482" rx="46" ry="26"/><ellipse cx="632" cy="538" rx="46" ry="26"/><ellipse cx="518" cy="576" rx="46" ry="26"/><ellipse cx="608" cy="434" rx="46" ry="26"/></g><g fill="#0d1115"><ellipse cx="356" cy="482" rx="17" ry="9.5"/><ellipse cx="632" cy="538" rx="17" ry="9.5"/><ellipse cx="518" cy="576" rx="17" ry="9.5"/><ellipse cx="608" cy="434" rx="17" ry="9.5"/></g><!-- printhead shadow on the board --><ellipse cx="614" cy="448" rx="36" ry="13" fill="#000" fill-opacity=".28"/><!-- 3D printer head --><g id="head"><!-- carriage --><polygon points="538,196 678,196 708,179 568,179" fill="#7f93a5"/><polygon points="678,196 708,179 708,245 678,262" fill="#3a4854"/><rect x="538" y="196" width="140" height="66" fill="url(#tb-hd)"/><rect x="538" y="196" width="140" height="6" fill="#2dd4a8" fill-opacity=".85"/><circle cx="574" cy="231" r="15" fill="#141a20" stroke="#2dd4a8" stroke-opacity=".6" stroke-width="4"/><circle cx="574" cy="231" r="4" fill="#2dd4a8" fill-opacity=".8"/><rect x="604" y="222" width="56" height="8" rx="3" fill="#141a20" fill-opacity=".7"/><rect x="604" y="238" width="38" height="8" rx="3" fill="#141a20" fill-opacity=".7"/><!-- heat sink fins --><rect x="600" y="262" width="16" height="64" fill="#4a5967"/><g fill="#6d8093"><rect x="572" y="270" width="72" height="9" rx="2"/><rect x="572" y="288" width="72" height="9" rx="2"/><rect x="572" y="306" width="72" height="9" rx="2"/></g><!-- heater block --><polygon points="573,326 643,326 661,316 591,316" fill="#d3dade"/><polygon points="643,326 661,316 661,360 643,370" fill="#838e97"/><rect x="573" y="326" width="70" height="44" fill="url(#tb-sv)"/><!-- nozzle --><polygon points="590,370 626,370 614,414 602,414" fill="url(#tb-sv)"/><polygon points="590,370 626,370 622,382 594,382" fill="#6f7a83" fill-opacity=".45"/></g></g></svg><div><b>Tape Board</b><span>Copper-tape circuit designer</span></div></div>
+ <div class="seg" id="tools">
+  <button data-t="trace" title="Draw tape (T)"><svg viewBox="0 0 24 24"><path d="M4 18h6l4-10h6"/><circle cx="4" cy="18" r="1.6"/><circle cx="20" cy="8" r="1.6"/></svg>Tape <kbd>T</kbd></button>
+  <button data-t="part" title="Add part (P)"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="14" rx="2"/><path d="M3 8h3M3 12h3M3 16h3M18 8h3M18 12h3M18 16h3"/></svg>Part <kbd>P</kbd></button>
+  <button data-t="move" title="Move part (V)"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>Move <kbd>V</kbd></button>
+  <button data-t="select" title="Select a part (S)"><svg viewBox="0 0 24 24"><path d="M6 3l12 9-5.5 1.3L9.5 19z"/></svg>Select <kbd>S</kbd></button>
+  <button data-t="rotate" title="Rotate a part: click it"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4h-4"/></svg>Rotate</button>
+  <button data-t="hole" title="Mounting hole (H)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg>Hole <kbd>H</kbd></button>
+  <button data-t="erase" title="Erase (X)"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>Erase <kbd>X</kbd></button>
+ </div>
+ <div class="acts"><button id="bhelp" class="ghost" title="How to use Tape Board">? Help</button><label class="chk" title="Ask to confirm every change before it is kept"><input type="checkbox" id="req" checked> Confirm changes</label><button id="bundo" class="ghost" title="Undo (Ctrl+Z)">Undo</button><button id="bclear" class="ghost">Clear</button><button id="bstl" class="primary">Export STL</button></div>
+</header>
+<aside>
+ <section><h3>Parts</h3><p class="s">Choose a part from the list, then click the board to place it.</p><select id="partsel" class="w" aria-label="Part to place"></select><button id="brot" title="Rotate the part you are placing or adjusting">⟳ Rotate 90° <kbd>R</kbd></button>
+ <button id="bkicad" title="Add parts from KiCad footprint files">Import KiCad footprint…</button><input id="kfile" type="file" accept=".mod,.kicad_mod" multiple hidden><p class="s" id="kmsg"></p></section>
+ <section id="psec"><h3>Selected part</h3><p class="s" id="pinfo">Pick the Select tool (S) and click a part to give it its own pin hole and pad size.</p>
+  <div id="pfields" hidden>
+   <label>Pin hole ⌀ (mm) <input id="phd" type="number" step=".1" min=".2" max="10"></label>
+   <label>Pad ⌀ (mm) <input id="ppd" type="number" step=".1" min=".6" max="20"></label>
+   <p class="s" id="pnote"></p>
+   <div class="g2"><button id="pall" title="Copy these sizes to every part of the same type">Apply to same type</button><button id="pres" title="Go back to the Print settings sizes">Use global sizes</button></div>
+  </div></section>
+ <section><h3>Tape</h3>
+  <label>Width (mm) <select id="tw"><option>0.5</option><option selected>1</option><option>1.5</option><option>2</option><option>3</option><option>5</option><option>6</option></select></label>
+  <label>Angles <select id="ang"><option value="90">90° only</option><option value="45" selected>45° and 90°</option><option value="free">Any</option></select></label></section>
+ <section><h3>Board</h3>
+  <label>Width (mm) <input id="bw" type="number" min="15" max="200" value="60"></label>
+  <label>Height (mm) <input id="bh" type="number" min="15" max="200" value="40"></label>
+  <label>Grid <select id="grid"><option value="5.08">5.08 mm (0.2")</option><option value="2.54" selected>2.54 mm (0.1")</option><option value="2">2 mm</option><option value="1.27">1.27 mm (0.05")</option><option value="1">1 mm</option><option value="0.635">0.635 mm (0.025")</option><option value="0.5">0.5 mm</option><option value="0.25">0.25 mm</option><option value="0.1">0.1 mm</option><option value="c">Custom…</option></select></label>
+  <label id="gclab" style="display:none">Custom grid (mm) <input id="gcus" type="number" min="0.1" max="20" step="0.05" value="2"></label>
+  <label>Margin (mm) <input id="mg" type="number" min="0" step="1" value="5"></label>
+  <button id="bfit">Shrink board to fit</button>
+  <label>Export shape <select id="oline" style="width:150px"><option value="full">Whole board</option><option value="box" selected>Fit to used area</option><option value="tight">Cut away unused</option></select></label></section>
+ <section><h3>Auto-generate</h3>
+  <p class="s">List your parts and which pins connect. Parts: <b>R1 res</b>. Connections: <b>NAME: R1.2 D1.1</b>. Types: pad, res, led, h2, h3, h4, h6, h8, dip8, dip14, dip16, esp32, enc, tp4056. See Help for the full guide.</p>
+  <select id="ex" class="w"><option value="">Load an example…</option><option value="a">LED + resistor + battery</option><option value="b">Two LEDs, own resistors</option><option value="c">8-pin chip with LED</option><option value="d">ESP32 + encoder + TP4056 + battery</option></select>
+  <textarea id="spec" rows="10" spellcheck="false">J1 h2
+R1 res
+D1 led
+VCC: J1.1 R1.1
+N1: R1.2 D1.1
+GND: D1.2 J1.2</textarea>
+  <label class="chk"><input type="checkbox" id="d45" checked> Allow 45° tape angles</label>
+  <button class="accent" id="bauto">Generate layout</button>
+  <p class="s" id="amsg">Replaces the current board. Run it again for a different arrangement.</p></section>
+</aside>
+<main><canvas id="cv"></canvas><div id="hint"></div><div id="st"></div><div id="cbar" hidden><span id="cmsg"></span><button id="crot" hidden>⟳ Rotate <kbd>R</kbd></button><button id="cext" hidden>➜ Extend <kbd>E</kbd></button><button id="cok" class="accent">✓ Confirm <kbd>Enter</kbd></button><button id="cno">✕ Cancel <kbd>Esc</kbd></button></div><div id="zc"><button id="zo" title="Zoom out">−</button><button id="zi" title="Zoom in">+</button><button id="zf" title="Fit board">Fit</button></div></main>
+<aside>
+ <section><h3>Print settings</h3>
+  <label>Plate thickness (mm) <input id="th" type="number" step=".2" min="1" value="2"></label>
+  <label>Traces <select id="tm"><option value="up" selected>Raised</option><option value="down">Lowered</option></select></label>
+  <label>Trace height (mm) <input id="gd" type="number" step=".05" min="0" max="1" value="0.4"></label>
+  <label>Pin hole ⌀ (mm) <input id="hd" type="number" step=".1" min=".6" value="1"></label>
+  <label class="chk"><input type="checkbox" id="padon"> Larger solder pads (set size below)</label>
+  <label>Pad ⌀ (mm) <input id="pd" type="number" step=".1" min="1.5" value="3" disabled></label></section>
+ <section><h3>Design summary</h3><div id="stats"></div></section>
+ <section><h3>Files</h3>
+  <button id="bsvg">Download SVG template (1:1)</button>
+  <div class="g2"><button id="bsave">Save design</button><button id="bload">Open design</button></div>
+  <input id="file" type="file" accept=".json" hidden>
+  <p class="s">The STL has raised lines where tape goes (or grooves if you switch Traces to Lowered), plus through-holes for pins.</p></section>
+</aside>
+<div id="help" role="dialog" aria-modal="true" aria-label="How to use Tape Board"><div id="hcard">
+<button id="hx" class="ghost" aria-label="Close help">✕ Close</button><a class="sup" href="https://buymeacoffee.com/Rheller82" target="_blank" rel="noopener noreferrer">☕ Support</a>
+<h2>How to use Tape Board</h2>
+<p style="color:var(--mu);margin:0 0 8px">Created by R. Heller</p>
+<p>Design a circuit board for 3D printing. You print the plate, press copper tape onto the raised lines, and solder component legs through the holes.</p>
+<h4>Quick start</h4>
+<ol><li>Choose a part such as <b>Resistor</b> from the <b>Parts</b> list (left), then click the board to place it. Press <b>Confirm</b> (or Enter) to keep it.</li>
+<li>Choose the <b>Tape</b> tool. Click where tape starts, then click where it ends. Press <b>Confirm</b> (Enter) to keep that piece, or <b>Extend</b> (E) to keep it and carry on from where it ended. Press <b>Esc</b> to end the run.</li>
+<li>Press <b>Export STL</b> and print the file.</li></ol>
+<h4>Tools (top bar)</h4>
+<ul><li><b>Tape (T)</b>: draw copper tape runs. <b>Part (P)</b>: place the selected part. <b>Select (S)</b>: click a part to pick it and give it its own hole and pad size (see below). <b>Move (V)</b>: drag a part, a tape run or a hole. <b>Rotate</b>: click a part to turn it 90°. <b>Hole (H)</b>: add a mounting screw hole. <b>Erase (X)</b>: remove a part, hole or tape run.</li></ul>
+<h4>Confirming changes</h4>
+<p>With <b>Confirm changes</b> ticked (top bar), every change waits for approval. While it waits you can <b>drag it</b> to a better spot. For tape, drag the green corner dots to reshape, or drag the piece to move it. Press <b>Enter</b> to keep or <b>Esc</b> to cancel. Untick the box for instant changes.</p>
+<h4>Rotating a part</h4>
+<p>Use <b>⟳ Rotate 90°</b> in the Parts section before placing, the <b>⟳ Rotate</b> button on the confirm bar, the <b>Rotate</b> tool, or press <b>R</b>. Parts turn around their first pin.</p>
+<h4>Moving around</h4>
+<p>Scroll to zoom, hold the middle mouse button and drag to pan, and use <b>Fit</b> to reset. <b>Ctrl+Z</b> undoes. Everything snaps to the grid; change it under <b>Board</b>. Choose a preset from 5.08 mm down to 0.1 mm, or pick <b>Custom…</b> and type any size from 0.1 mm. Very fine grids hide their thin lines until you zoom in, but snapping still works.</p>
+<h4>Auto-generate: the basics</h4>
+<p>Instead of drawing by hand, you describe your circuit as a short text list. The app then places the parts on a new board and runs the copper tape between them for you. The list has two kinds of line: <b>part lines</b> (what you have) and <b>connection lines</b> (what joins to what). You type them in the box under <b>Auto-generate</b> on the left, then click <b>Generate layout</b>.</p>
+<p>Blank lines are ignored, and so is any line that starts with <code>#</code>, so you can use those for notes. Notes must be on their own line. Do not put <code>#</code> after something else on the same line.</p>
+<h4>Part lines: <code>NAME type</code></h4>
+<p>One line per part, written as a name you choose, a space, then a type from the table. The name is how you refer to the part later (for example <code>R1</code>, <code>D2</code>, <code>U1</code>, <code>J1</code>). It must be different for every part, have no spaces, and not contain a colon or a dot. Capital letters matter, so <code>R1</code> and <code>r1</code> are different names.</p>
+<table><tr><th>Type</th><th>What it is</th><th>Pins</th><th>How the pins are numbered</th></tr>
+<tr><td><code>pad</code></td><td>A single solder pad or wire point</td><td>1</td><td>Only pin 1.</td></tr>
+<tr><td><code>res</code></td><td>Resistor, or any part with two legs 10.16 mm apart (such as a diode)</td><td>2</td><td>Pin 1 and pin 2. Either way round for a resistor.</td></tr>
+<tr><td><code>led</code></td><td>LED with legs 2.54 mm apart</td><td>2</td><td>Pin 1 is + (the anode, the longer leg). Pin 2 is − (the cathode, by the flat side). The board shows + and − next to the pads.</td></tr>
+<tr><td><code>h2</code> <code>h3</code> <code>h4</code> <code>h6</code> <code>h8</code></td><td>A single row of pins at 2.54 mm spacing, such as a battery connector, switch, button or sensor</td><td>2, 3, 4, 6 or 8</td><td>Pin 1 is at one end, then 2, 3 and so on along the row.</td></tr>
+<tr><td><code>dip8</code> <code>dip14</code> <code>dip16</code></td><td>A chip with two rows of pins (DIP package), rows 7.62 mm apart</td><td>8, 14 or 16</td><td>Standard chip numbering. Pin 1 is top left (next to the notch), numbers go down the left side, then continue up the right side. On a <code>dip8</code>, pin 4 is bottom left, pin 5 is bottom right and pin 8 is top right.</td></tr></table>
+<p>Parts that don't match one of these shapes can still be used. Pick the type with the same number of pins and spacing, use several <code>pad</code> parts, or import the part from a KiCad footprint file (see below).</p>
+<h4>Connection lines: <code>NAME: part.pin part.pin ...</code></h4>
+<p>Each connection line lists pins that must be joined together with tape. It starts with a label, a colon, then the pins. The label (<code>VCC</code>, <code>GND</code>, <code>SIGNAL</code>, anything without a colon) is only for you and for messages. Each pin is written as the part's name, a dot, then the pin number: <code>U1.8</code> means pin 8 of the part named U1. Separate pins with spaces or commas. For parts that have named pins you can use the name instead of the number, for example <code>U1.D32</code> or <code>T1.OUT+</code>. Names are not case-sensitive.</p>
+<p>All the pins on one line end up joined together. If three things meet at one point, such as the battery +, a resistor and a chip's power pin, put all three on one line.</p>
+<h4>Rules to remember</h4>
+<ul><li>Each pin can appear on <b>only one</b> connection line. To join more things to the same point, add them to that line instead of starting a second one.</li>
+<li>A connection line needs at least two pins. A line with one pin is ignored.</li>
+<li>Pins you don't list are left unconnected. The part is still placed, and tape keeps clear of it.</li>
+<li>Every name used in a connection must match a part line exactly, and the pin number must exist on that part (for example <code>R1.3</code> is an error because a resistor has two pins).</li>
+<li>You can have up to 29 connection lines.</li></ul>
+<h4>A worked example</h4>
+<pre># battery, resistor and LED in a loop
+J1 h2
+R1 res
+D1 led
+VCC: J1.1 R1.1
+N1: R1.2 D1.1
+GND: D1.2 J1.2</pre>
+<p>Read it as: <b>J1</b> is a two-pin battery connector, <b>R1</b> a resistor and <b>D1</b> an LED. The first connection joins battery pin 1 to one end of the resistor. The second joins the other end of the resistor to the LED's + leg. The third joins the LED's − leg back to battery pin 2, completing the loop. To see a bigger example, pick one from the <b>Load an example</b> menu and read how it is built.</p>
+<h4>What happens when you click Generate layout</h4>
+<ol><li>The app reads your list and checks it. If something is wrong it tells you which line and stops without changing your board.</li>
+<li>It arranges the parts in rows, trying up to 40 different orders and turn angles, and keeps the arrangement where the most connections can be routed with the least tape and the smallest board.</li>
+<li>It routes tape for each connection, shortest connections first. Tape never crosses other tape, and it keeps clear of other pads.</li>
+<li>It replaces your current board with the result and sizes the board to fit. With <b>Confirm changes</b> on, you review it and press Confirm or Cancel (Cancel brings your old board back).</li></ol>
+<p>After that it's a normal board. Move parts, redraw tape, erase and rotate as usual. Click Generate again to get a different arrangement from the same list.</p>
+<h4>Settings that affect auto-generate</h4>
+<ul><li><b>Allow 45° tape angles</b>: lets tape run diagonally as well as straight, which usually fits more in less space and routes more connections. Untick it for straight, square corners only.</li>
+<li><b>Tape width</b> (left panel): auto-generate uses your chosen width, but never wider than 2 mm, so tape can fit between pins.</li>
+<li><b>Pin hole and pad size</b> (right panel): bigger pads take up more room, so there is less space for tape to pass between pins.</li></ul>
+<h4>Messages you might see</h4>
+<ul><li><b>Unknown part type</b>: the word after the name isn't in the table above. Check the spelling.</li>
+<li><b>Add at least one part line</b>: the box has no part lines.</li>
+<li><b>Net NAME: "X.n" does not match a part pin</b>: the part name doesn't exist, or the pin number is too high or missing. The part and pin are written <code>NAME.number</code>.</li>
+<li><b>Up to 29 nets are supported</b>: you have too many connection lines. Join pins that share a point onto one line.</li>
+<li><b>Routed N of M nets. Couldn't route: ...</b>: those connections were left undrawn because tape had no free path. Click Generate again for a new arrangement, tick 45° angles, use thinner tape or smaller pads, or draw the missing tape by hand.</li></ul>
+<h4>Limits</h4>
+<ul><li>The board has a single layer of tape, so two lines can never cross. Very tangled circuits may not route completely. Use a short wire jumper where lines must cross.</li>
+<li>You can't choose where parts go. After generating, drag them where you want and redraw tape as needed.</li>
+<li>Only the part types in the table are available. Use the closest match for other components.</li></ul>
+<h4>Importing KiCad footprints</h4>
+<p>You can add your own parts from KiCad footprint files. Click <b>Import KiCad footprint…</b> in the Parts section and choose one or more files. Both formats work: <code>.kicad_mod</code> (KiCad 5 and newer) and the older <code>.mod</code> (KiCad 4 and older, including library files that hold many footprints, up to 60 at a time).</p>
+<ul><li>The part appears in the Parts list under <b>Imported (KiCad)</b>, and a message under the button tells you its type name. Type that name as the part type in Auto-generate, for example <code>J1 screw_terminal_1x04</code>.</li>
+<li><b>Pins:</b> each through-hole pad becomes a pin, in pad-number order. Use the pad number or name in connections, such as <code>J1.1</code> or <code>J1.A2</code>.</li>
+<li><b>Hole size:</b> imported parts follow the <b>Pin hole</b> setting, the same as every other part. The drill size written in the footprint file is ignored.</li>
+<li><b>Reference point:</b> the lowest-numbered pad sits at the part's origin, so it lands on the grid when you place it. Other pads keep their real spacing, even if it is not on the grid.</li>
+<li><b>Not imported:</b> surface-mount pads, mounting holes, silkscreen, courtyards and 3D models. A message tells you how many were skipped. All pads are drawn round.</li>
+<li>Imported parts are saved inside your design file, so they come back when you open it.</li></ul>
+<p>Check the spacing against your real component before printing, as the footprint is only as accurate as the file.</p>
+<h4>Board and export shape</h4>
+<p>Set the board size and <b>Margin</b>. <b>Shrink board to fit</b> crops the board to your design. <b>Export shape</b> chooses what gets exported: the whole board, a rectangle around the design, or <b>Cut away unused</b>, which follows the design's outline to save plastic. Your on-screen design is not changed by this.</p>
+<h4>Hole and pad size for one part</h4>
+<ol><li>Choose the <b>Select</b> tool (or press <b>S</b>) and click a part. It gets a yellow dashed outline and the <b>Selected part</b> box opens on the left. Clicking with the Move tool also selects.</li>
+<li>Type a <b>Pin hole ⌀</b> and/or a <b>Pad ⌀</b>. Those sizes apply to that part only, in the picture, the STL and the SVG. Nothing else on the board changes.</li>
+<li>Leave a box empty and that part follows the Print settings. <b>Use global sizes</b> clears both boxes. <b>Apply to same type</b> copies the sizes to every part of that type.</li></ol>
+<p>The pad is always kept at least 0.4 mm wider than the hole so some copper ring is left. This also applies to imported KiCad parts, whose holes otherwise follow the Pin hole setting. Auto-generate routes tape with the global pad size, so set per-part sizes after generating, and check clearances if you make a pad much bigger. Per-part sizes are saved with the design.</p>
+<h4>Print settings (right)</h4>
+<ul><li><b>Traces: Raised</b> prints tape lines standing above the plate (Lowered makes grooves). <b>Trace height</b> sets how much.</li>
+<li><b>Pin hole</b> is the leg hole size. Pads are raised to the tape height so tape and solder have something to sit on. Tick <b>Larger solder pads</b> to set a bigger pad size.</li>
+<li>Very thin tape lines are hard to print. Use at least 0.8 mm for a 0.4 mm nozzle.</li></ul>
+<h4>Files</h4>
+<ul><li><b>Export STL</b>: the printable plate. <b>Download SVG template</b>: a 1:1 drawing you can print on paper to check fit or cut tape against.</li>
+<li><b>Save design / Open design</b>: keep your work as a file and come back to it later.</li></ul>
+<h4>Building it</h4>
+<ol><li>Print the plate. A first small test board is a good idea.</li><li>Press copper tape along the raised lines, running it onto each pad. Trim neatly.</li><li>Push component legs through the holes and solder them to the tape at each pad.</li></ol>
+<h4>About</h4>
+<p>Tape Board was created by <b>R. Heller</b>. If it helps you build something, you can support its development with the <b>☕ Support</b> button at the top of this window.</p>
+</div></div>
+<script>
+const $=s=>document.querySelector(s),cv=$('#cv'),cx=cv.getContext('2d');
+let S={W:60,H:40,parts:[],traces:[],holes:[]};
+let tool='trace',ptype='res',rot=0,grid=2.54,tw=1,ang='45',padD=2,holeD=1,thick=2,gdep=.4;
+let cur=null,m={x:0,y:0,rx:0,ry:0},sc=10,ox=0,oy=0,drag=null,hist=[],zm=1,pan={x:0,y:0},pn=null;
+const DEFS={pad:{n:'Single pad',p:[[0,0]]},res:{n:'Resistor, 10.16 mm',p:[[0,0],[10.16,0]]},led:{n:'LED, 2.54 mm legs',p:[[0,0],[2.54,0]]}};
+for(const n of[2,3,4,6,8])DEFS['h'+n]={n:'Header 1×'+n,p:Array.from({length:n},(_,i)=>[i*2.54,0])};
+for(const n of[8,14,16]){const k=n/2;DEFS['dip'+n]={n:'DIP-'+n+' chip',dip:k,p:[...Array.from({length:k},(_,i)=>[0,i*2.54]),...Array.from({length:k},(_,i)=>[7.62,(k-1-i)*2.54])]}}
+DEFS.esp32={n:'ESP32 DevKit (38-pin)',dip:19,w:25.4,bw:27.94,bm:1.27,ant:[18,6.04],usbb:[8,2.4],alias:{VIN:'5V',VCC:'5V',D0:'SD0',D1:'SD1'},p:[...Array.from({length:19},(_,i)=>[0,i*2.54]),...Array.from({length:19},(_,i)=>[25.4,(18-i)*2.54])],names:['3V3','EN','VP','VN','D34','D35','D32','D33','D25','D26','D27','D14','D12','GND1','D13','SD2','SD3','CMD','5V','CLK','SD0','SD1','D15','D2','D0','D4','D16','D17','D5','D18','D19','GND2','D21','RX0','TX0','D22','D23','GND3']};
+DEFS.enc={n:'Rotary encoder RK097N / EC11',p:[[0,0],[0,-2.5],[0,-5],[-14.5,0],[-14.5,-5]],names:['A','C','B','S1','S2'],hd:1.3,box:[-13.5,-8.35,12,11.7],circ:[[-7.5,-2.5,3]],slots:[[-7.5,-7.85,2.4,1.9],[-7.5,2.85,2.4,1.9]],label:'RK097N'};
+DEFS.tp4056={n:'TP4056 USB-C charger module',p:[[14,0],[0,0],[11.46,23],[2.54,23],[14,23],[0,23]],names:['IN+','IN-','B+','B-','OUT+','OUT-'],box:[-1.6,-1.9,17.2,28],extra:[[2.5,-2.9,9,3]],label:'TP4056'};
+const GROUPS=[['Basic',['pad','res','led','h2','h3','h4','h6','h8']],['Chips and modules',['dip8','dip14','dip16','esp32','enc','tp4056']]];
+GROUPS.forEach(([g,ks])=>{const og=document.createElement('optgroup');og.label=g;ks.forEach(k=>og.appendChild(new Option(DEFS[k].n,k)));$('#partsel').appendChild(og)});
+$('#partsel').value=ptype;$('#partsel').onchange=e=>{ptype=e.target.value;setTool('part')};
+const HINTS={rotate:'Rotate: click a part to turn it 90°. Use the Rotate button on the confirm bar to keep turning.',trace:'Draw tape: click the start, then click where the piece ends. Confirm keeps it. Extend keeps it and carries on from that end. Esc ends the run.',part:'Add part: click the board to place the selected part. Press R to rotate it first.',move:'Move: drag a part, a piece of tape or a hole. Drag a tape corner dot to reshape it. Hover over a part and press R to rotate it.',select:'Select: click a part, then set its own pin hole and pad size in the panel on the left. An empty box follows the Print settings.',hole:'Mounting hole: click to add a 3.2 mm screw hole.',erase:'Erase: click a part, hole or tape run to remove it.'};
+const rotp=(p,r)=>[[p[0],p[1]],[-p[1],p[0]],[-p[0],-p[1]],[p[1],-p[0]]][r];
+const padsOf=pt=>DEFS[pt.type].p.map(p=>{const q=rotp(p,pt.rot);return{x:+(pt.x+q[0]).toFixed(3),y:+(pt.y+q[1]).toFixed(3)}});
+const hdOf=pt=>pt.hd>0?Math.min(10,Math.max(.2,pt.hd)):Math.max(holeD,DEFS[pt.type].hd||0);
+const pdOf=pt=>Math.max(pt.pd>0?Math.min(20,pt.pd):padD,hdOf(pt)+.4);
+let sel=null;
+const snap=v=>+(Math.round(v/grid)*grid).toFixed(3);
+const dseg=(px,py,ax,ay,bx,by)=>{const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=Math.max(0,Math.min(1,t));return Math.hypot(px-ax-t*dx,py-ay-t*dy)};
+const pushHist=()=>{hist.push(JSON.stringify(S));if(hist.length>80)hist.shift()};
+function undo(){if(hist.length){S=JSON.parse(hist.pop());dims();draw()}}
+function dims(){$('#bw').value=S.W;$('#bh').value=S.H}
+function con(a,p){if(ang==='free')return p;let dx=p.x-a.x,dy=p.y-a.y;const ax=Math.abs(dx),ay=Math.abs(dy);
+ if(ang==='90'){if(ax>=ay)dy=0;else dx=0}
+ else if(ax>2*ay)dy=0;else if(ay>2*ax)dx=0;else{const k=Math.round(Math.max(ax,ay)/grid)*grid;dx=Math.sign(dx)*k;dy=Math.sign(dy)*k}
+ return{x:a.x+dx,y:a.y+dy}}
+function hit(p){for(let i=S.parts.length-1;i>=0;i--)if(padsOf(S.parts[i]).some(q=>Math.hypot(q.x-p.x,q.y-p.y)<pdOf(S.parts[i])/2+.6))return S.parts[i]}
+function hitBox(p){const h=hit(p);if(h)return h;for(let i=S.parts.length-1;i>=0;i--){const a=padsOf(S.parts[i]);if(a.length<2)continue;const xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=pdOf(S.parts[i])/2+.6;if(p.x>=Math.min(...xs)-g&&p.x<=Math.max(...xs)+g&&p.y>=Math.min(...ys)-g&&p.y<=Math.max(...ys)+g)return S.parts[i]}}
+function setSel(pt){sel=pt||null;$('#pfields').hidden=!sel;$('#pinfo').textContent=sel?`${sel.ref||DEFS[sel.type].n}: leave a box empty to follow the Print settings.`:'Pick the Select tool (S) and click a part to give it its own pin hole and pad size.';if(sel){$('#phd').value=sel.hd>0?sel.hd:'';$('#ppd').value=sel.pd>0?sel.pd:''}}
+function updSel(){if(!sel)return;const D=DEFS[sel.type];$('#phd').placeholder='global '+(+Math.max(holeD,D.hd||0).toFixed(2));$('#ppd').placeholder='global '+(+padD.toFixed(2));
+ const want=sel.pd>0?sel.pd:padD;$('#pnote').textContent=`In use: hole ${+hdOf(sel).toFixed(2)} mm, pad ${+pdOf(sel).toFixed(2)} mm`+(pdOf(sel)>Math.min(20,want)+1e-9?'. The pad is kept at least 0.4 mm wider than the hole.':'')}
+let hflag=false;
+[['phd','hd'],['ppd','pd']].forEach(([id,k])=>{const el=$('#'+id);el.onfocus=()=>{hflag=true};el.onchange=()=>{hflag=true};
+ el.oninput=()=>{if(!sel)return;if(pend){busy();el.value=sel[k]>0?sel[k]:'';return}if(hflag){pushHist();hflag=false}const v=parseFloat(el.value);if(v>0)sel[k]=v;else delete sel[k];draw()}});
+$('#pres').onclick=()=>{if(!sel)return;if(busy())return;pushHist();delete sel.hd;delete sel.pd;setSel(sel);draw()};
+$('#pall').onclick=()=>{if(!sel||busy())return;pushHist();S.parts.forEach(q=>{if(q.type!==sel.type)return;if(sel.hd>0)q.hd=sel.hd;else delete q.hd;if(sel.pd>0)q.pd=sel.pd;else delete q.pd});draw()};
+let pend=null,pd0=null;
+function rotateCur(){if(pend&&(pend.type==='part'||pend.type==='move'))pend.item.rot=(pend.item.rot+1)%4;else if(!pend)rot=(rot+1)%4;draw()}
+const reqOn=()=>$('#req').checked;
+const MSG={part:'Drag the part into place. Press R to rotate.',trace:'Drag the tape to move it or a corner dot to reshape it. Confirm keeps it. Extend keeps it and continues from its end.',hole:'Drag the hole into place.',move:'Adjust the part. Rotate or drag it, then confirm.',erase:'Highlighted item will be deleted.',batch:'Review the new layout.'};
+function showBar(){$('#cbar').hidden=!pend;$('#crot').hidden=!(pend&&(pend.type==='part'||pend.type==='move'));$('#cext').hidden=!(pend&&pend.type==='trace'&&!pend.old);if(pend)$('#cmsg').textContent=pend.old?'Drag to move it'+(pend.type==='trace'?', or drag a corner dot to reshape it':'')+'. Confirm to keep.':MSG[pend.type]}
+function setPend(item,type){pend=reqOn()?{item,type}:null;showBar()}
+function busy(){if(!pend)return false;const b=$('#cbar');b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash');return true}
+function confirmPend(ext){if(!pend)return;if(pend.type==='trace'&&!pend.old){if(ext===true&&cur)cur.pts=[pend.item.pts.at(-1)];else cur=null}if(pend.type==='erase'){pushHist();pend.arr.splice(pend.arr.indexOf(pend.item),1)}pend=null;showBar();draw()}
+function cancelPend(){if(!pend)return;const fr=pend.type==='trace'?pend.from:null;if(pend.type!=='erase')undo();if(fr&&cur)cur.pts=[fr];pend=null;showBar();draw()}
+function pendDown(p){if(!pend||pend.type==='batch'||pend.type==='erase')return;const it=pend.item;
+ if(pend.type==='part'||pend.type==='move'){const a=padsOf(it),xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=pdOf(it)/2+1.2;
+  if(p.x>Math.min(...xs)-g&&p.x<Math.max(...xs)+g&&p.y>Math.min(...ys)-g&&p.y<Math.max(...ys)+g)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ else if(pend.type==='hole'){if(Math.hypot(p.x-it.x,p.y-it.y)<it.d/2+1.2)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ else if(pend.type==='trace'){const vi=it.pts.findIndex(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6);
+  if(vi>=0)pd0={k:'v',i:vi};else if(it.pts.some((a,i)=>i&&dseg(p.x,p.y,it.pts[i-1].x,it.pts[i-1].y,a.x,a.y)<it.w/2+1.2))pd0={k:'t',sx:snap(p.x),sy:snap(p.y),orig:it.pts.map(q=>({...q}))}}}
+function erase(p){let it=hit(p),arr=S.parts;
+ if(!it){arr=S.holes;it=S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+.6)}
+ if(!it){arr=S.traces;it=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.6))}
+ if(!it)return;pend={item:it,type:'erase',arr};if(reqOn())showBar();else confirmPend()}
+function finish(){if(cur){cur.pts=cur.pts.filter((a,i,r)=>!i||a.x!==r[i-1].x||a.y!==r[i-1].y);if(cur.pts.length>1){pushHist();S.traces.push(cur);setPend(cur,'trace')}cur=null}draw()}
+function mp(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left-ox)/sc,y:(e.clientY-r.top-oy)/sc}}
+cv.onpointermove=e=>{if(pn){pan.x=pn.px+e.clientX-pn.x;pan.y=pn.py+e.clientY-pn.y;draw();return}const p=mp(e);m={x:snap(p.x),y:snap(p.y),rx:p.x,ry:p.y};
+ if(cur){const c=con(cur.pts.at(-1),m);m.cx=snap(c.x);m.cy=snap(c.y)}
+ if(drag){drag.part.x=snap(p.x-drag.dx);drag.part.y=snap(p.y-drag.dy)}
+ if(pd0&&pend){const it=pend.item;if(pd0.k==='o'){it.x=snap(p.x-pd0.dx);it.y=snap(p.y-pd0.dy)}else if(pd0.k==='v')it.pts[pd0.i]={x:snap(p.x),y:snap(p.y)};else{const dx=snap(p.x)-pd0.sx,dy=snap(p.y)-pd0.sy;it.pts=pd0.orig.map(q=>({x:+(q.x+dx).toFixed(3),y:+(q.y+dy).toFixed(3)}))}}
+ let pin='';S.parts.forEach(pt=>padsOf(pt).forEach((q,i)=>{if(Math.hypot(q.x-p.x,q.y-p.y)<pdOf(pt)/2)pin=`   ${pt.ref||DEFS[pt.type].n} pin ${i+1}${DEFS[pt.type].names?' ('+DEFS[pt.type].names[i]+')':''}`}));$('#st').textContent=`x ${m.x.toFixed(2)}   y ${m.y.toFixed(2)} mm${pin}`;draw()};
+cv.onpointerdown=e=>{if(e.button===1){e.preventDefault();pn={x:e.clientX,y:e.clientY,px:pan.x,py:pan.y};cv.setPointerCapture(e.pointerId);return}if(e.button)return;const p=mp(e),q={x:snap(p.x),y:snap(p.y)};
+ if(pend){pendDown(p);if(!pd0)busy();draw();return}
+ if(tool==='part'){pushHist();const o={type:ptype,x:q.x,y:q.y,rot};S.parts.push(o);setPend(o,'part')}
+ else if(tool==='hole'){pushHist();const o={x:q.x,y:q.y,d:3.2};S.holes.push(o);setPend(o,'hole')}
+ else if(tool==='trace'){if(!cur)cur={pts:[q],w:tw};else{const a=cur.pts.at(-1),c=con(a,q),e={x:snap(c.x),y:snap(c.y)};
+  if(reqOn()){if(e.x!==a.x||e.y!==a.y){pushHist();const t={pts:[{x:a.x,y:a.y},e],w:cur.w};S.traces.push(t);cur.pts=[e];setPend(t,'trace');if(pend)pend.from={x:a.x,y:a.y}}}
+  else cur.pts.push(e)}}
+ else if(tool==='select')setSel(hitBox(p));
+ else if(tool==='erase')erase(p);
+ else if(tool==='rotate'){const pt=hit(p);if(pt){pushHist();pt.rot=(pt.rot+1)%4;setPend(pt,'move')}}
+ else if(tool==='move'){const pt=hit(p);if(pt){setSel(pt);pushHist();drag={part:pt,dx:p.x-pt.x,dy:p.y-pt.y}}
+  else{const tr=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8)||t.pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6)),ho=tr?null:S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1);
+   if(tr){pushHist();pend={item:tr,type:'trace',old:true};if(reqOn())showBar();pendDown(p)}else if(ho){pushHist();pend={item:ho,type:'hole',old:true};if(reqOn())showBar();pendDown(p)}}}
+ draw()};
+cv.onpointerup=()=>{if(drag){const pt=drag.part;drag=null;setPend(pt,'move')}pd0=null;pn=null;if(pend&&pend.old&&!reqOn()){pend=null;showBar()}};cv.onwheel=e=>{e.preventDefault();const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,bx=(px-ox)/sc,by=(py-oy)/sc,f=sc/zm;zm=Math.max(.5,Math.min(8,zm*(e.deltaY<0?1.15:1/1.15)));const k=f*zm;pan.x=px-bx*k-(cv.clientWidth-S.W*k)/2;pan.y=py-by*k-(cv.clientHeight-S.H*k)/2-18;draw()};cv.ondblclick=finish;cv.oncontextmenu=e=>{e.preventDefault();finish()};
+addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();
+ if((e.ctrlKey||e.metaKey)&&k==='z'){e.preventDefault();return pend?cancelPend():undo()}
+ if(pend){if(k==='enter'){e.preventDefault();confirmPend()}else if(k==='escape')cancelPend();else if(k==='e'&&pend.type==='trace'&&!pend.old)confirmPend(true);else if(k==='r'&&(pend.type==='part'||pend.type==='move')){pend.item.rot=(pend.item.rot+1)%4;draw()}return}
+ const T={t:'trace',p:'part',v:'move',s:'select',h:'hole',x:'erase'};if(T[k])setTool(T[k]);
+ if(k==='r'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();pt.rot=(pt.rot+1)%4}}else rot=(rot+1)%4}
+ if(k==='enter')finish();if(k==='escape'){cur=null}draw()});
+function setTool(t){if(busy())return;finish();tool=t;$('#hint').textContent=HINTS[t];document.querySelectorAll('#tools button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('#parts button').forEach(b=>b.classList.toggle('on',t==='part'&&b.dataset.k===ptype));draw()}
+document.querySelectorAll('#tools button').forEach(b=>b.onclick=()=>setTool(b.dataset.t));
+const bind=(id,f)=>$(id).onchange=$(id).oninput=()=>{f($(id).value);draw()};
+bind('#tw',v=>tw=+v);bind('#ang',v=>ang=v);
+bind('#grid',v=>{const c=v==='c';$('#gclab').style.display=c?'':'none';grid=c?Math.max(.1,+$('#gcus').value||2):+v});bind('#gcus',v=>{grid=Math.max(.1,+v||2)});bind('#th',v=>thick=+v||2);bind('#gd',v=>gdep=+v);const updPad=()=>{padD=$('#padon').checked?Math.max(+$('#pd').value||3,holeD+.4):holeD+1;$('#pd').disabled=!$('#padon').checked};bind('#pd',updPad);bind('#hd',v=>{holeD=+v||1;updPad()});bind('#padon',updPad);
+bind('#bw',v=>S.W=Math.max(15,Math.min(200,+v||60)));bind('#bh',v=>S.H=Math.max(15,Math.min(200,+v||40)));
+function draw(){
+ if(sel&&!S.parts.includes(sel))setSel(null);else updSel();
+ const w=cv.clientWidth,h=cv.clientHeight,d=devicePixelRatio||1;
+ if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}
+ cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,w,h);
+ sc=Math.min((w-60)/S.W,(h-90)/S.H)*zm;ox=(w-S.W*sc)/2+pan.x;oy=(h-S.H*sc)/2+pan.y+18;
+ cx.save();cx.translate(ox,oy);cx.scale(sc,sc);
+ cx.fillStyle='#c4c9cb';cx.beginPath();cx.roundRect(0,0,S.W,S.H,2);cx.fill();
+ cx.save();cx.beginPath();cx.roundRect(0,0,S.W,S.H,2);cx.clip();
+ const gl=(st,col,wd)=>{cx.beginPath();for(let k=0;k*st<=S.W+1e-6;k++){cx.moveTo(k*st,0);cx.lineTo(k*st,S.H)}for(let k=0;k*st<=S.H+1e-6;k++){cx.moveTo(0,k*st);cx.lineTo(S.W,k*st)}cx.strokeStyle=col;cx.lineWidth=wd/sc;cx.stroke()};
+ if(grid*sc>=5)gl(grid,'rgba(24,33,31,.25)',1);if(grid*5*sc>=5)gl(grid*5,'rgba(24,33,31,.5)',1.5);cx.restore();
+ cx.fillStyle='#9fb3ad';cx.font=`${11/sc}px system-ui`;cx.textAlign='center';for(let k=0;k<=S.W;k+=10)cx.fillText(k,k,-6/sc);
+ cx.textAlign='right';for(let k=0;k<=S.H;k+=10)cx.fillText(k,-6/sc,k+4/sc);cx.textAlign='left';cx.fillText('mm',S.W+6/sc,-6/sc);
+ const line=(pts,w,c)=>{cx.beginPath();pts.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y));cx.lineWidth=w;cx.strokeStyle=c;cx.lineJoin='miter';cx.lineCap='butt';cx.stroke()};
+ S.traces.forEach(t=>{line(t.pts,t.w+.3,'#7a4318');line(t.pts,t.w,'#c9793a');line(t.pts,t.w*.2,'#e6a56d')});
+ S.parts.forEach(pt=>{const D=DEFS[pt.type],pd=pdOf(pt);
+  if(D.dip){const r=rotp([(D.w||7.62)/2,(D.dip-1)*1.27],pt.rot),bw=D.bw||4.6,bm=D.bm||1.2,top=-(D.dip-1)*1.27-bm;cx.save();cx.translate(pt.x+r[0],pt.y+r[1]);cx.rotate(pt.rot*Math.PI/2);cx.strokeStyle='rgba(24,33,31,.6)';cx.lineWidth=.25;cx.strokeRect(-bw/2,top,bw,(D.dip-1)*2.54+2*bm);if(D.ant||D.usbb){if(D.ant)cx.strokeRect(-D.ant[0]/2,top-D.ant[1],D.ant[0],D.ant[1]);if(D.usbb){const bot=(D.dip-1)*1.27+bm;cx.strokeRect(-D.usbb[0]/2,bot-1,D.usbb[0],D.usbb[1])}}else{cx.beginPath();cx.arc(0,top,.8,0,Math.PI);cx.stroke()}cx.restore()}
+  if(D.box){cx.save();cx.translate(pt.x,pt.y);cx.rotate(pt.rot*Math.PI/2);cx.strokeStyle='rgba(24,33,31,.6)';cx.lineWidth=.25;cx.strokeRect(D.box[0],D.box[1],D.box[2],D.box[3]);cx.fillStyle='rgba(24,33,31,.55)';cx.font='bold 1.6px system-ui';cx.textAlign='center';cx.fillText(D.label||'',D.box[0]+D.box[2]/2,D.box[1]+D.box[3]/2+.6);(D.extra||[]).forEach(e=>cx.strokeRect(e[0],e[1],e[2],e[3]));(D.circ||[]).forEach(c=>{cx.beginPath();cx.arc(c[0],c[1],c[2],0,7);cx.stroke()});(D.slots||[]).forEach(sl=>{cx.fillStyle='#17201f';cx.fillRect(sl[0]-sl[2]/2,sl[1]-sl[3]/2,sl[2],sl[3])});cx.restore()}
+  padsOf(pt).forEach((q,i)=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;cx.beginPath();cx.arc(q.x,q.y,pd/2,0,7);cx.fill();cx.stroke();
+   cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,hdOf(pt)/2,0,7);cx.fill();
+   if(D.names){const all=padsOf(pt),mx=all.reduce((u,v)=>u+v.x,0)/all.length,my=all.reduce((u,v)=>u+v.y,0)/all.length,vx=mx-q.x,vy=my-q.y;cx.fillStyle='rgba(24,33,31,.85)';cx.font='1.25px system-ui';
+    if(Math.abs(vx)>=Math.abs(vy)){cx.textAlign=vx>=0?'left':'right';cx.fillText(D.names[i],q.x+(vx>=0?1:-1)*(pd/2+.4),q.y+.45)}else{cx.textAlign='center';cx.fillText(D.names[i],q.x,q.y+(vy>=0?1:-1)*(pd/2+1.3))}}
+   else if(D.p.length>1){cx.fillStyle='rgba(24,33,31,.8)';cx.font='1.3px system-ui';cx.textAlign='center';cx.fillText(pt.type==='led'?(i?'−':'+'):i+1,q.x,q.y-pd/2-.4)}})});
+ S.parts.forEach(pt=>{if(!pt.ref)return;const a=padsOf(pt),x=a.reduce((s,p)=>s+p.x,0)/a.length,y=Math.min(...a.map(p=>p.y))-pdOf(pt)/2-1.8;cx.fillStyle='#17201f';cx.font='bold 1.8px system-ui';cx.textAlign='center';cx.fillText(pt.ref,x,y)});
+ S.holes.forEach(o=>{cx.fillStyle='#17201f';cx.beginPath();cx.arc(o.x,o.y,o.d/2,0,7);cx.fill()});
+ if(tool==='part'&&!pend){cx.globalAlpha=.55;padsOf({type:ptype,x:m.x,y:m.y,rot}).forEach(q=>{cx.fillStyle='#c9793a';cx.beginPath();cx.arc(q.x,q.y,padD/2,0,7);cx.fill()});cx.globalAlpha=1}
+ if(tool==='hole'&&!pend){cx.strokeStyle='#17201f';cx.lineWidth=.2;cx.beginPath();cx.arc(m.x,m.y,1.6,0,7);cx.stroke()}
+ if(cur&&!pend){const e={x:m.cx??m.x,y:m.cy??m.y};line([...cur.pts,e],cur.w,'rgba(201,121,58,.75)');const a=cur.pts.at(-1);
+  cx.fillStyle='#fff';cx.font='1.6px system-ui';cx.textAlign='left';cx.fillText(Math.hypot(e.x-a.x,e.y-a.y).toFixed(1)+' mm',e.x+1,e.y-1)}
+ else if(tool==='trace'&&!pend){cx.strokeStyle='#0b5a4d';cx.lineWidth=1.5/sc;cx.beginPath();cx.arc(m.x,m.y,.9,0,7);cx.moveTo(m.x-1.8,m.y);cx.lineTo(m.x+1.8,m.y);cx.moveTo(m.x,m.y-1.8);cx.lineTo(m.x,m.y+1.8);cx.stroke()}
+ if(pend&&pend.item){const it=pend.item,col=pend.type==='erase'?'#ff5a5a':'#2dd4a8';cx.strokeStyle=col;cx.fillStyle=col;
+  if(it.pts){cx.beginPath();it.pts.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.lineWidth=it.w+1.4;cx.globalAlpha=.35;cx.lineJoin='miter';cx.stroke();cx.globalAlpha=1;
+   if(pend.type==='trace')it.pts.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,.8,0,7);cx.fill()})}
+  else{cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);if(it.d){cx.beginPath();cx.arc(it.x,it.y,it.d/2+.8,0,7);cx.stroke()}else padsOf(it).forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,pdOf(it)/2+.9,0,7);cx.stroke()});cx.setLineDash([])}}
+ if(sel&&!(pend&&pend.item===sel)){const a=padsOf(sel),r=pdOf(sel)/2+.9,xs=a.map(q=>q.x),ys=a.map(q=>q.y);cx.strokeStyle='#ffd166';cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);a.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,r,0,7);cx.stroke()});if(a.length>1)cx.strokeRect(Math.min(...xs)-r,Math.min(...ys)-r,Math.max(...xs)-Math.min(...xs)+2*r,Math.max(...ys)-Math.min(...ys)+2*r);cx.setLineDash([])}
+ cx.restore();stats()}
+function stats(){const t={};S.traces.forEach(r=>{let L=0;for(let i=1;i<r.pts.length;i++)L+=Math.hypot(r.pts[i].x-r.pts[i-1].x,r.pts[i].y-r.pts[i-1].y);t[r.w]=(t[r.w]||0)+L});
+ const pads=S.parts.reduce((n,p)=>n+DEFS[p.type].p.length,0);
+ $('#stats').innerHTML=`<b>${pads}</b> pads, <b>${S.traces.length}</b> tape runs<br>`+(Object.keys(t).length?Object.entries(t).map(([w,L])=>`${w} mm tape: <b>${Math.ceil(L)} mm</b>`).join('<br>'):'No tape placed yet')}
+function dl(name,blob){
+  const C=window.Capacitor,P=C&&C.Plugins;
+  if(C&&C.isNativePlatform&&C.isNativePlatform()&&P&&P.Filesystem&&P.Share){
+    const fr=new FileReader();
+    fr.onload=async()=>{try{
+      const data=String(fr.result).split(',')[1]||'';
+      const r=await P.Filesystem.writeFile({path:name,data:data,directory:'CACHE'});
+      await P.Share.share({title:name,url:r.uri,dialogTitle:'Save or share '+name});
+    }catch(err){if(!/cancel/i.test(String(err&&err.message||err)))alert('Export failed: '+(err&&err.message||err))}};
+    fr.readAsDataURL(blob);return;
+  }
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove()}
+function svg(){let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${S.W}mm" height="${S.H}mm" viewBox="0 0 ${S.W} ${S.H}">${S.keep?outlineSvg():`<rect width="${S.W}" height="${S.H}" rx="2" fill="#fff" stroke="#000" stroke-width=".2"/>`}`;
+ S.traces.forEach(t=>s+=`<polyline points="${t.pts.map(p=>p.x+','+p.y).join(' ')}" fill="none" stroke="#c9793a" stroke-width="${t.w}"/>`);
+ S.parts.forEach(pt=>{const D=DEFS[pt.type],hd=hdOf(pt),pd=pdOf(pt);padsOf(pt).forEach(p=>s+=`<circle cx="${p.x}" cy="${p.y}" r="${pd/2}" fill="#c9793a"/><circle cx="${p.x}" cy="${p.y}" r="${hd/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`);
+  (D.slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3];s+=`<rect x="${(pt.x+c[0]-w/2).toFixed(3)}" y="${(pt.y+c[1]-h/2).toFixed(3)}" width="${w}" height="${h}" fill="#fff" stroke="#000" stroke-width=".1"/>`})});
+ S.holes.forEach(o=>s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.d/2}" fill="#fff" stroke="#000" stroke-width=".2"/>`);
+ return s+'</svg>'}
+
+function stl(){return stlSolid()}
+function stlSolid(){
+ const W=S.W,H=S.H,t=thick,z1=t+Math.max(0,gdep),gz=Math.max(.2,t-gdep),up=$('#tm').value==='up',Y=y=>H-y,tri=[],QN=v=>Math.round(v*1e4)/1e4,T=(a,b,c)=>tri.push(a,b,c);
+ const nN=r=>Math.max(48,Math.ceil(r*40/4)*4),circ=(x,y,r,n)=>Array.from({length:n},(_,k)=>{const a=k*2*Math.PI/n;return[x+r*Math.cos(a),y+r*Math.sin(a)]});
+ const plate=[...(S.keep?outlineLoops(S.keep,Math.max(0,+$('#mg').value||0),W,H):[[[0,0],[W,0],[W,H],[0,H]]])],raised=[],pads=[];
+ const addHole=(x,y,d)=>{const r=d/2;if(x-r<0||x+r>W||y-r<0||y+r>H)return;plate.push(circ(x,Y(y),r,nN(r)).reverse())};
+ S.parts.forEach(pt=>{const D=DEFS[pt.type],hd=hdOf(pt),pd=pdOf(pt);padsOf(pt).forEach(p=>{pads.push([p.x,Y(p.y),Math.max(pd/2,hd/2+.3)]);addHole(p.x,p.y,hd)});
+  (D.slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3],x0=pt.x+c[0],y0=Y(pt.y+c[1]);if(x0-w/2<0||x0+w/2>W||y0-h/2<0||y0+h/2>H)return;
+   plate.push([[x0-w/2,y0-h/2],[x0-w/2,y0+h/2],[x0+w/2,y0+h/2],[x0+w/2,y0-h/2]])})});
+ S.holes.forEach(o=>addHole(o.x,o.y,o.d));
+ if(gdep>0){pads.forEach(p=>raised.push(circ(p[0],p[1],p[2],nN(p[2]))));
+  S.traces.forEach(tr=>{const hw=tr.w/2+.01;for(let k=1;k<tr.pts.length;k++){const ax=tr.pts[k-1].x,ay=Y(tr.pts[k-1].y),bx=tr.pts[k].x,by=Y(tr.pts[k].y),L=Math.hypot(bx-ax,by-ay);if(L<1e-6)continue;
+   const dx=(bx-ax)/L,dy=(by-ay)/L,nx=-dy*hw,ny=dx*hw;
+   raised.push([[ax-nx,ay-ny],[bx-nx,by-ny],[bx+nx,by+ny],[ax+nx,ay+ny]])}
+  tr.pts.forEach(p=>raised.push(circ(p.x,Y(p.y),hw,32)))})}
+ const E=[],addPoly=(poly,tag)=>{const P=poly.map(p=>[QN(p[0]),QN(p[1])]),n=P.length;for(let k=0;k<n;k++){const p=P[k],q=P[(k+1)%n];if(p[0]===q[0])continue;const d=p[0]<q[0]?1:-1,a=d>0?p:q,b=d>0?q:p;E.push({x0:a[0],y0:a[1],x1:b[0],y1:b[1],tag,d,ts:[]})}};
+ plate.forEach(p=>addPoly(p,0));raised.forEach(p=>addPoly(p,1));
+ const cell=new Map();E.forEach((e,i)=>{const j0=Math.floor(Math.min(e.y0,e.y1)),j1=Math.floor(Math.max(e.y0,e.y1));for(let a=Math.floor(e.x0);a<=Math.floor(e.x1);a++)for(let b=j0;b<=j1;b++){const k=a*100003+b;let l=cell.get(k);if(!l)cell.set(k,l=[]);l.push(i)}});
+ const done=new Set(),eps=1e-7;
+ for(const L of cell.values())for(let u=0;u<L.length;u++)for(let v=u+1;v<L.length;v++){const i=L[u],j=L[v],key=i<j?i*1e6+j:j*1e6+i;if(done.has(key))continue;done.add(key);
+  const A=E[i],B=E[j],dx1=A.x1-A.x0,dy1=A.y1-A.y0,dx2=B.x1-B.x0,dy2=B.y1-B.y0,den=dx1*dy2-dy1*dx2;if(Math.abs(den)<1e-12)continue;
+  const s1=((B.x0-A.x0)*dy2-(B.y0-A.y0)*dx2)/den,s2=((B.x0-A.x0)*dy1-(B.y0-A.y0)*dx1)/den;
+  if(s1<-eps||s1>1+eps||s2<-eps||s2>1+eps)continue;
+  let px,py;if(s1<eps){px=A.x0;py=A.y0}else if(s1>1-eps){px=A.x1;py=A.y1}else if(s2<eps){px=B.x0;py=B.y0}else if(s2>1-eps){px=B.x1;py=B.y1}else{px=QN(A.x0+s1*dx1);py=QN(A.y0+s1*dy1)}
+  if(s1>eps&&s1<1-eps)A.ts.push([s1,px,py]);if(s2>eps&&s2<1-eps)B.ts.push([s2,px,py])}
+ const F=[];E.forEach(e=>{if(!e.ts.length){F.push(e);return}const p=[[0,e.x0,e.y0],...e.ts.sort((a,b)=>a[0]-b[0]),[1,e.x1,e.y1]];
+  for(let k=0;k+1<p.length;k++){const a=p[k],b=p[k+1];if(a[1]>=b[1])continue;F.push({x0:a[1],y0:a[2],x1:b[1],y1:b[2],tag:e.tag,d:e.d})}});
+ F.sort((a,b)=>a.x0-b.x0);const ux=[...new Set(F.flatMap(e=>[e.x0,e.x1]))].sort((a,b)=>a-b);
+ const slabs=[];let act=[],ptr=0;
+ for(let i=0;i+1<ux.length;i++){const xa=ux[i],xb=ux[i+1];while(ptr<F.length&&F[ptr].x0<=xa)act.push(F[ptr++]);act=act.filter(e=>e.x1>=xb);
+  const xm=(xa+xb)/2,es=act.map(e=>{const sl=(e.y1-e.y0)/(e.x1-e.x0);return{m:e.y0+(xm-e.x0)*sl,a:QN(e.y0+(xa-e.x0)*sl),b:QN(e.y0+(xb-e.x0)*sl),tag:e.tag,d:e.d}});
+  es.sort((p,q)=>p.m-q.m||p.a-q.a||p.b-q.b);let par=0,wind=0;const upd=e=>{if(e.tag===0)par+=e.d;else wind+=e.d},iv=[];
+  if(es.length)upd(es[0]);
+  for(let k=1;k<es.length;k++){const lo=es[k-1],hi=es[k];if(hi.a-lo.a>1e-9||hi.b-lo.b>1e-9)iv.push({la:lo.a,lb:lo.b,ha:hi.a,hb:hi.b,h:par>0?(wind>0?(up?z1:gz):t):0});upd(hi)}
+  slabs.push({xa,xb,iv,ya:es.map(e=>e.a),yb:es.map(e=>e.b)})}
+ const n=slabs.length,bx=[];
+ for(let i=0;i<=n;i++){const set=new Set([...(i>0?slabs[i-1].yb:[]),...(i<n?slabs[i].ya:[])]);bx.push([...set].sort((a,b)=>a-b))}
+ const chain=(arr,lo,hi)=>{const c=arr.filter(y=>y>lo-1e-9&&y<hi+1e-9);if(c.length<2)return lo===hi?[lo]:[lo,hi];c[0]=lo;c[c.length-1]=hi;return c};
+ const strip=(xa,xb,Lc,Rc,z,up)=>{let i=0,j=0;const Lp=y=>[xa,y,z],Rp=y=>[xb,y,z],sl=(Lc.at(-1)-Lc[0])||1,sr=(Rc.at(-1)-Rc[0])||1;
+  while(i<Lc.length-1||j<Rc.length-1){const advR=i>=Lc.length-1?true:j>=Rc.length-1?false:(Rc[j+1]-Rc[0])/sr<=(Lc[i+1]-Lc[0])/sl;
+   if(advR){up?T(Lp(Lc[i]),Rp(Rc[j]),Rp(Rc[j+1])):T(Lp(Lc[i]),Rp(Rc[j+1]),Rp(Rc[j]));j++}else{up?T(Lp(Lc[i]),Rp(Rc[j]),Lp(Lc[i+1])):T(Lp(Lc[i]),Lp(Lc[i+1]),Rp(Rc[j]));i++}}};
+ const lv=[...new Set([0,t,z1,gz])].sort((a,b)=>a-b),steps=(lo,hi)=>{const r=[lo];for(const l of lv)if(l>lo+1e-9&&l<hi-1e-9)r.push(l);r.push(hi);return r};
+ const wall=(xa,ya,xb,yb,hBelow,hAbove)=>{const lo=Math.min(hBelow,hAbove),hi=Math.max(hBelow,hAbove),a=[xa,ya],b=[xb,yb],z=steps(lo,hi);
+  for(let k=0;k+1<z.length;k++){const l=z[k],h=z[k+1];if(hAbove>hBelow){T([...a,l],[...b,l],[...b,h]);T([...a,l],[...b,h],[...a,h])}else{T([...b,l],[...a,l],[...a,h]);T([...b,l],[...a,h],[...b,h])}}};
+ slabs.forEach((sl,i)=>{const{xa,xb,iv}=sl;
+  iv.forEach((v,k)=>{if(v.h>0){strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),v.h,true);strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),0,false)}
+   const pv=k>0&&Math.abs(iv[k-1].ha-v.la)<1e-9&&Math.abs(iv[k-1].hb-v.lb)<1e-9?iv[k-1].h:0;if(v.h!==pv)wall(xa,v.la,xb,v.lb,pv,v.h);
+   const nv=k<iv.length-1&&Math.abs(iv[k+1].la-v.ha)<1e-9&&Math.abs(iv[k+1].lb-v.hb)<1e-9;if(!nv&&v.h>0)wall(xa,v.ha,xb,v.hb,v.h,0)})});
+ const hAt=(sl,y,side)=>{if(!sl)return 0;for(const v of sl.iv){const lo=side?v.lb:v.la,hi=side?v.hb:v.ha;if(y>lo&&y<hi)return v.h}return 0};
+ for(let i=0;i<=n;i++){const ys=bx[i],x=i<n?slabs[i].xa:slabs[n-1].xb;
+  for(let k=0;k+1<ys.length;k++){const y0=ys[k],y1=ys[k+1];if(y1-y0<1e-9)continue;const ym=(y0+y1)/2,hL=hAt(slabs[i-1],ym,1),hR=hAt(slabs[i],ym,0);if(hL===hR)continue;
+   const z=steps(Math.min(hL,hR),Math.max(hL,hR));for(let q=0;q+1<z.length;q++){const l=z[q],h=z[q+1],A=[x,y0,l],B=[x,y1,l],C=[x,y1,h],D=[x,y0,h];if(hL>hR){T(A,B,C);T(A,C,D)}else{T(B,A,D);T(B,D,C)}}}}
+ const buf=new ArrayBuffer(84+tri.length/3*50),dv=new DataView(buf);let o=84,cnt=0;
+ for(let k=0;k<tri.length;k+=3){const a=tri[k],b=tri[k+1],c=tri[k+2],ux1=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2];
+  const nx=uy*vz-uz*vy,ny=uz*vx-ux1*vz,nz=ux1*vy-uy*vx,l=Math.hypot(nx,ny,nz);if(l<1e-12)continue;
+  [nx/l,ny/l,nz/l,...a,...b,...c].forEach(v=>{dv.setFloat32(o,v,true);o+=4});o+=2;cnt++}
+ dv.setUint32(80,cnt,true);return new Blob([buf.slice(0,84+cnt*50)],{type:'model/stl'})}
+$('#bstl').onclick=()=>dl('tape-board.stl',trimmed(stl));
+$('#bsvg').onclick=()=>dl('tape-board.svg',new Blob([trimmed(svg)],{type:'image/svg+xml'}));
+$('#bsave').onclick=()=>dl('tape-board.json',new Blob([JSON.stringify({...S,custom:CUSTOM})],{type:'application/json'}));
+$('#bload').onclick=()=>$('#file').click();
+$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.parts&&d.traces){Object.entries(d.custom||{}).forEach(([k,v])=>addCustom(k,v));pend=null;showBar();pushHist();S={W:d.W||60,H:d.H||40,parts:d.parts,traces:d.traces,holes:d.holes||[]};dims();draw()}}catch(_){alert('That file is not a Tape Board design.')}e.target.value=''};
+const DX=[1,0,-1,0],DY=[0,1,0,-1];
+function place(parts,a){
+ const gap=7.62,maxW=70,out=[],order=parts.map((_,i)=>i);if(a)order.sort(()=>Math.random()-.5);
+ let x=5.08,y=5.08,rowH=0;
+ for(const i of order){const d=parts[i],D=DEFS[d.type],rt=a?(D.dip?[0,2][Math.random()*2|0]:Math.random()*4|0):0;
+  const pts=D.p.map(p=>rotp(p,rt)),xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),mx=Math.min(...xs),my=Math.min(...ys),w=Math.max(...xs)-mx,h=Math.max(...ys)-my;
+  if(x>5.08&&x+w>maxW){x=5.08;y+=rowH+gap;rowH=0}
+  out.push({ref:d.ref,type:d.type,rot:rt,x:+(x-mx).toFixed(3),y:+(y-my).toFixed(3)});x+=w+gap;rowH=Math.max(rowH,h)}
+ return out}
+function route(placed,nets,W,H,w,diag){
+ const g=1.27,nx=Math.floor(W/g)+1,ny=Math.floor(H/g)+1,N=nx*ny,mask=new Int32Array(N),cm=new Int32Array(N),ex=new Int16Array(N).fill(-1);
+ const DX8=[1,1,0,-1,-1,-1,0,1],DY8=[0,1,1,1,0,-1,-1,-1];
+ const netOf={};nets.forEach((n,k)=>n.pins.forEach(p=>netOf[p]=k));
+ const cl=padD/2+w/2,cl2=w+.5;
+ const mark=(x,y,r,bit)=>{for(let j=Math.max(0,Math.floor((y-r)/g)-1);j<=Math.min(ny-1,Math.ceil((y+r)/g));j++)for(let i=Math.max(0,Math.floor((x-r)/g)-1);i<=Math.min(nx-1,Math.ceil((x+r)/g));i++){
+  if(Math.hypot(i*g-x,j*g-y)<r)mask[j*nx+i]|=bit;if(Math.hypot((i+.5)*g-x,(j+.5)*g-y)<r)cm[j*nx+i]|=bit}};
+ const pinNode={},pinXY=new Map();
+ placed.forEach(pt=>padsOf(pt).forEach((p,i)=>{const key=pt.ref+'.'+(i+1),k=netOf[key];mark(p.x,p.y,cl,k===undefined?1<<30:1<<k);const nd=Math.round(p.y/g)*nx+Math.round(p.x/g);pinNode[key]=nd;pinXY.set(nd,{x:p.x,y:p.y});if(k!==undefined)ex[nd]=k}));
+ placed.forEach(pt=>(DEFS[pt.type].slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot);mark(pt.x+c[0],pt.y+c[1],Math.hypot(sl[2],sl[3])/2+w/2,1<<30)}));
+ const traces=[];let fail=0,len=0;const failed=[];
+ const order=nets.map((n,k)=>k).sort((a,b)=>nets[a].pins.length-nets[b].pins.length);
+ const col=(a,p,b)=>Math.abs((p.x-a.x)*(b.y-p.y)-(p.y-a.y)*(b.x-p.x))<1e-6;
+ for(const k of order){const pins=nets[k].pins.map(p=>pinNode[p]);if(pins.length<2)continue;
+  const tgt=new Uint8Array(N),bit=1<<k,blk=n=>ex[n]!==k&&(mask[n]&~bit)!==0;
+  tgt[pins[0]]=1;const rest=pins.slice(1);let ok=true;
+  while(rest.length){const tn=[];for(let n=0;n<N;n++)if(tgt[n])tn.push(n);
+   const dist=a=>Math.min(...tn.map(t=>Math.abs(t%nx-a%nx)+Math.abs((t/nx|0)-(a/nx|0))));rest.sort((a,b)=>dist(a)-dist(b));
+   const src=rest.shift();if(tgt[src])continue;
+   const D=new Int32Array(N*8).fill(1e9),P=new Int32Array(N*8).fill(-1),B=[];let end=-1;
+   const push=(c,s)=>(B[c]||(B[c]=[])).push(s);for(let d=0;d<8;d++){D[src*8+d]=0;push(0,src*8+d)}
+   for(let c=0;c<B.length&&end<0;c++){const L=B[c];if(!L)continue;
+    for(let q=0;q<L.length;q++){const s=L[q];if(D[s]!==c)continue;const n=s>>3,d=s&7;if(tgt[n]){end=s;break}
+     const i=n%nx,j=(n/nx)|0;
+     for(let e=0;e<8;e+=diag?1:2){const ni=i+DX8[e],nj=j+DY8[e];if(ni<0||nj<0||ni>=nx||nj>=ny)continue;const nn=nj*nx+ni;if(blk(nn))continue;
+      if(e&1){const ci=i+(DX8[e]<0?-1:0),cj=j+(DY8[e]<0?-1:0);if((cm[cj*nx+ci]&~bit)!==0)continue}
+      let dd=Math.abs(e-d);dd=Math.min(dd,8-dd);const nc=c+(e&1?14:10)+dd*3,ns=nn*8+e;if(nc<D[ns]){D[ns]=nc;P[ns]=s;push(nc,ns)}}}}
+   if(end<0){ok=false;break}
+   const nodes=[];for(let s=end;s>=0;s=P[s])nodes.push(s>>3);
+   const pts=nodes.map(n=>({x:+((n%nx)*g).toFixed(3),y:+(((n/nx)|0)*g).toFixed(3)})).filter((p,i,a)=>!i||i===a.length-1||!col(a[i-1],p,a[i+1])).map(p=>pinXY.get(Math.round(p.y/g)*nx+Math.round(p.x/g))||p);
+   nodes.forEach(n=>{tgt[n]=1;mark((n%nx)*g,((n/nx)|0)*g,cl2,bit)});
+   for(let i=1;i<pts.length;i++)len+=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);
+   if(pts.length>1)traces.push({pts,w})}
+  if(!ok){fail++;failed.push(nets[k].name)}}
+ return{traces,fail,failed,len}}
+function autogen(){if(busy())return;
+ const msg=$('#amsg'),parts=[],nets=[];
+ for(const raw of $('#spec').value.split('\n')){const l=raw.trim();if(!l||l[0]==='#')continue;
+  if(l.includes(':')){const[n,r]=l.split(':');nets.push({name:n.trim(),pins:r.split(/[\s,]+/).filter(Boolean)})}
+  else{const[ref,type]=l.split(/\s+/);if(!DEFS[type]){msg.textContent=`Unknown part type "${type}" in: ${l}`;return}parts.push({ref,type})}}
+ if(!parts.length){msg.textContent='Add at least one part line, like: R1 res';return}
+ if(nets.length>29){msg.textContent='Up to 29 nets are supported.';return}
+ const pinIdx=(pt,t)=>{const D=DEFS[pt.type];if(D.custom){const k=D.names.findIndex(x=>x.toLowerCase()===t.toLowerCase());if(k>=0)return k+1}if(/^\d+$/.test(t)){const k=+t;return k>=1&&k<=D.p.length?k:0}const nm=((D.alias&&D.alias[t.toUpperCase()])||t).toLowerCase();return D.names?D.names.findIndex(x=>x.toLowerCase()===nm)+1:0};
+ for(const n of nets){const out=[];for(const p of n.pins){const d=p.indexOf('.'),r=d<0?p:p.slice(0,d),pt=parts.find(x=>x.ref===r),i=pt&&d>=0?pinIdx(pt,p.slice(d+1)):0;
+  if(!i){msg.textContent=`Net ${n.name}: "${p}" does not match a part pin.`;return}out.push(r+'.'+i)}n.pins=out}
+ const w=Math.min(tw,2);let best=null;
+ for(let a=0;a<40;a++){const pl=place(parts,a);let mx=0,my=0;pl.forEach(pt=>padsOf(pt).forEach(p=>{mx=Math.max(mx,p.x);my=Math.max(my,p.y)}));
+  const W=Math.min(200,Math.ceil((mx+7.62)/2.54)*2.54),H=Math.min(200,Math.ceil((my+7.62)/2.54)*2.54),r=route(pl,nets,W,H,w,$('#d45').checked),sc2=r.fail*1e5+r.len+W*H/50;
+  if(!best||sc2<best.sc){best={sc:sc2,pl,W,H,r}}if(!r.fail&&a>=12)break}
+ pushHist();S={W:+best.W.toFixed(2),H:+best.H.toFixed(2),parts:best.pl,traces:best.r.traces,holes:[]};cur=null;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw();
+ msg.textContent=best.r.fail?`Routed ${nets.length-best.r.fail} of ${nets.length} nets. Couldn't route: ${best.r.failed.join(', ')}. Run again for another arrangement, or finish by hand.`:`Placed ${parts.length} parts and routed all ${nets.length} nets with ${w} mm tape. Run again for a different arrangement.`}
+$('#bauto').onclick=autogen;
+
+const CUSTOM={};
+const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'part';
+function parseSexp(src){const t=[],re=/\(|\)|"((?:[^"\\]|\\.)*)"|[^\s()"]+/g;let m;while((m=re.exec(src)))t.push(m[0]==='('||m[0]===')'?m[0]:m[1]!==undefined?{q:m[1]}:m[0]);
+ let i=0;const rd=()=>{const L=[];while(i<t.length){const x=t[i++];if(x==='(')L.push(rd());else if(x===')')return L;else L.push(x)}return L};return rd()}
+function kicadSexp(src,base){const nv=x=>x&&typeof x==='object'&&!Array.isArray(x)?x.q:x,fps=[],out=[];
+ const walk=L=>{if(!Array.isArray(L))return;if((L[0]==='footprint'||L[0]==='module')&&L.length>2)fps.push(L);else L.forEach(walk)};walk(parseSexp(src));
+ for(const fp of fps){const pads=[];let skip=0,np=0;
+  for(const a of fp){if(!Array.isArray(a)||a[0]!=='pad')continue;const type=a[2];if(type==='np_thru_hole'){np++;continue}if(type!=='thru_hole'){skip++;continue}
+   const get=h=>a.find(x=>Array.isArray(x)&&x[0]===h),at=get('at'),sz=get('size'),dr=get('drill');if(!at)continue;
+   const nums=dr?dr.slice(1).filter(x=>typeof x==='string'&&x!==''&&!isNaN(+x)).map(Number):[];
+   pads.push({num:String(nv(a[1])??''),x:+at[1],y:+at[2],d:nums.length?Math.max(...nums):0,sx:sz?+sz[1]:1,sy:sz?+sz[2]:1})}
+  out.push({name:String(nv(fp[1])||base),pads,skip,np})}
+ return out}
+function kicadLegacy(src){const u=/^\s*Units\s+mm/im.test(src)?1:.00254,out=[],re=/\$MODULE\s+(\S+)([\s\S]*?)\$EndMODULE/g;let m;
+ while((m=re.exec(src))){const pads=[];let skip=0,np=0;const pr=/\$PAD([\s\S]*?)\$EndPAD/g;let q;
+  while((q=pr.exec(m[2]))){const b=q[1],sh=b.match(/^\s*Sh\s+("[^"]*"|\S+)\s+\S\s+(-?[\d.]+)\s+(-?[\d.]+)/m),po=b.match(/^\s*Po\s+(-?[\d.]+)\s+(-?[\d.]+)/m),dr=b.match(/^\s*Dr\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+O\s+(-?[\d.]+)\s+(-?[\d.]+))?/m),at=b.match(/^\s*At\s+(\S+)/m);
+   if(!sh||!po)continue;const kind=at?at[1]:'',d=dr?Math.max(+dr[1],dr[4]?+dr[4]:0,dr[5]?+dr[5]:0)*u:0;
+   if(kind==='HOLE'){np++;continue}if(!d||kind==='SMD'){skip++;continue}
+   pads.push({num:sh[1].replace(/"/g,''),x:+po[1]*u,y:+po[2]*u,d,sx:+sh[2]*u,sy:+sh[3]*u})}
+  out.push({name:m[1],pads,skip,np})}
+ return out}
+function makeDef(f){const isN=a=>/^\d+$/.test(a.num),P=f.pads.slice().sort((a,b)=>isN(a)&&isN(b)?a.num-b.num:isN(a)?-1:isN(b)?1:a.num.localeCompare(b.num,undefined,{numeric:true})),o=P[0],seen=new Set(),names=[];
+ P.forEach((p,i)=>{const n=p.num||'P'+(i+1);let k=n,c=2;while(seen.has(k.toLowerCase()))k=n+'_'+c++;seen.add(k.toLowerCase());names.push(k)});
+ const r2=v=>+v.toFixed(2),xs=P.flatMap(p=>[p.x-o.x-p.sx/2,p.x-o.x+p.sx/2]),ys=P.flatMap(p=>[p.y-o.y-p.sy/2,p.y-o.y+p.sy/2]),x0=Math.min(...xs)-.6,y0=Math.min(...ys)-.6,nm=f.name.split(':').pop();
+ return{n:nm+' (KiCad)',custom:1,p:P.map(p=>[+(p.x-o.x).toFixed(3),+(p.y-o.y).toFixed(3)]),names,hd:r2(Math.max(...P.map(p=>p.d))),box:[r2(x0),r2(y0),r2(Math.max(...xs)+.6-x0),r2(Math.max(...ys)+.6-y0)],label:''}}
+function addCustom(key,def){def.hd=0;DEFS[key]=def;CUSTOM[key]=def;let og=$('#partsel').querySelector('optgroup[data-imp]');if(!og){og=document.createElement('optgroup');og.label='Imported (KiCad)';og.dataset.imp='1';$('#partsel').appendChild(og)}
+ const ex=[...og.children].find(o=>o.value===key);if(ex)ex.textContent=def.n;else og.appendChild(new Option(def.n,key))}
+$('#bkicad').onclick=()=>$('#kfile').click();
+$('#kfile').onchange=async e=>{const files=[...e.target.files];e.target.value='';const added=[],bad=[];let skip=0,np=0;
+ for(const f of files){let txt;try{txt=await f.text()}catch(_){continue}const base=f.name.replace(/\.[^.]*$/,'');
+  const fps=txt.includes('$MODULE')?kicadLegacy(txt):/\((footprint|module)\b/.test(txt)?kicadSexp(txt,base):[];
+  if(!fps.length)bad.push(f.name);
+  for(const fp of fps.slice(0,60)){skip+=fp.skip;np+=fp.np;if(!fp.pads.length||fp.pads.length>200){bad.push(fp.name);continue}let key=slug(fp.name.split(':').pop()||base);if(DEFS[key]&&!DEFS[key].custom)key='k_'+key;addCustom(key,makeDef(fp));added.push(key)}}
+ if(added.length){$('#partsel').value=added[0];ptype=added[0];if(!pend)setTool('part')}
+ $('#kmsg').textContent=(added.length?`Added ${added.length} part${added.length>1?'s':''}: ${added.join(', ')}. Use that name as the part type in Auto-generate.`:'No through-hole pads were found.')+(skip?` Skipped ${skip} surface-mount pad${skip>1?'s':''}.`:'')+(np?` Ignored ${np} mounting hole${np>1?'s':''}.`:'')+(bad.length?` Nothing usable in: ${bad.slice(0,4).join(', ')}.`:'')};
+const EX={a:'J1 h2\nR1 res\nD1 led\nVCC: J1.1 R1.1\nN1: R1.2 D1.1\nGND: D1.2 J1.2',b:'J1 h2\nR1 res\nR2 res\nD1 led\nD2 led\nVCC: J1.1 R1.1 R2.1\nA: R1.2 D1.1\nB: R2.2 D2.1\nGND: D1.2 D2.2 J1.2',c:'J1 h2\nU1 dip8\nR1 res\nD1 led\nVCC: J1.1 U1.8\nGND: J1.2 U1.4 D1.2\nOUT: U1.3 R1.1\nN1: R1.2 D1.1'};
+EX.d='# ESP32 with a rotary encoder, powered from a battery through a TP4056\nU1 esp32\nS1 enc\nT1 tp4056\nJ1 h2\nBAT+: J1.1 T1.B+\nBAT-: J1.2 T1.B-\nVCC: T1.OUT+ U1.5V\nGND: T1.OUT- U1.GND1 S1.C S1.S2\nA: U1.D32 S1.A\nB: U1.D33 S1.B\nBTN: U1.D25 S1.S1';
+$('#ex').onchange=e=>{if(EX[e.target.value])$('#spec').value=EX[e.target.value]};
+$('#zi').onclick=()=>{zm=Math.min(8,zm*1.25);draw()};$('#zo').onclick=()=>{zm=Math.max(.5,zm/1.25);draw()};$('#zf').onclick=()=>{zm=1;pan={x:0,y:0};draw()};
+function fitted(){
+ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const ex=(x,y,r)=>{x0=Math.min(x0,x-r);y0=Math.min(y0,y-r);x1=Math.max(x1,x+r);y1=Math.max(y1,y+r)};
+ S.parts.forEach(pt=>padsOf(pt).forEach(p=>ex(p.x,p.y,pdOf(pt)/2)));S.traces.forEach(t=>t.pts.forEach(p=>ex(p.x,p.y,t.w/2)));S.holes.forEach(o=>ex(o.x,o.y,o.d/2));
+ if(x0>1e8)return null;
+ const mg=MG(),sx=Math.floor((x0-mg)/grid+1e-6)*grid,sy=Math.floor((y0-mg)/grid+1e-6)*grid,f=v=>+v.toFixed(3);
+ return{W:Math.max(15,+(Math.ceil((x1+mg-sx)/grid-1e-6)*grid).toFixed(2)),H:Math.max(15,+(Math.ceil((y1+mg-sy)/grid-1e-6)*grid).toFixed(2)),
+  parts:S.parts.map(p=>({...p,x:f(p.x-sx),y:f(p.y-sy)})),traces:S.traces.map(t=>({...t,pts:t.pts.map(p=>({x:f(p.x-sx),y:f(p.y-sy)}))})),holes:S.holes.map(o=>({...o,x:f(o.x-sx),y:f(o.y-sy)}))}}
+const MG=()=>Math.max(.6,+$('#mg').value||0);
+function keepPoints(){const P=[],st=Math.min(.5,Math.max(.2,(+$('#mg').value||0)/2)),add=(x,y,r)=>P.push({x,y,r});
+ S.parts.forEach(pt=>{const a=padsOf(pt);a.forEach(p=>add(p.x,p.y,pdOf(pt)/2));const xs=a.map(p=>p.x),ys=a.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  for(let x=x0;x<=x1+1e-6;x+=1)for(let y=y0;y<=y1+1e-6;y+=1)add(x,y,.5)});
+ S.holes.forEach(o=>add(o.x,o.y,o.d/2));
+ S.traces.forEach(t=>t.pts.forEach((p,i)=>{add(p.x,p.y,t.w/2);if(i){const a=t.pts[i-1],n=Math.ceil(Math.hypot(p.x-a.x,p.y-a.y)/st);for(let k=1;k<n;k++)add(a.x+(p.x-a.x)*k/n,a.y+(p.y-a.y)*k/n,t.w/2)}}));
+ return P}
+function bridge(P,m){const par=P.map((_,i)=>i),fd=i=>par[i]===i?i:(par[i]=fd(par[i])),d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r;
+ for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)if(d(P[i],P[j])<2*m)par[fd(i)]=fd(j);
+ for(let it=0;it<60;it++){let best=null;const n=P.length;
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)if(fd(i)!==fd(j)){const dd=d(P[i],P[j]);if(!best||dd<best.d)best={d:dd,i,j}}
+  if(!best)break;const a=P[best.i],b=P[best.j],k=Math.max(1,Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/.5)),ra=fd(best.i);par[fd(best.j)]=ra;
+  for(let q=0;q<=k;q++){P.push({x:a.x+(b.x-a.x)*q/k,y:a.y+(b.y-a.y)*q/k,r:.5});par.push(ra)}}
+ return P}
+function simp(L,tol){const n=L.length;if(n<8)return L;let k=0,bd=0;for(let i=1;i<n;i++){const d=Math.hypot(L[i][0]-L[0][0],L[i][1]-L[0][1]);if(d>bd){bd=d;k=i}}
+ const dpc=P=>{if(P.length<3)return P;const a=P[0],b=P[P.length-1],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1e-9;let m=0,q=0;
+  for(let i=1;i<P.length-1;i++){const d=Math.abs((P[i][0]-a[0])*dy-(P[i][1]-a[1])*dx)/l;if(d>m){m=d;q=i}}
+  if(m<=tol)return[a,b];return dpc(P.slice(0,q+1)).slice(0,-1).concat(dpc(P.slice(q)))};
+ return dpc(L.slice(0,k+1)).slice(0,-1).concat(dpc(L.slice(k).concat([L[0]])).slice(0,-1))}
+function msq(F,nx,ny,o,rr){const pt=new Map(),nxt=new Map();
+ for(let j=0;j<ny-1;j++)for(let i=0;i<nx-1;i++){
+  const ci=[i,i+1,i+1,i],cj=[j,j,j+1,j+1],f=ci.map((c,k)=>F[cj[k]*nx+c]),ins=f.map(v=>v<0);if(ins[0]===ins[1]&&ins[1]===ins[2]&&ins[2]===ins[3])continue;
+  const id=[(j*nx+i)*2,(j*nx+i+1)*2+1,((j+1)*nx+i)*2,(j*nx+i)*2+1],cr=[];
+  for(let k=0;k<4;k++){const b=(k+1)%4;if(ins[k]!==ins[b]){const t=f[k]/(f[k]-f[b]);cr.push({id:id[k],ex:ins[k],x:o+(ci[k]+(ci[b]-ci[k])*t)*rr,y:o+(cj[k]+(cj[b]-cj[k])*t)*rr})}}
+  cr.forEach((c,k)=>{pt.set(c.id,[c.x,c.y]);if(c.ex){for(let q=1;q<=cr.length;q++){const e=cr[(k+q)%cr.length];if(!e.ex){nxt.set(c.id,e.id);break}}}})}
+ const seen=new Set(),loops=[];
+ for(const st of nxt.keys()){if(seen.has(st))continue;const L=[];let c=st;while(c!==undefined&&!seen.has(c)){seen.add(c);L.push(pt.get(c));c=nxt.get(c)}if(L.length>3)loops.push(L)}
+ return loops}
+function outlineLoops(P,m,W,H){const rr=.2,o=-1,nx=Math.ceil((W+2)/rr)+1,ny=Math.ceil((H+2)/rr)+1,F=new Float32Array(nx*ny).fill(1e3);
+ for(const p of P){const R=p.r+m,x=p.x,y=H-p.y,i0=Math.max(0,Math.floor((x-R-o)/rr)-1),i1=Math.min(nx-1,Math.ceil((x+R-o)/rr)+1),j0=Math.max(0,Math.floor((y-R-o)/rr)-1),j1=Math.min(ny-1,Math.ceil((y+R-o)/rr)+1);
+  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const v=Math.hypot(o+i*rr-x,o+j*rr-y)-R;if(v<F[j*nx+i])F[j*nx+i]=v}}
+ return msq(F,nx,ny,o,rr).map(l=>simp(l,.004))}
+const outlineSvg=()=>'<path fill="#fff" fill-rule="evenodd" stroke="#000" stroke-width=".2" d="'+outlineLoops(S.keep,MG(),S.W,S.H).map(l=>'M'+l.map(p=>p[0].toFixed(3)+','+(S.H-p[1]).toFixed(3)).join('L')+'Z').join('')+'"/>';
+const trimmed=fn=>{const sv=S,md=$('#oline').value;if(md!=='full'){const f=fitted();if(f){S=f;if(md==='tight')S.keep=bridge(keepPoints(),MG())}}try{return fn()}finally{S=sv}};
+$('#bfit').onclick=()=>{if(busy())return;const f=fitted();if(!f){alert('Place something on the board first.');return}pushHist();S=f;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw()};
+$('#bundo').onclick=()=>pend?cancelPend():undo();$('#cok').onclick=()=>confirmPend(false);$('#cext').onclick=()=>confirmPend(true);$('#crot').onclick=rotateCur;$('#brot').onclick=rotateCur;$('#cno').onclick=cancelPend;
+$('#bclear').onclick=()=>{if(confirm('Remove everything from the board?')){pend=null;showBar();pushHist();S.parts=[];S.traces=[];S.holes=[];cur=null;draw()}};
+const helpEl=$('#help'),closeHelp=()=>helpEl.classList.remove('open');
+$('#bhelp').onclick=()=>helpEl.classList.add('open');$('#hx').onclick=closeHelp;helpEl.onclick=e=>{if(e.target===helpEl)closeHelp()};
+addEventListener('keydown',e=>{if(helpEl.classList.contains('open')){if(e.key==='Escape')closeHelp();e.stopImmediatePropagation()}},true);
+addEventListener('resize',draw);setTool('trace');
+</script></body></html>
