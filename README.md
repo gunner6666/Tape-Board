@@ -21,7 +21,6 @@ Open the **Releases** page and grab the file for your device:
 | Device | File |
 | --- | --- |
 | Windows (installer) | `Tape-Board-1.0.0-x64.exe` |
-| Windows (portable, no install) | the portable `.exe` |
 | Android | `Tape-Board.apk` |
 
 **Windows:** the app is not code-signed, so Windows SmartScreen may say "Windows protected your PC". Click **More info**, then **Run anyway**.
