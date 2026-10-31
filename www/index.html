@@ -54,7 +54,39 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
 #hcard code{font:12px ui-monospace,Menlo,monospace;background:var(--bg);padding:1px 5px;border-radius:4px;color:#cfe3dc}#hcard pre{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;overflow:auto;font:12px/1.55 ui-monospace,Menlo,monospace;color:#cfe3dc;margin:8px 0}#hcard table{border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px}#hcard td,#hcard th{border:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top;color:#c3cdd4}#hcard th{background:var(--panel2);color:var(--tx)}
 #hcard a.sup{float:right;margin-right:8px;padding:5px 12px;border-radius:6px;background:var(--cu);color:var(--cud);font-weight:650;text-decoration:none;border:1px solid var(--cu)}#hcard a.sup:hover{filter:brightness(1.08)}
 @media(max-width:900px){body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 62vh auto auto;height:auto}html,body{height:auto}header{flex-wrap:wrap;padding:10px 14px}.brand{min-width:0}.acts{margin-left:0}main{order:1;grid-row:2}aside{overflow:visible}}
-@media(max-width:900px){html,body{max-width:100%;overflow-x:hidden}header,main,aside{min-width:0;max-width:100%}header>*{min-width:0;max-width:100%}.seg{flex-wrap:wrap;max-width:100%}.seg button{padding:6px 9px}.seg kbd,#cbar kbd{display:none}.acts{flex-wrap:wrap}#cbar{white-space:normal;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 16px);bottom:44px}input[type=number],select{max-width:100%}}
+@media(max-width:900px){html,body{max-width:100%;overflow-x:hidden}header,main,aside{min-width:0;max-width:100%}header>*{min-width:0;max-width:100%}.seg{flex-wrap:wrap;max-width:100%}.seg button{padding:6px 9px}.seg kbd,#cbar kbd{display:none}.acts{flex-wrap:wrap}#cbar{white-space:nowrap;flex-wrap:nowrap;justify-content:center;max-width:calc(100% - 16px);bottom:62px;gap:6px;padding:6px 8px}#cmsg{display:none}#cbar button{padding:7px 10px}input[type=number],select{max-width:100%}}
+.modal{position:fixed;inset:0;background:rgba(5,8,10,.65);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}.modal.open{display:flex}
+.mcard{background:var(--panel);border:1px solid var(--bd);border-radius:14px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:18px 22px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:12px}
+.mcard h3.dt{font-size:16px;letter-spacing:0;text-transform:none;color:var(--tx);margin:0}.mcard p{margin:0;color:#c3cdd4;line-height:1.5}.mcard .err{color:#ff9d8c}.mcard .wrn{color:var(--cu)}.mcard .mu{color:var(--mu)}
+.mcard table{border-collapse:collapse;width:100%;font-size:12.5px}.mcard td,.mcard th{border-bottom:1px solid var(--bd);padding:5px 8px;text-align:left}.mcard th{color:var(--mu)}
+ul.drc{margin:0;padding-left:18px}ul.drc li{margin:6px 0;cursor:pointer;line-height:1.45}ul.drc li:hover{text-decoration:underline}
+#dlgb{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.pvcard{max-width:1000px;height:80vh;padding:0;gap:0;overflow:hidden}.pvbar{display:flex;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bd);flex-wrap:wrap}.pvbar span{color:var(--mu);font-size:12px;flex:1;min-width:120px}#pvc{flex:1;min-height:0;width:100%;touch-action:none;display:block}
+input[type=text]{width:112px;padding:5px 8px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx)}
+#sch{position:fixed;inset:0;z-index:40;background:#444b52;display:none;flex-direction:column}#sch.open{display:flex}
+#sbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--bd)}
+#sbar .seg button{padding:6px 11px}#scv{flex:1;min-height:0;width:100%;touch-action:none}
+#shint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:rgba(20,26,32,.92);border:1px solid var(--bd);padding:6px 14px;border-radius:999px;color:#cfd9df;font-size:12.5px;pointer-events:none;text-align:center;max-width:94%}
+#sbar button:disabled{opacity:.38;cursor:default}
+#sbar .hrow{display:flex;gap:6px}
+#sprop{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;background:var(--panel);border:1px solid var(--ac);border-radius:12px;padding:8px 12px;box-shadow:0 8px 30px rgba(0,0,0,.45);max-width:calc(100% - 16px);z-index:2}
+#sprop[hidden]{display:none}
+#sch.editing #shint{display:none}
+#sprop b{color:var(--ac);font-size:12.5px}
+#spval{width:120px;max-width:38vw}
+#spanel{position:absolute;inset:0;background:rgba(13,17,21,.975);display:flex;flex-direction:column;gap:12px;padding:16px;z-index:3}
+#spanel[hidden]{display:none}
+#spanelc{flex:1;min-height:0;overflow:auto;color:var(--tx);font-size:13.5px;line-height:1.5}
+#spanelc h4{margin:0 0 12px;font-size:15px}
+#spanelc table{border-collapse:collapse;width:100%}
+#spanelc th,#spanelc td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+#spanelc th{color:var(--mu);font-weight:600}
+#spanelc ul{margin:0;padding-left:20px}
+#spanelc li{margin:7px 0}
+#spanelc .err{color:#ff9d8c}
+#spanelc .wrn{color:var(--cu)}
+#spanelc .mu{color:var(--mu)}
+#spanelb{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
 </style></head><body>
 <header>
  <div class="brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="170 200 684 620" width="46" height="42" aria-hidden="true"><defs><linearGradient id="tb-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#454b52"/><stop offset="1" stop-color="#2a2e33"/></linearGradient><linearGradient id="tb-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b5a4b"/><stop offset="1" stop-color="#0f3a31"/></linearGradient><linearGradient id="tb-cu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5ad6c"/><stop offset="1" stop-color="#d98640"/></linearGradient><linearGradient id="tb-hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#65778a"/><stop offset="1" stop-color="#4b5b6a"/></linearGradient><linearGradient id="tb-sv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a3adb5"/><stop offset=".5" stop-color="#c3cbd1"/><stop offset="1" stop-color="#98a3ac"/></linearGradient><radialGradient id="tb-gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd9ae" stop-opacity="1"/><stop offset=".35" stop-color="#f5ad6c" stop-opacity=".75"/><stop offset="1" stop-color="#f5ad6c" stop-opacity="0"/></radialGradient></defs><g id="mark" transform="translate(0 52)"><!-- slab sides (printed layers) --><polygon points="212,503 512,676 512,740 212,567" fill="#0b2b24"/><polygon points="512,676 812,503 812,567 512,740" fill="#08201b"/><!-- slab top --><polygon points="512,330 812,503 512,676 212,503" fill="url(#tb-top)"/><polygon points="512,330 812,503 512,676 212,503" fill="none" stroke="#2dd4a8" stroke-width="7" stroke-linejoin="round" stroke-opacity=".85"/><!-- trace shadows --><g fill="none" stroke="#06241c" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M356,494 L440,543 L530,491 L632,550"/><path d="M440,543 L518,588"/><path d="M530,491 L608,446"/></g><g fill="#06241c"><ellipse cx="356" cy="494" rx="46" ry="26"/><ellipse cx="632" cy="550" rx="46" ry="26"/><ellipse cx="518" cy="588" rx="46" ry="26"/><ellipse cx="608" cy="446" rx="46" ry="26"/></g><!-- copper tape traces --><g fill="none" stroke="url(#tb-cu)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M356,482 L440,531 L530,479 L632,538"/><path d="M440,531 L518,576"/><path d="M530,479 L608,434"/></g><g fill="none" stroke="#ffd2a3" stroke-opacity=".5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M356,476 L440,525 L530,473 L632,532"/><path d="M440,525 L518,570"/><path d="M530,473 L608,428"/></g><!-- pads with holes --><g fill="url(#tb-cu)"><ellipse cx="356" cy="482" rx="46" ry="26"/><ellipse cx="632" cy="538" rx="46" ry="26"/><ellipse cx="518" cy="576" rx="46" ry="26"/><ellipse cx="608" cy="434" rx="46" ry="26"/></g><g fill="#0d1115"><ellipse cx="356" cy="482" rx="17" ry="9.5"/><ellipse cx="632" cy="538" rx="17" ry="9.5"/><ellipse cx="518" cy="576" rx="17" ry="9.5"/><ellipse cx="608" cy="434" rx="17" ry="9.5"/></g><!-- printhead shadow on the board --><ellipse cx="614" cy="448" rx="36" ry="13" fill="#000" fill-opacity=".28"/><!-- 3D printer head --><g id="head"><!-- carriage --><polygon points="538,196 678,196 708,179 568,179" fill="#7f93a5"/><polygon points="678,196 708,179 708,245 678,262" fill="#3a4854"/><rect x="538" y="196" width="140" height="66" fill="url(#tb-hd)"/><rect x="538" y="196" width="140" height="6" fill="#2dd4a8" fill-opacity=".85"/><circle cx="574" cy="231" r="15" fill="#141a20" stroke="#2dd4a8" stroke-opacity=".6" stroke-width="4"/><circle cx="574" cy="231" r="4" fill="#2dd4a8" fill-opacity=".8"/><rect x="604" y="222" width="56" height="8" rx="3" fill="#141a20" fill-opacity=".7"/><rect x="604" y="238" width="38" height="8" rx="3" fill="#141a20" fill-opacity=".7"/><!-- heat sink fins --><rect x="600" y="262" width="16" height="64" fill="#4a5967"/><g fill="#6d8093"><rect x="572" y="270" width="72" height="9" rx="2"/><rect x="572" y="288" width="72" height="9" rx="2"/><rect x="572" y="306" width="72" height="9" rx="2"/></g><!-- heater block --><polygon points="573,326 643,326 661,316 591,316" fill="#d3dade"/><polygon points="643,326 661,316 661,360 643,370" fill="#838e97"/><rect x="573" y="326" width="70" height="44" fill="url(#tb-sv)"/><!-- nozzle --><polygon points="590,370 626,370 614,414 602,414" fill="url(#tb-sv)"/><polygon points="590,370 626,370 622,382 594,382" fill="#6f7a83" fill-opacity=".45"/></g></g></svg><div><b>Tape Board</b><span>Copper-tape circuit designer</span></div></div>
@@ -65,22 +97,25 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   <button data-t="select" title="Select a part (S)"><svg viewBox="0 0 24 24"><path d="M6 3l12 9-5.5 1.3L9.5 19z"/></svg>Select <kbd>S</kbd></button>
   <button data-t="rotate" title="Rotate a part: click it"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4h-4"/></svg>Rotate</button>
   <button data-t="hole" title="Mounting hole (H)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg>Hole <kbd>H</kbd></button>
+  <button data-t="text" title="Engraved text (L)"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>Text <kbd>L</kbd></button>
+  <button data-t="edge" title="Board outline or cutout (O)"><svg viewBox="0 0 24 24"><path d="M4 7l6-3 10 4-2 12H6z"/></svg>Outline <kbd>O</kbd></button>
   <button data-t="erase" title="Erase (X)"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>Erase <kbd>X</kbd></button>
  </div>
- <div class="acts"><button id="bhelp" class="ghost" title="How to use Tape Board">? Help</button><label class="chk" title="Ask to confirm every change before it is kept"><input type="checkbox" id="req" checked> Confirm changes</label><button id="bundo" class="ghost" title="Undo (Ctrl+Z)">Undo</button><button id="bclear" class="ghost">Clear</button><button id="bstl" class="primary">Export STL</button></div>
+ <div class="acts"><button id="bhelp" class="ghost" title="How to use Tape Board">? Help</button><label class="chk" title="Ask to confirm every change before it is kept"><input type="checkbox" id="req" checked> Confirm changes</label><button id="bundo" class="ghost" title="Undo (Ctrl+Z)">Undo</button><button id="bredo" class="ghost" title="Redo (Ctrl+Y)">Redo</button><button id="bclear" class="ghost">Clear</button></div>
 </header>
 <aside>
- <section><h3>Parts</h3><p class="s">Choose a part from the list, then click the board to place it.</p><select id="partsel" class="w" aria-label="Part to place"></select><button id="brot" title="Rotate the part you are placing or adjusting">⟳ Rotate 90° <kbd>R</kbd></button>
+ <section><h3>Parts</h3><p class="s">Choose a part from the list, then click the board to place it. Parts that come in several sizes ask which one you need.</p><select id="partsel" class="w" aria-label="Part to place"></select><button id="bsize" class="ghost w" hidden title="Choose a different size"></button><div class="g2"><button id="brot" title="Rotate the part you are placing or adjusting">⟳ Rotate <kbd>R</kbd></button><button id="bflip" title="Mirror the part, for parts fitted from the plain (non-tape) side">⇋ Flip <kbd>F</kbd></button></div>
  <button id="bkicad" title="Add parts from KiCad footprint files">Import KiCad footprint…</button><input id="kfile" type="file" accept=".mod,.kicad_mod" multiple hidden><p class="s" id="kmsg"></p></section>
- <section id="psec"><h3>Selected part</h3><p class="s" id="pinfo">Pick the Select tool (S) and click a part to give it its own pin hole and pad size.</p>
+ <section id="psec"><h3>Selected part</h3><p class="s" id="pinfo">Pick the Select tool (S) and click a part to rename it, flip it or give it its own pin hole and pad size.</p>
   <div id="pfields" hidden>
+   <label>Name <input id="pname" type="text" maxlength="12" spellcheck="false"></label>
    <label>Pin hole ⌀ (mm) <input id="phd" type="number" step=".1" min=".2" max="10"></label>
    <label>Pad ⌀ (mm) <input id="ppd" type="number" step=".1" min=".6" max="20"></label>
    <p class="s" id="pnote"></p>
    <div class="g2"><button id="pall" title="Copy these sizes to every part of the same type">Apply to same type</button><button id="pres" title="Go back to the Print settings sizes">Use global sizes</button></div>
   </div></section>
  <section><h3>Tape</h3>
-  <label>Width (mm) <select id="tw"><option>0.5</option><option selected>1</option><option>1.5</option><option>2</option><option>3</option><option>5</option><option>6</option></select></label>
+  <label>Width (mm) <select id="tw"><option>0.5</option><option>1</option><option>1.5</option><option selected>2</option><option>3</option><option>5</option><option>6</option></select></label>
   <label>Angles <select id="ang"><option value="90">90° only</option><option value="45" selected>45° and 90°</option><option value="free">Any</option></select></label></section>
  <section><h3>Board</h3>
   <label>Width (mm) <input id="bw" type="number" min="15" max="200" value="60"></label>
@@ -88,10 +123,13 @@ canvas{width:100%;height:100%;display:block;touch-action:none}
   <label>Grid <select id="grid"><option value="5.08">5.08 mm (0.2")</option><option value="2.54" selected>2.54 mm (0.1")</option><option value="2">2 mm</option><option value="1.27">1.27 mm (0.05")</option><option value="1">1 mm</option><option value="0.635">0.635 mm (0.025")</option><option value="0.5">0.5 mm</option><option value="0.25">0.25 mm</option><option value="0.1">0.1 mm</option><option value="c">Custom…</option></select></label>
   <label id="gclab" style="display:none">Custom grid (mm) <input id="gcus" type="number" min="0.1" max="20" step="0.05" value="2"></label>
   <label>Margin (mm) <input id="mg" type="number" min="0" step="1" value="5"></label>
+  <label>Corner radius (mm) <input id="cr" type="number" min="0" max="20" step=".5" value="2"></label>
+  <label>Outline tool draws <select id="ekind"><option value="out">Board shape</option><option value="cut">A cutout</option></select></label>
+  <button id="bnoe" title="Go back to a plain rectangle and remove cutouts">Remove custom outline</button>
   <button id="bfit">Shrink board to fit</button>
   <label>Export shape <select id="oline" style="width:150px"><option value="full">Whole board</option><option value="box" selected>Fit to used area</option><option value="tight">Cut away unused</option></select></label></section>
  <section><h3>Auto-generate</h3>
-  <p class="s">List your parts and which pins connect. Parts: <b>R1 res</b>. Connections: <b>NAME: R1.2 D1.1</b>. Types: pad, res, led, h2, h3, h4, h6, h8, dip8, dip14, dip16, esp32, enc, tp4056. See Help for the full guide.</p>
+  <p class="s">List your parts and which pins connect. Parts: <b>R1 res</b>. Connections: <b>NAME: R1.2 D1.1</b>. Types: pad, res, led, leg254, leg508, leg762, h2–h8, dip8, dip14, dip16, esp32, enc, tp4056, smd1206, smd0805, sot23, soic8, jmp508–jmp2540. See Help for the full guide.</p>
   <select id="ex" class="w"><option value="">Load an example…</option><option value="a">LED + resistor + battery</option><option value="b">Two LEDs, own resistors</option><option value="c">8-pin chip with LED</option><option value="d">ESP32 + encoder + TP4056 + battery</option></select>
   <textarea id="spec" rows="10" spellcheck="false">J1 h2
 R1 res
@@ -100,10 +138,13 @@ VCC: J1.1 R1.1
 N1: R1.2 D1.1
 GND: D1.2 J1.2</textarea>
   <label class="chk"><input type="checkbox" id="d45" checked> Allow 45° tape angles</label>
-  <button class="accent" id="bauto">Generate layout</button>
-  <p class="s" id="amsg">Replaces the current board. Run it again for a different arrangement.</p></section>
+  <label class="chk"><input type="checkbox" id="ajmp" checked> Use jumper wires where tape must cross</label>
+  <button class="primary w" id="bauto">Generate layout</button>
+  <button class="w" id="bsync" title="Add, remove and update parts and connections without moving what is already placed">Update board (keep layout)</button>
+  <button class="primary w" id="bsch" title="Draw a circuit diagram and turn it into a PCB">⚡ Draw schematic</button>
+  <p class="s" id="amsg">Generate replaces the current board. Update keeps your layout and adds what is new.</p></section>
 </aside>
-<main><canvas id="cv"></canvas><div id="hint"></div><div id="st"></div><div id="cbar" hidden><span id="cmsg"></span><button id="crot" hidden>⟳ Rotate <kbd>R</kbd></button><button id="cext" hidden>➜ Extend <kbd>E</kbd></button><button id="cok" class="accent">✓ Confirm <kbd>Enter</kbd></button><button id="cno">✕ Cancel <kbd>Esc</kbd></button></div><div id="zc"><button id="zo" title="Zoom out">−</button><button id="zi" title="Zoom in">+</button><button id="zf" title="Fit board">Fit</button></div></main>
+<main><canvas id="cv"></canvas><div id="hint"></div><div id="st"></div><div id="cbar" hidden><span id="cmsg"></span><button id="crot" hidden>⟳ Rotate <kbd>R</kbd></button><button id="cflip" hidden>⇋ Flip <kbd>F</kbd></button><button id="cext" hidden>➜ Extend <kbd>E</kbd></button><button id="cok" class="accent">✓ Confirm <kbd>Enter</kbd></button><button id="cno">✕ Cancel <kbd>Esc</kbd></button></div><div id="zc"><button id="zo" title="Zoom out">−</button><button id="zi" title="Zoom in">+</button><button id="zf" title="Fit board">Fit</button></div></main>
 <aside>
  <section><h3>Print settings</h3>
   <label>Plate thickness (mm) <input id="th" type="number" step=".2" min="1" value="2"></label>
@@ -111,9 +152,17 @@ GND: D1.2 J1.2</textarea>
   <label>Trace height (mm) <input id="gd" type="number" step=".05" min="0" max="1" value="0.4"></label>
   <label>Pin hole ⌀ (mm) <input id="hd" type="number" step=".1" min=".6" value="1"></label>
   <label class="chk"><input type="checkbox" id="padon"> Larger solder pads (set size below)</label>
-  <label>Pad ⌀ (mm) <input id="pd" type="number" step=".1" min="1.5" value="3" disabled></label></section>
- <section><h3>Design summary</h3><div id="stats"></div></section>
+  <label>Pad ⌀ (mm) <input id="pd" type="number" step=".1" min="1.5" value="3" disabled></label>
+  <label title="Added to every hole in the STL, because printed holes come out small">Hole compensation (mm) <input id="hcomp" type="number" step=".05" min="0" max="1" value="0.2"></label>
+  <label class="chk"><input type="checkbox" id="lbl" checked> Engrave part names and LED +</label>
+  <label>Text size (mm) <input id="tsz" type="number" step=".5" min="1.5" max="20" value="3"></label></section>
+ <section><h3>Design summary</h3><div id="stats"></div>
+  <button class="accent w" id="bdrc" title="Check for shorts, tight spacing, unrouted connections and more">Check design</button>
+  <div class="g2"><button id="bcut">Tape cut list</button><button id="b3d">3D preview</button></div>
+  <label>Min spacing (mm) <input id="dclr" type="number" step=".05" min="0" value="0.3"></label>
+  <label>Min tape width (mm) <input id="dmin" type="number" step=".1" min="0" value="0.8"></label></section>
  <section><h3>Files</h3>
+  <button class="primary w" id="bstl">Export STL</button>
   <button id="bsvg">Download SVG template (1:1)</button>
   <div class="g2"><button id="bsave">Save design</button><button id="bload">Open design</button></div>
   <input id="file" type="file" accept=".json" hidden>
@@ -125,17 +174,34 @@ GND: D1.2 J1.2</textarea>
 <p style="color:var(--mu);margin:0 0 8px">Created by R. Heller</p>
 <p>Design a circuit board for 3D printing. You print the plate, press copper tape onto the raised lines, and solder component legs through the holes.</p>
 <h4>Quick start</h4>
-<ol><li>Choose a part such as <b>Resistor</b> from the <b>Parts</b> list (left), then click the board to place it. Press <b>Confirm</b> (or Enter) to keep it.</li>
+<ol><li>Choose a part such as <b>Resistor</b> from the <b>Parts</b> list (left), then click the board to place it. Parts that come in several sizes (pin headers, DIP chips, two-leg parts, SMD resistors and jumper wires) are listed once and ask which size you need; the size button under the list changes it. Press <b>Confirm</b> (or Enter) to keep it.</li>
 <li>Choose the <b>Tape</b> tool. Click where tape starts, then click where it ends. Press <b>Confirm</b> (Enter) to keep that piece, or <b>Extend</b> (E) to keep it and carry on from where it ended. Press <b>Esc</b> to end the run.</li>
-<li>Press <b>Export STL</b> and print the file.</li></ol>
+<li>Press <b>Export STL</b> (top of the <b>Files</b> section, right panel) and print the file.</li></ol>
 <h4>Tools (top bar)</h4>
-<ul><li><b>Tape (T)</b>: draw copper tape runs. <b>Part (P)</b>: place the selected part. <b>Select (S)</b>: click a part to pick it and give it its own hole and pad size (see below). <b>Move (V)</b>: drag a part, a tape run or a hole. <b>Rotate</b>: click a part to turn it 90°. <b>Hole (H)</b>: add a mounting screw hole. <b>Erase (X)</b>: remove a part, hole or tape run.</li></ul>
+<ul><li><b>Tape (T)</b>: draw copper tape runs. <b>Part (P)</b>: place the selected part. <b>Select (S)</b>: click a part to pick it and give it its own hole and pad size (see below). <b>Move (V)</b>: drag a part, a tape run or a hole. <b>Rotate</b>: click a part to turn it 90°. <b>Hole (H)</b>: add a mounting screw hole. <b>Text (L)</b>: engrave a label into the plate. <b>Outline (O)</b>: draw a custom board shape or a cutout. <b>Erase (X)</b>: remove a part, hole, tape run, jumper, text or outline. <b>Undo</b> and <b>Redo</b> (Ctrl+Z, Ctrl+Y) step through your changes.</li></ul>
 <h4>Confirming changes</h4>
 <p>With <b>Confirm changes</b> ticked (top bar), every change waits for approval. While it waits you can <b>drag it</b> to a better spot. For tape, drag the green corner dots to reshape, or drag the piece to move it. Press <b>Enter</b> to keep or <b>Esc</b> to cancel. Untick the box for instant changes.</p>
 <h4>Rotating a part</h4>
-<p>Use <b>⟳ Rotate 90°</b> in the Parts section before placing, the <b>⟳ Rotate</b> button on the confirm bar, the <b>Rotate</b> tool, or press <b>R</b>. Parts turn around their first pin.</p>
+<p>Use <b>⟳ Rotate</b> in the Parts section before placing, the <b>⟳ Rotate</b> button on the confirm bar, the <b>Rotate</b> tool, or press <b>R</b>. Parts turn around their first pin. Tape that ends on a pad moves with the part when you rotate, flip or drag it.</p>
+<h4>Which side do parts go on? (Flip)</h4>
+<p>Footprints are drawn as seen from the tape side. If you push a part's legs in from the <b>plain side</b> and solder on the tape side, chips, modules and connectors end up mirrored. Press <b>⇋ Flip</b> (or <b>F</b>) for those parts so their pins match. Flipped parts have a dashed outline and a ⇋ after their name. Two-leg parts such as resistors don't need it. Pin 1 of every multi-pin part has a <b>square pad</b> so you can line chips up. The square grows to match the tape that runs onto it, so the tape never looks narrower than the pad.</p>
 <h4>Moving around</h4>
 <p>Scroll to zoom, hold the middle mouse button and drag to pan, and use <b>Fit</b> to reset. <b>Ctrl+Z</b> undoes. Everything snaps to the grid; change it under <b>Board</b>. Choose a preset from 5.08 mm down to 0.1 mm, or pick <b>Custom…</b> and type any size from 0.1 mm. Very fine grids hide their thin lines until you zoom in, but snapping still works.</p>
+<h4>Drawing a schematic (the easy way)</h4>
+<p>Instead of typing a list, you can draw your circuit and let the app build the board from it. Click <b>⚡ Draw schematic</b> in the <b>Auto-generate</b> section (left panel). A full-screen drawing area opens.</p>
+<ol><li><b>Place</b>: pick a part from the list at the top, then tap the grid to put it down. Connectors, DIP chips and jumper wires ask which size you need when you pick them. Each part gets a name such as R1 or D1 automatically. The list uses normal schematic parts: resistor, capacitor (plain and polarised), inductor, LED, diode, battery, switch, push button, buzzer, potentiometer, NPN and PNP transistors, N-MOSFET, ground and power symbols, 2 to 8-pin connectors, chips (8, 14 and 16 pin), ESP32, rotary encoder, TP4056 module and a single pad or test point. Imported KiCad parts are listed at the end.</li>
+<li><b>Wire</b>: tap one pin, then tap another pin to join them. Pins joined by wires become one connection. Every <b>Ground</b> symbol is joined together, and so is every <b>Power</b> symbol, so you can drop them wherever you need them instead of drawing long wires. Symbols such as ground are not real parts, so they do not appear on the board.</li>
+<li><b>Edit</b>: tap a part to select it. A small bar appears at the bottom with the part's name, a <b>Value</b> box, and <b>Rotate</b>, <b>Flip</b> and <b>Delete</b> buttons. Drag a part to move it, and drag empty space to pan. Use <b>−</b> and <b>+</b>, the scroll wheel, or a two-finger pinch to zoom.</li>
+<li><b>Delete</b>: tap a part (its wires go too) or a single wire to remove it.</li>
+<li><b>Values</b>: with the <b>Edit</b> tool, type into the <b>Value</b> box to label a part &mdash; 10k, 100nF, 1N4148, and so on. The value appears under the part in orange and in the parts list. Values do not change the board; they are there so you know what to buy and fit.</li>
+<li><b>Rotate and flip</b>: <b>Rotate</b> turns the selected part a quarter turn at a time, and <b>Flip</b> mirrors it, which is the quick way to swap which end a pin sits on. The symbol turns, but its name and value stay the right way up. On a keyboard, <b>R</b> rotates and <b>F</b> flips.</li>
+<li><b>Undo and redo</b>: the <b>&#8630;</b> and <b>&#8631;</b> buttons at the top step back and forward through your changes, including placing, wiring, moving, rotating, deleting, setting a value and <b>Clear</b>. <b>Ctrl+Z</b> and <b>Ctrl+Y</b> do the same.</li>
+<li><b>Parts list</b>: opens a table of everything you have drawn, grouped by part and value, with the quantity and the names in each group. <b>Copy</b> puts it on the clipboard so you can paste it into a shopping list. Parts that usually need a value are flagged when you have not set one.</li>
+<li><b>Jumper wire</b>: in the Basic group. Its two ends are one connection, like a wire in the drawing. Pick its length with <b>Footprint</b>.</li>
+<li><b>Footprint</b>: the Edit bar also has a <b>Footprint</b> list showing every board footprint with the same number of pins. A plain capacitor starts on 5.08 mm legs and an electrolytic on 2.54 mm. Pick the one that matches your real part, including the SMD sizes. The drawing keeps the choice.</li>
+<li>Press <b>Generate PCB ▸</b> for a fresh board, or <b>Update PCB ▸</b> to keep your existing layout. Before building, the app checks the drawing over and shows anything it finds. <b>Problems</b> have to be fixed first: two parts sharing a name, or ground wired to power (a short circuit). <b>Worth a look</b> items are only warnings &mdash; parts that are not wired to anything, pins left unconnected, or missing values &mdash; and you can press <b>Build the board ▸</b> to carry on. If nothing turns up, the board is built straight away.</li>
+<li>The app then writes the part and connection lines for you in the Auto-generate box, closes the drawing area and builds the board exactly as <b>Generate layout</b> does. Any values you set are added underneath as <b>#</b> notes, which the builder ignores. Use <b>Clear</b> to start the drawing over.</li></ol>
+<p>Your drawing is remembered in this browser, so it is still there next time. Ground and power connections are named GND and VCC, and the rest N1, N2 and so on. Each part is built from a matching board footprint (a resistor, capacitor or diode uses the 10.16 mm two-leg footprint, a battery or switch a 2-pin header, a transistor or potentiometer a 3-pin header numbered in the order shown on the symbol, such as B, C, E), so check your real part's leg order, and use <b>Rotate</b> or <b>Flip</b> or swap the wires if needed. <b>Generate PCB</b> builds a new board and replaces the current one. <b>Update PCB</b> keeps your layout: new parts are added below the others, deleted parts are removed, changed footprints are swapped in place, and the connections are refreshed so the board shows what still needs tape. Wires only show what joins to what. The drawing does not decide where parts or tape go on the board. You can edit the generated list in the Auto-generate box and press <b>Generate layout</b> again if you want to tweak it.</p>
 <h4>Auto-generate: the basics</h4>
 <p>Instead of drawing by hand, you describe your circuit as a short text list. The app then places the parts on a new board and runs the copper tape between them for you. The list has two kinds of line: <b>part lines</b> (what you have) and <b>connection lines</b> (what joins to what). You type them in the box under <b>Auto-generate</b> on the left, then click <b>Generate layout</b>.</p>
 <p>Blank lines are ignored, and so is any line that starts with <code>#</code>, so you can use those for notes. Notes must be on their own line. Do not put <code>#</code> after something else on the same line.</p>
@@ -146,6 +212,10 @@ GND: D1.2 J1.2</textarea>
 <tr><td><code>res</code></td><td>Resistor, or any part with two legs 10.16 mm apart (such as a diode)</td><td>2</td><td>Pin 1 and pin 2. Either way round for a resistor.</td></tr>
 <tr><td><code>led</code></td><td>LED with legs 2.54 mm apart</td><td>2</td><td>Pin 1 is + (the anode, the longer leg). Pin 2 is − (the cathode, by the flat side). The board shows + and − next to the pads.</td></tr>
 <tr><td><code>h2</code> <code>h3</code> <code>h4</code> <code>h6</code> <code>h8</code></td><td>A single row of pins at 2.54 mm spacing, such as a battery connector, switch, button or sensor</td><td>2, 3, 4, 6 or 8</td><td>Pin 1 is at one end, then 2, 3 and so on along the row.</td></tr>
+<tr><td><code>leg254</code> <code>leg508</code> <code>leg762</code></td><td>Two legs 2.54, 5.08 or 7.62 mm apart, such as capacitors</td><td>2</td><td>Pin 1 and pin 2.</td></tr>
+<tr><td><code>smd1206</code> <code>smd0805</code></td><td>Surface-mount resistor or capacitor pads (no holes)</td><td>2</td><td>Pin 1 and pin 2.</td></tr>
+<tr><td><code>sot23</code> <code>soic8</code></td><td>Surface-mount transistor and 8-pin chip</td><td>3 or 8</td><td>Standard numbering. SOIC-8 pins are 1.27 mm apart, so use thin tape and check the design.</td></tr>
+<tr><td><code>jmp508</code> <code>jmp762</code> <code>jmp1016</code> <code>jmp1270</code> <code>jmp1524</code> <code>jmp2032</code> <code>jmp2540</code></td><td>Jumper wire, 5.08 to 25.4 mm long (the number is the length in hundredths of a mm)</td><td>2</td><td>Both ends are already joined by the wire. Put both pins on the same connection line, for example <code>GND: U1.4 JP1.1 JP1.2 D1.2</code>. The router treats reaching either end as reaching both.</td></tr>
 <tr><td><code>dip8</code> <code>dip14</code> <code>dip16</code></td><td>A chip with two rows of pins (DIP package), rows 7.62 mm apart</td><td>8, 14 or 16</td><td>Standard chip numbering. Pin 1 is top left (next to the notch), numbers go down the left side, then continue up the right side. On a <code>dip8</code>, pin 4 is bottom left, pin 5 is bottom right and pin 8 is top right.</td></tr></table>
 <p>Parts that don't match one of these shapes can still be used. Pick the type with the same number of pins and spacing, use several <code>pad</code> parts, or import the part from a KiCad footprint file (see below).</p>
 <h4>Connection lines: <code>NAME: part.pin part.pin ...</code></h4>
@@ -156,7 +226,7 @@ GND: D1.2 J1.2</textarea>
 <li>A connection line needs at least two pins. A line with one pin is ignored.</li>
 <li>Pins you don't list are left unconnected. The part is still placed, and tape keeps clear of it.</li>
 <li>Every name used in a connection must match a part line exactly, and the pin number must exist on that part (for example <code>R1.3</code> is an error because a resistor has two pins).</li>
-<li>You can have up to 29 connection lines.</li></ul>
+<li>There is no limit on the number of connection lines.</li></ul>
 <h4>A worked example</h4>
 <pre># battery, resistor and LED in a loop
 J1 h2
@@ -169,7 +239,7 @@ GND: D1.2 J1.2</pre>
 <h4>What happens when you click Generate layout</h4>
 <ol><li>The app reads your list and checks it. If something is wrong it tells you which line and stops without changing your board.</li>
 <li>It arranges the parts in rows, trying up to 40 different orders and turn angles, and keeps the arrangement where the most connections can be routed with the least tape and the smallest board.</li>
-<li>It routes tape for each connection, shortest connections first. Tape never crosses other tape, and it keeps clear of other pads.</li>
+<li>It routes tape for each connection, shortest connections first. Tape never crosses other tape, and it keeps clear of other pads. When <b>Use jumper wires</b> is ticked and tape has no way round, it adds a jumper wire that hops over the tape in the way.</li>
 <li>It replaces your current board with the result and sizes the board to fit. With <b>Confirm changes</b> on, you review it and press Confirm or Cancel (Cancel brings your old board back).</li></ol>
 <p>After that it's a normal board. Move parts, redraw tape, erase and rotate as usual. Click Generate again to get a different arrangement from the same list.</p>
 <h4>Settings that affect auto-generate</h4>
@@ -180,10 +250,11 @@ GND: D1.2 J1.2</pre>
 <ul><li><b>Unknown part type</b>: the word after the name isn't in the table above. Check the spelling.</li>
 <li><b>Add at least one part line</b>: the box has no part lines.</li>
 <li><b>Net NAME: "X.n" does not match a part pin</b>: the part name doesn't exist, or the pin number is too high or missing. The part and pin are written <code>NAME.number</code>.</li>
-<li><b>Up to 29 nets are supported</b>: you have too many connection lines. Join pins that share a point onto one line.</li>
-<li><b>Routed N of M nets. Couldn't route: ...</b>: those connections were left undrawn because tape had no free path. Click Generate again for a new arrangement, tick 45° angles, use thinner tape or smaller pads, or draw the missing tape by hand.</li></ul>
+<li><b>X.n is in both A and B</b>: one pin is listed on two connection lines. Merge them into one line.</li>
+<li><b>Routed N of M nets. Couldn't route: ...</b>: those connections were left undrawn because tape had no free path. They show as dashed yellow lines. Click Generate again for a new arrangement, tick 45° angles or jumpers, use thinner tape or smaller pads, or draw the missing tape by hand.</li></ul>
+<p><b>Update board (keep layout)</b> reads the same list but does not move anything already placed. It adds new parts below the others, removes parts no longer listed, changes footprints, and loads the new connections.</p>
 <h4>Limits</h4>
-<ul><li>The board has a single layer of tape, so two lines can never cross. Very tangled circuits may not route completely. Use a short wire jumper where lines must cross.</li>
+<ul><li>The board has a single layer of tape, so two lines can never cross. Where they must, the router adds a jumper wire, or you can place one from the Jumper wires group in the Parts list.</li>
 <li>You can't choose where parts go. After generating, drag them where you want and redraw tape as needed.</li>
 <li>Only the part types in the table are available. Use the closest match for other components.</li></ul>
 <h4>Importing KiCad footprints</h4>
@@ -192,159 +263,371 @@ GND: D1.2 J1.2</pre>
 <li><b>Pins:</b> each through-hole pad becomes a pin, in pad-number order. Use the pad number or name in connections, such as <code>J1.1</code> or <code>J1.A2</code>.</li>
 <li><b>Hole size:</b> imported parts follow the <b>Pin hole</b> setting, the same as every other part. The drill size written in the footprint file is ignored.</li>
 <li><b>Reference point:</b> the lowest-numbered pad sits at the part's origin, so it lands on the grid when you place it. Other pads keep their real spacing, even if it is not on the grid.</li>
-<li><b>Not imported:</b> surface-mount pads, mounting holes, silkscreen, courtyards and 3D models. A message tells you how many were skipped. All pads are drawn round.</li>
+<li><b>Surface-mount pads</b> are imported as rectangles with no hole. Through-hole pads are drawn round, with pin 1 square.</li>
+<li><b>Not imported:</b> mounting holes, silkscreen, courtyards and 3D models. A message tells you how many were skipped.</li>
 <li>Imported parts are saved inside your design file, so they come back when you open it.</li></ul>
 <p>Check the spacing against your real component before printing, as the footprint is only as accurate as the file.</p>
+<h4>Connections on the board (dashed lines)</h4>
+<p>When the board comes from the schematic or the Auto-generate list, it remembers which pins belong together. Any connection that has no tape yet is shown as a <b>dashed yellow line</b> between the nearest pads, just like KiCad's ratsnest. Draw tape along it and the line disappears. Hover over a pad to see its part, pin and connection name in the bottom-left corner. The Design summary shows how many connections are still to route and warns about short circuits as you work. Parts you place by hand get names automatically (R1, D1 and so on), and you can rename them with the Select tool so they match your list.</p>
+<h4>Checking the design</h4>
+<p>Press <b>Check design</b> (right panel) before printing. It finds short circuits between different connections, copper closer than <b>Min spacing</b>, tape narrower than <b>Min tape width</b>, tape that stops short of a pad, connections not yet routed, parts that overlap, copper off the board or in a cutout, mounting holes cutting into copper, and thin copper rings around holes. Problems are circled red and warnings orange on the board; tap an item in the list to zoom to it. The circles clear when you change the design.</p>
+<h4>Jumper wires</h4>
+<p>The quickest way is the <b>Jumper wires</b> group in the Parts list: pick a length, place it like any part and rotate it to point where you need. Its two ends count as connected. The blue line shows an insulated wire that passes over the board. When <b>Use jumper wires</b> is ticked, Auto-generate also adds jumpers wherever tape has to cross; those can be any length or angle, and you can move or erase them like any other item.</p>
+<h4>Engraved text and labels</h4>
+<p>Choose <b>Text (L)</b>, click the board and type your label. It is cut 0.3 mm into the plate, so it prints cleanly. Size it with <b>Text size</b> in Print settings, turn it with the Rotate tool, and drag it with Move. <b>Engrave part names and LED +</b> adds every part's name and a + by each LED's long leg automatically. Part names and + marks find their own clear spot next to each part, away from tape and pads, and move if you redraw tape. If a part is boxed in, the name shrinks a little or moves further out, and if there is truly no room it is left off and Check design tells you which one. Your own text stays where you put it; Check design warns if it ends up under tape.</p>
+<h4>Board shape and cutouts</h4>
+<p>Set <b>Corner radius</b> for rounded corners. For any other shape, set <b>Outline tool draws</b> to <b>Board shape</b>, choose <b>Outline (O)</b> and click the corners; click the first corner again, double-click or press Enter to close it. Switch to <b>A cutout</b> to draw holes or notches in the plate. <b>Remove custom outline</b> goes back to a rectangle.</p>
+<h4>3D preview and tape cut list</h4>
+<p><b>3D preview</b> shows exactly what the STL will be: drag to turn it and zoom with − and +. <b>Tape cut list</b> lists every tape run with its connection, width, length and number of bends, plus jumper wire lengths, so you can cut tape before you start. <b>Copy</b> puts the list on the clipboard.</p>
 <h4>Board and export shape</h4>
-<p>Set the board size and <b>Margin</b>. <b>Shrink board to fit</b> crops the board to your design. <b>Export shape</b> chooses what gets exported: the whole board, a rectangle around the design, or <b>Cut away unused</b>, which follows the design's outline to save plastic. Your on-screen design is not changed by this.</p>
+<p>Set the board size and <b>Margin</b>. <b>Shrink board to fit</b> crops the board to your design. <b>Export shape</b> chooses what gets exported: the whole board, a rectangle around the design, or <b>Cut away unused</b>, which follows the design's outline to save plastic. Your on-screen design is not changed by this. A custom outline always exports as drawn.</p>
 <h4>Hole and pad size for one part</h4>
-<ol><li>Choose the <b>Select</b> tool (or press <b>S</b>) and click a part. It gets a yellow dashed outline and the <b>Selected part</b> box opens on the left. Clicking with the Move tool also selects.</li>
+<ol><li>Choose the <b>Select</b> tool (or press <b>S</b>) and click a part. It gets a yellow dashed outline and the <b>Selected part</b> box opens on the left, where you can also change its <b>Name</b>. Clicking with the Move tool also selects.</li>
 <li>Type a <b>Pin hole ⌀</b> and/or a <b>Pad ⌀</b>. Those sizes apply to that part only, in the picture, the STL and the SVG. Nothing else on the board changes.</li>
 <li>Leave a box empty and that part follows the Print settings. <b>Use global sizes</b> clears both boxes. <b>Apply to same type</b> copies the sizes to every part of that type.</li></ol>
 <p>The pad is always kept at least 0.4 mm wider than the hole so some copper ring is left. This also applies to imported KiCad parts, whose holes otherwise follow the Pin hole setting. Auto-generate routes tape with the global pad size, so set per-part sizes after generating, and check clearances if you make a pad much bigger. Per-part sizes are saved with the design.</p>
 <h4>Print settings (right)</h4>
 <ul><li><b>Traces: Raised</b> prints tape lines standing above the plate (Lowered makes grooves). <b>Trace height</b> sets how much.</li>
 <li><b>Pin hole</b> is the leg hole size. Pads are raised to the tape height so tape and solder have something to sit on. Tick <b>Larger solder pads</b> to set a bigger pad size.</li>
+<li><b>Hole compensation</b> is added to every hole in the STL, because printers make holes a little small. 0.2 mm suits most printers; measure a test print and adjust. The SVG template keeps the true size.</li>
 <li>Very thin tape lines are hard to print. Use at least 0.8 mm for a 0.4 mm nozzle.</li></ul>
 <h4>Files</h4>
 <ul><li><b>Export STL</b>: the printable plate. <b>Download SVG template</b>: a 1:1 drawing you can print on paper to check fit or cut tape against.</li>
-<li><b>Save design / Open design</b>: keep your work as a file and come back to it later.</li></ul>
+<li><b>Save design / Open design</b>: keep your work as a file and come back to it later. The file holds the board, its connections, imported parts and your schematic drawing.</li></ul>
 <h4>Building it</h4>
 <ol><li>Print the plate. A first small test board is a good idea.</li><li>Press copper tape along the raised lines, running it onto each pad. Trim neatly.</li><li>Push component legs through the holes and solder them to the tape at each pad.</li></ol>
 <h4>About</h4>
 <p>Tape Board was created by <b>R. Heller</b>. If it helps you build something, you can support its development with the <b>☕ Support</b> button at the top of this window.</p>
 </div></div>
+<div id="dlg" class="modal" role="dialog" aria-modal="true"><div class="mcard"><div id="dlgc"></div><div id="dlgb"></div></div></div>
+<div id="pv" class="modal" role="dialog" aria-label="3D preview"><div class="mcard pvcard"><div class="pvbar"><b>3D preview</b><span id="pvmsg"></span><button id="pvo" title="Zoom out">−</button><button id="pvi" title="Zoom in">+</button><button id="pvx">✕ Close</button></div><canvas id="pvc"></canvas></div></div>
+<div id="sch" role="dialog" aria-label="Schematic editor"><div id="sbar"><b>Schematic</b><div class="seg" id="stools"><button data-s="place" class="on">Place</button><button data-s="wire">Wire</button><button data-s="move">Edit</button><button data-s="del">Delete</button></div><span class="hrow"><button id="sundo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button id="sredo" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button></span><select id="spart" aria-label="Part to place"></select><button id="szo" title="Zoom out">−</button><button id="szi" title="Zoom in">+</button><span class="acts"><button id="sbom" class="ghost">Parts list</button><button id="sclr" class="ghost">Clear</button><button id="supd" title="Update the board from this drawing and keep your layout">Update PCB ▸</button><button id="sgo" class="accent" title="Build a new board with automatic placement and routing">Generate PCB ▸</button><button id="scl" title="Close">✕</button></span></div><canvas id="scv"></canvas><div id="sprop" hidden><b id="spref"></b><input id="spval" placeholder="Value e.g. 10k" maxlength="18" aria-label="Part value"><select id="spfp" aria-label="Board footprint" title="Board footprint" style="max-width:170px"></select><button id="sprot" title="Rotate (R)">⟳ Rotate</button><button id="spflip" title="Flip (F)">⇄ Flip</button><button id="spdel" class="ghost" title="Delete">Delete</button><button id="spdone">Done</button></div><div id="spanel" hidden><div id="spanelc"></div><div id="spanelb"></div></div><div id="shint"></div></div>
 <script>
 const $=s=>document.querySelector(s),cv=$('#cv'),cx=cv.getContext('2d');
-let S={W:60,H:40,parts:[],traces:[],holes:[]};
-let tool='trace',ptype='res',rot=0,grid=2.54,tw=1,ang='45',padD=2,holeD=1,thick=2,gdep=.4;
-let cur=null,m={x:0,y:0,rx:0,ry:0},sc=10,ox=0,oy=0,drag=null,hist=[],zm=1,pan={x:0,y:0},pn=null;
+let S={W:60,H:40,parts:[],traces:[],holes:[],jumpers:[],texts:[],edges:[],nets:[]};
+let tool='trace',ptype='res',rot=0,flp=false,grid=2.54,tw=2,ang='45',padD=2,holeD=1,thick=2,gdep=.4;
+let cur=null,curJ=null,curE=null,m={x:0,y:0,rx:0,ry:0},sc=10,ox=0,oy=0,drag=null,hist=[],fut=[],zm=1,pan={x:0,y:0},pn=null,drcMarks=[],drcSig='';
+const norm=s=>{['parts','traces','holes','jumpers','texts','edges','nets'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});return s};
 const DEFS={pad:{n:'Single pad',p:[[0,0]]},res:{n:'Resistor, 10.16 mm',p:[[0,0],[10.16,0]]},led:{n:'LED, 2.54 mm legs',p:[[0,0],[2.54,0]]}};
 for(const n of[2,3,4,6,8])DEFS['h'+n]={n:'Header 1×'+n,p:Array.from({length:n},(_,i)=>[i*2.54,0])};
 for(const n of[8,14,16]){const k=n/2;DEFS['dip'+n]={n:'DIP-'+n+' chip',dip:k,p:[...Array.from({length:k},(_,i)=>[0,i*2.54]),...Array.from({length:k},(_,i)=>[7.62,(k-1-i)*2.54])]}}
 DEFS.esp32={n:'ESP32 DevKit (38-pin)',dip:19,w:25.4,bw:27.94,bm:1.27,ant:[18,6.04],usbb:[8,2.4],alias:{VIN:'5V',VCC:'5V',D0:'SD0',D1:'SD1'},p:[...Array.from({length:19},(_,i)=>[0,i*2.54]),...Array.from({length:19},(_,i)=>[25.4,(18-i)*2.54])],names:['3V3','EN','VP','VN','D34','D35','D32','D33','D25','D26','D27','D14','D12','GND1','D13','SD2','SD3','CMD','5V','CLK','SD0','SD1','D15','D2','D0','D4','D16','D17','D5','D18','D19','GND2','D21','RX0','TX0','D22','D23','GND3']};
 DEFS.enc={n:'Rotary encoder RK097N / EC11',p:[[0,0],[0,-2.5],[0,-5],[-14.5,0],[-14.5,-5]],names:['A','C','B','S1','S2'],hd:1.3,box:[-13.5,-8.35,12,11.7],circ:[[-7.5,-2.5,3]],slots:[[-7.5,-7.85,2.4,1.9],[-7.5,2.85,2.4,1.9]],label:'RK097N'};
 DEFS.tp4056={n:'TP4056 USB-C charger module',p:[[14,0],[0,0],[11.46,23],[2.54,23],[14,23],[0,23]],names:['IN+','IN-','B+','B-','OUT+','OUT-'],box:[-1.6,-1.9,17.2,28],extra:[[2.5,-2.9,9,3]],label:'TP4056'};
-const GROUPS=[['Basic',['pad','res','led','h2','h3','h4','h6','h8']],['Chips and modules',['dip8','dip14','dip16','esp32','enc','tp4056']]];
-GROUPS.forEach(([g,ks])=>{const og=document.createElement('optgroup');og.label=g;ks.forEach(k=>og.appendChild(new Option(DEFS[k].n,k)));$('#partsel').appendChild(og)});
-$('#partsel').value=ptype;$('#partsel').onchange=e=>{ptype=e.target.value;setTool('part')};
-const HINTS={rotate:'Rotate: click a part to turn it 90°. Use the Rotate button on the confirm bar to keep turning.',trace:'Draw tape: click the start, then click where the piece ends. Confirm keeps it. Extend keeps it and carries on from that end. Esc ends the run.',part:'Add part: click the board to place the selected part. Press R to rotate it first.',move:'Move: drag a part, a piece of tape or a hole. Drag a tape corner dot to reshape it. Hover over a part and press R to rotate it.',select:'Select: click a part, then set its own pin hole and pad size in the panel on the left. An empty box follows the Print settings.',hole:'Mounting hole: click to add a 3.2 mm screw hole.',erase:'Erase: click a part, hole or tape run to remove it.'};
+DEFS.leg254={n:'2 legs, 2.54 mm',p:[[0,0],[2.54,0]]};DEFS.leg508={n:'2 legs, 5.08 mm',p:[[0,0],[5.08,0]]};DEFS.leg762={n:'2 legs, 7.62 mm',p:[[0,0],[7.62,0]]};
+DEFS.smd1206={n:'SMD 1206 (resistor, capacitor)',p:[[0,0],[3.2,0]],smd:[[1.6,1.8],[1.6,1.8]]};
+DEFS.smd0805={n:'SMD 0805 (resistor, capacitor)',p:[[0,0],[2.2,0]],smd:[[1.2,1.4],[1.2,1.4]]};
+DEFS.sot23={n:'SMD SOT-23 transistor',p:[[0,0],[1.9,0],[.95,-2.4]],smd:[[.9,1.3],[.9,1.3],[.9,1.3]]};
+DEFS.soic8={n:'SMD SOIC-8 chip',p:[...[0,1,2,3].map(i=>[0,i*1.27]),...[3,2,1,0].map(i=>[5.4,i*1.27])],smd:Array.from({length:8},()=>[1.9,.6])};
+for(const L of[5.08,7.62,10.16,12.7,15.24,20.32,25.4])DEFS['jmp'+Math.round(L*100)]={n:'Jumper wire, '+L+' mm',p:[[0,0],[L,0]],jmp:1};
+/* parts that come in several sizes are listed once; choosing one asks which size */
+const FAMS={fleg:{n:'Two-leg part (capacitor, diode…)',q:'How far apart are the legs?',o:['leg254','leg508','leg762'],l:k=>DEFS[k].p[1][0]+' mm'},
+ fhdr:{n:'Pin header / connector',q:'How many pins?',o:['h2','h3','h4','h6','h8'],l:k=>k.slice(1)+' pins'},
+ fdip:{n:'DIP chip',q:'How many pins?',o:['dip8','dip14','dip16'],l:k=>k.slice(3)+' pins'},
+ fsmd:{n:'SMD resistor / capacitor',q:'Which size?',o:['smd1206','smd0805'],l:k=>k==='smd1206'?'1206 (3.2 mm, easier to solder)':'0805 (2.0 mm, smaller)'},
+ fjmp:{n:'Jumper wire',q:'How long is the jumper?',o:['jmp508','jmp762','jmp1016','jmp1270','jmp1524','jmp2032','jmp2540'],l:k=>DEFS[k].p[1][0]+' mm'}};
+const famOf=k=>Object.keys(FAMS).find(f=>FAMS[f].o.includes(k));
+function askSize(f,done,cancel){const F=FAMS[f];showDlg(`<h3 class="dt">${F.n}</h3><p>${F.q}</p>`,F.o.map(k=>[F.l(k),()=>{closeDlg();done(k)}]).concat([['Cancel',()=>{closeDlg();if(cancel)cancel()},'ghost']]))}
+const GROUPS=[['Basic',['pad','res','led','F:fleg','F:fhdr','F:fjmp']],['Chips and modules',['F:fdip','esp32','enc','tp4056']],['Surface mount (SMD)',['F:fsmd','sot23','soic8']]];
+GROUPS.forEach(([g,ks])=>{const og=document.createElement('optgroup');og.label=g;ks.forEach(k=>og.appendChild(new Option(k[0]==='F'&&k[1]===':'?FAMS[k.slice(2)].n:DEFS[k].n,k)));$('#partsel').appendChild(og)});
+const selVal=()=>{const f=famOf(ptype);$('#partsel').value=f?'F:'+f:ptype;const b=$('#bsize');b.hidden=!f;if(f)b.textContent=`Size: ${FAMS[f].l(ptype)} · change`};
+const usePart=k=>{ptype=k;selVal();setTool('part')};
+selVal();$('#partsel').onchange=e=>{const v=e.target.value;if(v.startsWith('F:'))askSize(v.slice(2),usePart,selVal);else usePart(v)};
+$('#bsize').onclick=()=>{const f=famOf(ptype);if(f)askSize(f,usePart)};
+const HINTS={rotate:'Rotate: click a part or a text label to turn it 90°.',trace:'Draw tape: click the start, then click where the piece ends. Confirm keeps it. Extend keeps it and carries on from that end. Esc ends the run.',part:'Add part: click the board to place the selected part. R rotates, F flips it first.',move:'Move: drag a part, tape, hole, jumper or text. Tape attached to a part follows it. Hover a part and press R to rotate or F to flip.',select:'Select: click a part to rename it, flip it, or give it its own pin hole and pad size.',hole:'Mounting hole: click to add a 3.2 mm screw hole.',erase:'Erase: click a part, hole, tape run, jumper, text or outline to remove it.',text:'Text: click where the label goes, then type it. It is engraved into the plate.',edge:'Outline: click corners of the board shape (or a cutout). Click the first corner, press Enter or double-click to close it.'};
+const REFP=t=>/^jmp/.test(t)?'JP':({res:'R',smd1206:'R',smd0805:'R',led:'D',pad:'TP',enc:'SW',sot23:'Q'})[t]||(/^h\d/.test(t)?'J':/^leg/.test(t)?'C':'U');
+const nextRef=t=>{const p=REFP(t);let n=1;while(S.parts.some(a=>a.ref===p+n))n++;return p+n};
 const rotp=(p,r)=>[[p[0],p[1]],[-p[1],p[0]],[-p[0],-p[1]],[p[1],-p[0]]][r];
-const padsOf=pt=>DEFS[pt.type].p.map(p=>{const q=rotp(p,pt.rot);return{x:+(pt.x+q[0]).toFixed(3),y:+(pt.y+q[1]).toFixed(3)}});
+const xf=(pt,p)=>rotp([pt.flip?-p[0]:p[0],p[1]],pt.rot);
+const padsOf=pt=>DEFS[pt.type].p.map(p=>{const q=xf(pt,p);return{x:+(pt.x+q[0]).toFixed(3),y:+(pt.y+q[1]).toFixed(3)}});
 const hdOf=pt=>pt.hd>0?Math.min(10,Math.max(.2,pt.hd)):Math.max(holeD,DEFS[pt.type].hd||0);
 const pdOf=pt=>Math.max(pt.pd>0?Math.min(20,pt.pd):padD,hdOf(pt)+.4);
+/* every pad as a shape: round, square (pin 1) or a surface-mount rectangle, plus a capsule used for spacing checks */
+function padsFull(pt){const D=DEFS[pt.type],n=D.p.length,pd=pdOf(pt),hd=hdOf(pt);
+ return padsOf(pt).map((q,i)=>{const sm=D.smd&&D.smd[i];
+  if(sm){const w=pt.rot%2?sm[1]:sm[0],h=pt.rot%2?sm[0]:sm[1],r=Math.min(w,h)/2,l=Math.max(w,h)/2-r,hx=w>=h?l:0,hy=w>=h?0:l;
+   return{x:q.x,y:q.y,i,smd:1,w,h,hole:0,R:Math.hypot(w,h)/2,cap:{ax:q.x-hx,ay:q.y-hy,bx:q.x+hx,by:q.y+hy,r}}}
+  if(i===0&&n>1&&!D.jmp){const a=Math.max(pd,tapeAt(q.x,q.y,pd/2));return{x:q.x,y:q.y,i,sq:1,w:a,h:a,hole:hd,R:a*.71,cap:{ax:q.x,ay:q.y,bx:q.x,by:q.y,r:a*.6}}}
+  return{x:q.x,y:q.y,i,w:pd,h:pd,hole:hd,R:pd/2,cap:{ax:q.x,ay:q.y,bx:q.x,by:q.y,r:pd/2}}})}
+/* widest tape with an end or corner on this pad, so a square pin 1 pad is never narrower than its tape */
+function tapeAt(x,y,r){let w=0;for(const t of S.traces)if(t.w>w)for(const q of t.pts)if(Math.abs(q.x-x)<r&&Math.abs(q.y-y)<r){w=t.w;break}return w}
 let sel=null;
 const snap=v=>+(Math.round(v/grid)*grid).toFixed(3);
 const dseg=(px,py,ax,ay,bx,by)=>{const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=Math.max(0,Math.min(1,t));return Math.hypot(px-ax-t*dx,py-ay-t*dy)};
-const pushHist=()=>{hist.push(JSON.stringify(S));if(hist.length>80)hist.shift()};
-function undo(){if(hist.length){S=JSON.parse(hist.pop());dims();draw()}}
+function ptSeg(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=t<0?0:t>1?1:t;const x=ax+t*dx,y=ay+t*dy;return{d:Math.hypot(px-x,py-y),x,y}}
+function segSeg(ax,ay,bx,by,c1,c2,e1,e2){const o=(px,py,qx,qy,rx,ry)=>(qx-px)*(ry-py)-(qy-py)*(rx-px);
+ const d1=o(c1,c2,e1,e2,ax,ay),d2=o(c1,c2,e1,e2,bx,by),d3=o(ax,ay,bx,by,c1,c2),d4=o(ax,ay,bx,by,e1,e2);
+ if(((d1>0&&d2<0)||(d1<0&&d2>0))&&((d3>0&&d4<0)||(d3<0&&d4>0))){const t=d1/(d1-d2);return{d:0,x:ax+t*(bx-ax),y:ay+t*(by-ay)}}
+ let best=null;[[ax,ay,c1,c2,e1,e2],[bx,by,c1,c2,e1,e2],[c1,c2,ax,ay,bx,by],[e1,e2,ax,ay,bx,by]].forEach(([px,py,a1,a2,b1,b2])=>{const q=ptSeg(px,py,a1,a2,b1,b2);if(!best||q.d<best.d)best={d:q.d,x:(px+q.x)/2,y:(py+q.y)/2}});return best}
+const pushHist=()=>{hist.push(JSON.stringify(S));if(hist.length>80)hist.shift();fut=[]};
+function undo(){if(hist.length){fut.push(JSON.stringify(S));S=norm(JSON.parse(hist.pop()));dims();draw()}}
+function redo(){if(fut.length){hist.push(JSON.stringify(S));S=norm(JSON.parse(fut.pop()));dims();draw()}}
 function dims(){$('#bw').value=S.W;$('#bh').value=S.H}
 function con(a,p){if(ang==='free')return p;let dx=p.x-a.x,dy=p.y-a.y;const ax=Math.abs(dx),ay=Math.abs(dy);
  if(ang==='90'){if(ax>=ay)dy=0;else dx=0}
  else if(ax>2*ay)dy=0;else if(ay>2*ax)dx=0;else{const k=Math.round(Math.max(ax,ay)/grid)*grid;dx=Math.sign(dx)*k;dy=Math.sign(dy)*k}
  return{x:a.x+dx,y:a.y+dy}}
-function hit(p){for(let i=S.parts.length-1;i>=0;i--)if(padsOf(S.parts[i]).some(q=>Math.hypot(q.x-p.x,q.y-p.y)<pdOf(S.parts[i])/2+.6))return S.parts[i]}
-function hitBox(p){const h=hit(p);if(h)return h;for(let i=S.parts.length-1;i>=0;i--){const a=padsOf(S.parts[i]);if(a.length<2)continue;const xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=pdOf(S.parts[i])/2+.6;if(p.x>=Math.min(...xs)-g&&p.x<=Math.max(...xs)+g&&p.y>=Math.min(...ys)-g&&p.y<=Math.max(...ys)+g)return S.parts[i]}}
-function setSel(pt){sel=pt||null;$('#pfields').hidden=!sel;$('#pinfo').textContent=sel?`${sel.ref||DEFS[sel.type].n}: leave a box empty to follow the Print settings.`:'Pick the Select tool (S) and click a part to give it its own pin hole and pad size.';if(sel){$('#phd').value=sel.hd>0?sel.hd:'';$('#ppd').value=sel.pd>0?sel.pd:''}}
+/* ---- engraved text: a simple stroke font so letters print cleanly ---- */
+const FONT={A:'0,6 0,2 2,0 4,2 4,6|0,4 4,4',B:'0,0 0,6 3,6 4,5 4,4 3,3 0,3|0,0 3,0 4,1 4,2 3,3',C:'4,1 3,0 1,0 0,1 0,5 1,6 3,6 4,5',D:'0,0 0,6 2,6 4,4 4,2 2,0 0,0',E:'4,0 0,0 0,6 4,6|0,3 3,3',F:'4,0 0,0 0,6|0,3 3,3',G:'4,1 3,0 1,0 0,1 0,5 1,6 3,6 4,5 4,3 2,3',H:'0,0 0,6|4,0 4,6|0,3 4,3',I:'1,0 3,0|2,0 2,6|1,6 3,6',J:'4,0 4,5 3,6 1,6 0,5',K:'0,0 0,6|4,0 0,4|1,3 4,6',L:'0,0 0,6 4,6',M:'0,6 0,0 2,3 4,0 4,6',N:'0,6 0,0 4,6 4,0',O:'1,0 3,0 4,1 4,5 3,6 1,6 0,5 0,1 1,0',P:'0,6 0,0 3,0 4,1 4,2 3,3 0,3',Q:'1,0 3,0 4,1 4,5 3,6 1,6 0,5 0,1 1,0|2,4 4,6',R:'0,6 0,0 3,0 4,1 4,2 3,3 0,3|2,3 4,6',S:'4,1 3,0 1,0 0,1 0,2 1,3 3,3 4,4 4,5 3,6 1,6 0,5',T:'0,0 4,0|2,0 2,6',U:'0,0 0,5 1,6 3,6 4,5 4,0',V:'0,0 2,6 4,0',W:'0,0 1,6 2,3 3,6 4,0',X:'0,0 4,6|4,0 0,6',Y:'0,0 2,3 4,0|2,3 2,6',Z:'0,0 4,0 0,6 4,6',
+ 0:'1,0 3,0 4,1 4,5 3,6 1,6 0,5 0,1 1,0|4,1 0,5',1:'1,1 2,0 2,6|1,6 3,6',2:'0,1 1,0 3,0 4,1 4,2 0,6 4,6',3:'0,1 1,0 3,0 4,1 4,2 3,3 1,3|3,3 4,4 4,5 3,6 1,6 0,5',4:'3,6 3,0 0,4 4,4',5:'4,0 0,0 0,3 3,3 4,4 4,5 3,6 0,6',6:'3,0 1,0 0,1 0,5 1,6 3,6 4,5 4,4 3,3 0,3',7:'0,0 4,0 1,6',8:'1,0 3,0 4,1 4,2 3,3 1,3 0,2 0,1 1,0|1,3 0,4 0,5 1,6 3,6 4,5 4,4 3,3',9:'4,3 1,3 0,2 0,1 1,0 3,0 4,1 4,5 3,6 1,6',
+ '+':'2,1.5 2,4.5|0.5,3 3.5,3','-':'0.5,3 3.5,3','.':'1.7,6 2.3,6','/':'0,6 4,0','_':'0,6 4,6',':':'1.8,2 2.2,2|1.8,5 2.2,5','(':'3,0 1.5,1.5 1.5,4.5 3,6',')':'1,0 2.5,1.5 2.5,4.5 1,6','#':'1,1 1,5|3,1 3,5|0,2 4,2|0,4 4,4','?':'0,1 1,0 3,0 4,1 4,2 2,3.5 2,4.5|1.8,6 2.2,6','=':'0.5,2 3.5,2|0.5,4 3.5,4',',':'2,5.5 1.5,7','!':'2,0 2,4|1.8,6 2.2,6',' ':''};
+const sw=size=>Math.max(.5,size*.16);
+function strokes(s,x,y,size,r){const k=size/6,str=String(s).toUpperCase().replace(/[−–]/g,'-'),wd=(str.length*5-1)*k,out=[];
+ [...str].forEach((ch,ci)=>{const g=FONT[ch]===undefined?FONT['?']:FONT[ch];if(!g)return;
+  g.split('|').forEach(pl=>out.push(pl.split(' ').map(t=>{const[a,b]=t.split(',').map(Number),q=rotp([-wd/2+(ci*5+a)*k,-size/2+b*k],r||0);return{x:x+q[0],y:y+q[1]}})))});return out}
+function textBox(t){const k=t.size/6,hw=((String(t.s).length*5-1)*k)/2+sw(t.size),hh=t.size/2+sw(t.size),o=(t.rot||0)%2;return{x0:t.x-(o?hh:hw),x1:t.x+(o?hh:hw),y0:t.y-(o?hw:hh),y1:t.y+(o?hw:hh)}}
+const hitText=p=>{for(let i=S.texts.length-1;i>=0;i--){const b=textBox(S.texts[i]);if(p.x>=b.x0-.5&&p.x<=b.x1+.5&&p.y>=b.y0-.5&&p.y<=b.y1+.5)return S.texts[i]}};
+const hitJump=p=>S.jumpers.find(j=>dseg(p.x,p.y,j.a.x,j.a.y,j.b.x,j.b.y)<padD/2+.6);
+/* part names and LED + marks, engraved when "Engrave part names" is ticked */
+/* copper and mounting holes as capsules, bucketed on a 4 mm grid so label placement can test spots quickly */
+function copperIndex(){const C=conn(),L=C.els.map(e=>({ax:e.ax,ay:e.ay,bx:e.bx,by:e.by,r:e.r})).concat(S.holes.map(h=>({ax:h.x,ay:h.y,bx:h.x,by:h.y,r:h.d/2}))),G=new Map(),Z=4;
+ L.forEach((e,i)=>{for(let x=Math.floor((Math.min(e.ax,e.bx)-e.r)/Z);x<=Math.floor((Math.max(e.ax,e.bx)+e.r)/Z);x++)for(let y=Math.floor((Math.min(e.ay,e.by)-e.r)/Z);y<=Math.floor((Math.max(e.ay,e.by)+e.r)/Z);y++){const k=x*7919+y;let l=G.get(k);if(!l)G.set(k,l=[]);l.push(i)}});
+ return{hits(b,g){const bb={x0:b.x0-g,y0:b.y0-g,x1:b.x1+g,y1:b.y1+g},inR=(x,y)=>x>=bb.x0&&x<=bb.x1&&y>=bb.y0&&y<=bb.y1,seen=new Set(),
+   sides=[[bb.x0,bb.y0,bb.x1,bb.y0],[bb.x1,bb.y0,bb.x1,bb.y1],[bb.x1,bb.y1,bb.x0,bb.y1],[bb.x0,bb.y1,bb.x0,bb.y0]];
+  for(let x=Math.floor(bb.x0/Z);x<=Math.floor(bb.x1/Z);x++)for(let y=Math.floor(bb.y0/Z);y<=Math.floor(bb.y1/Z);y++)for(const i of G.get(x*7919+y)||[]){if(seen.has(i))continue;seen.add(i);const e=L[i];
+   if(Math.max(e.ax,e.bx)+e.r<bb.x0||Math.min(e.ax,e.bx)-e.r>bb.x1||Math.max(e.ay,e.by)+e.r<bb.y0||Math.min(e.ay,e.by)-e.r>bb.y1)continue;
+   if(inR(e.ax,e.ay)||inR(e.bx,e.by)||sides.some(q=>segSeg(e.ax,e.ay,e.bx,e.by,q[0],q[1],q[2],q[3]).d<e.r))return true}return false}}}
+const boxHitsCopper=(b,g)=>copperIndex().hits(b,g);
+/* part names and LED + marks, engraved when "Engrave part names" is ticked. Each label searches spots around its part,
+   nearest first (above, below, sides, sideways, smaller), and takes the first one clear of copper, holes, other labels and the board edge.
+   A label with no clear spot nearby is left off, and Check design says so. */
+let ALc=null,ALmiss=[];
+function autoLabels(){if(!$('#lbl').checked){ALmiss=[];return[]}const key=conn().sig+JSON.stringify([S.texts,S.holes,S.edges,S.W,S.H]);if(ALc&&ALc.key===key){ALmiss=ALc.miss;return ALc.out}
+ const out=[],miss=[],taken=S.texts.map(textBox),G=.35,CI=copperIndex(),
+  free=b=>{if([[b.x0,b.y0],[b.x1,b.y0],[b.x1,b.y1],[b.x0,b.y1]].some(([x,y])=>inBoard(x,y)))return false;if(taken.some(t=>!(t.x1<b.x0-G||t.x0>b.x1+G||t.y1<b.y0-G||t.y0>b.y1+G)))return false;return!CI.hits(b,G)},
+  put=(s,cands,who)=>{cands.sort((p,q)=>p[4]-q[4]);for(const c of cands){const t={x:+c[0].toFixed(3),y:+c[1].toFixed(3),s,size:c[3],rot:c[2]},b=textBox(t);if(free(b)){taken.push(b);out.push(t);return}}miss.push({who,x:cands[0][0],y:cands[0][1]})};
+ S.parts.forEach(pt=>{const P=padsFull(pt);if(pt.type!=='led'||P.length!==2)return;const a=P[0],b=P[1],l=Math.hypot(a.x-b.x,a.y-b.y)||1,ang0=Math.atan2(a.y-b.y,a.x-b.x),c=[];
+  for(let d=1.3;d<=4.6;d+=.55)for(let k=-6;k<=6;k++){if(Math.abs(k)>5)continue;const an=ang0+k*Math.PI/8;c.push([a.x+Math.cos(an)*(a.R+d),a.y+Math.sin(an)*(a.R+d),0,2,d+Math.abs(k)*.5])}
+  put('+',c,(pt.ref||'LED')+' +')});
+ S.parts.forEach(pt=>{if(!pt.ref)return;const B=bodyBox(pt),cx0=(B.x0+B.x1)/2,cy0=(B.y0+B.y1)/2,c=[];
+  [2,1.5].forEach(size=>{const k=size/6,hw=((pt.ref.length*5-1)*k)/2+sw(size),hh=size/2+sw(size),pen=size<2?6:0;
+   for(let d=.35;d<=6;d+=.55){
+    for(let x=B.x0-hw;x<=B.x1+hw+1e-6;x+=1){const off=Math.abs(x-cx0)*.4;c.push([x,B.y0-hh-d,0,size,d+off+pen],[x,B.y1+hh+d,0,size,d+off+.3+pen])}
+    for(let y=B.y0-hh;y<=B.y1+hh+1e-6;y+=1){const off=Math.abs(y-cy0)*.4;c.push([B.x0-hw-d,y,0,size,d+off+.6+pen],[B.x1+hw+d,y,0,size,d+off+.6+pen],[B.x0-hh-d,y,1,size,d+off+1.5+pen],[B.x1+hh+d,y,1,size,d+off+1.5+pen])}}});
+  put(pt.ref,c,pt.ref)});
+ ALmiss=miss;ALc={key,out,miss};return out}
+function hit(p){for(let i=S.parts.length-1;i>=0;i--)if(padsFull(S.parts[i]).some(q=>Math.hypot(q.x-p.x,q.y-p.y)<q.R+.6))return S.parts[i]}
+function hitBox(p){const h=hit(p);if(h)return h;for(let i=S.parts.length-1;i>=0;i--){const a=padsFull(S.parts[i]);if(a.length<2)continue;const xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=a[0].R+.6;if(p.x>=Math.min(...xs)-g&&p.x<=Math.max(...xs)+g&&p.y>=Math.min(...ys)-g&&p.y<=Math.max(...ys)+g)return S.parts[i]}}
+function setSel(pt){sel=pt||null;$('#pfields').hidden=!sel;$('#pinfo').textContent=sel?`${DEFS[sel.type].n}. Leave a size box empty to follow the Print settings.`:'Pick the Select tool (S) and click a part to rename it, flip it or give it its own pin hole and pad size.';if(sel){$('#pname').value=sel.ref||'';$('#phd').value=sel.hd>0?sel.hd:'';$('#ppd').value=sel.pd>0?sel.pd:''}}
 function updSel(){if(!sel)return;const D=DEFS[sel.type];$('#phd').placeholder='global '+(+Math.max(holeD,D.hd||0).toFixed(2));$('#ppd').placeholder='global '+(+padD.toFixed(2));
- const want=sel.pd>0?sel.pd:padD;$('#pnote').textContent=`In use: hole ${+hdOf(sel).toFixed(2)} mm, pad ${+pdOf(sel).toFixed(2)} mm`+(pdOf(sel)>Math.min(20,want)+1e-9?'. The pad is kept at least 0.4 mm wider than the hole.':'')}
+ const want=sel.pd>0?sel.pd:padD;$('#pnote').textContent=(D.smd?'Surface-mount pads keep their own size. ':'')+`In use: hole ${+hdOf(sel).toFixed(2)} mm, pad ${+pdOf(sel).toFixed(2)} mm`+(pdOf(sel)>Math.min(20,want)+1e-9?'. The pad is kept at least 0.4 mm wider than the hole.':'')+(sel.flip?' Flipped (fitted from the plain side).':'')}
 let hflag=false;
 [['phd','hd'],['ppd','pd']].forEach(([id,k])=>{const el=$('#'+id);el.onfocus=()=>{hflag=true};el.onchange=()=>{hflag=true};
  el.oninput=()=>{if(!sel)return;if(pend){busy();el.value=sel[k]>0?sel[k]:'';return}if(hflag){pushHist();hflag=false}const v=parseFloat(el.value);if(v>0)sel[k]=v;else delete sel[k];draw()}});
+$('#pname').onchange=e=>{if(!sel||busy()){setSel(sel);return}const v=e.target.value.trim().replace(/[\s.:]/g,'');if(!v||v===sel.ref){setSel(sel);return}
+ if(S.parts.some(p=>p!==sel&&p.ref===v)){alert('Another part is already called '+v+'.');setSel(sel);return}
+ pushHist();const old=sel.ref;sel.ref=v;if(old)S.nets.forEach(n=>n.pins=n.pins.map(k=>k.split('.')[0]===old?v+'.'+k.split('.')[1]:k));setSel(sel);draw()};
 $('#pres').onclick=()=>{if(!sel)return;if(busy())return;pushHist();delete sel.hd;delete sel.pd;setSel(sel);draw()};
 $('#pall').onclick=()=>{if(!sel||busy())return;pushHist();S.parts.forEach(q=>{if(q.type!==sel.type)return;if(sel.hd>0)q.hd=sel.hd;else delete q.hd;if(sel.pd>0)q.pd=sel.pd;else delete q.pd});draw()};
-let pend=null,pd0=null;
-function rotateCur(){if(pend&&(pend.type==='part'||pend.type==='move'))pend.item.rot=(pend.item.rot+1)%4;else if(!pend)rot=(rot+1)%4;draw()}
+let pend=null,pd0=null,chain=null;
+/* tape whose corner sits on a pad of the part moves with that pad */
+function follow(pt,old){const nw=padsOf(pt);S.traces.forEach(t=>t.pts.forEach((q,i)=>{const k=old.findIndex(o=>Math.abs(o.x-q.x)<1e-3&&Math.abs(o.y-q.y)<1e-3);if(k>=0)t.pts[i]={x:nw[k].x,y:nw[k].y}}))}
+const moveP=(pt,fn)=>{const o=padsOf(pt);fn();follow(pt,o)};
+function rotateCur(){if(pend&&(pend.type==='part'||pend.type==='move')){const it=pend.item;moveP(it,()=>it.rot=(it.rot+1)%4)}else if(!pend)rot=(rot+1)%4;draw()}
+function flipCur(){if(pend&&(pend.type==='part'||pend.type==='move')){const it=pend.item;moveP(it,()=>it.flip=!it.flip)}else if(!pend&&sel&&tool!=='part'){pushHist();moveP(sel,()=>sel.flip=!sel.flip);setPend(sel,'move');setSel(sel)}else if(!pend)flp=!flp;draw()}
 const reqOn=()=>$('#req').checked;
-const MSG={part:'Drag the part into place. Press R to rotate.',trace:'Drag the tape to move it or a corner dot to reshape it. Confirm keeps it. Extend keeps it and continues from its end.',hole:'Drag the hole into place.',move:'Adjust the part. Rotate or drag it, then confirm.',erase:'Highlighted item will be deleted.',batch:'Review the new layout.'};
-function showBar(){$('#cbar').hidden=!pend;$('#crot').hidden=!(pend&&(pend.type==='part'||pend.type==='move'));$('#cext').hidden=!(pend&&pend.type==='trace'&&!pend.old);if(pend)$('#cmsg').textContent=pend.old?'Drag to move it'+(pend.type==='trace'?', or drag a corner dot to reshape it':'')+'. Confirm to keep.':MSG[pend.type]}
+const MSG={part:'Drag the part into place. R rotates, F flips.',trace:'Drag the tape to move it or a corner dot to reshape it. Confirm keeps it. Extend keeps it and continues from its end.',hole:'Drag the hole into place.',move:'Adjust the part. Rotate, flip or drag it, then confirm.',erase:'Highlighted item will be deleted.',batch:'Review the change.',jump:'Drag the jumper into place.',text:'Drag the text into place.'};
+function showBar(){const pm=pend&&(pend.type==='part'||pend.type==='move');$('#cbar').hidden=!pend;$('#crot').hidden=!pm;$('#cflip').hidden=!pm;$('#cext').hidden=!(pend&&pend.type==='trace'&&!pend.old);if(pend)$('#cmsg').textContent=pend.old?'Drag to move it'+(pend.type==='trace'?', or drag a corner dot to reshape it':'')+'. Confirm to keep.':MSG[pend.type];
+ if(!barDraw){barDraw=true;try{draw()}finally{barDraw=false}}}
+let barDraw=false,barH=0;
 function setPend(item,type){pend=reqOn()?{item,type}:null;showBar()}
 function busy(){if(!pend)return false;const b=$('#cbar');b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash');return true}
-function confirmPend(ext){if(!pend)return;if(pend.type==='trace'&&!pend.old){if(ext===true&&cur)cur.pts=[pend.item.pts.at(-1)];else cur=null}if(pend.type==='erase'){pushHist();pend.arr.splice(pend.arr.indexOf(pend.item),1)}pend=null;showBar();draw()}
-function cancelPend(){if(!pend)return;const fr=pend.type==='trace'?pend.from:null;if(pend.type!=='erase')undo();if(fr&&cur)cur.pts=[fr];pend=null;showBar();draw()}
+function confirmPend(ext){if(!pend)return;if(pend.type==='trace'&&!pend.old){if(ext===true&&cur){cur.pts=[pend.item.pts.at(-1)];chain=pend.item}else{cur=null;chain=null}}if(pend.type==='erase'){pushHist();pend.arr.splice(pend.arr.indexOf(pend.item),1)}pend=null;showBar();draw()}
+function cancelPend(){if(!pend)return;if(pend.type!=='erase'){undo();fut.pop()}if(pend.type==='trace'&&!pend.old){cur=null;chain=null}pend=null;showBar();draw()}
 function pendDown(p){if(!pend||pend.type==='batch'||pend.type==='erase')return;const it=pend.item;
- if(pend.type==='part'||pend.type==='move'){const a=padsOf(it),xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=pdOf(it)/2+1.2;
-  if(p.x>Math.min(...xs)-g&&p.x<Math.max(...xs)+g&&p.y>Math.min(...ys)-g&&p.y<Math.max(...ys)+g)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ if(pend.type==='part'||pend.type==='move'){const a=padsFull(it),xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=a[0].R+1.2;
+  if(p.x>Math.min(...xs)-g&&p.x<Math.max(...xs)+g&&p.y>Math.min(...ys)-g&&p.y<Math.max(...ys)+g)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y,old:padsOf(it)}}
  else if(pend.type==='hole'){if(Math.hypot(p.x-it.x,p.y-it.y)<it.d/2+1.2)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ else if(pend.type==='text'){const b=textBox(it);if(p.x>b.x0-1&&p.x<b.x1+1&&p.y>b.y0-1&&p.y<b.y1+1)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ else if(pend.type==='jump'){if(dseg(p.x,p.y,it.a.x,it.a.y,it.b.x,it.b.y)<padD/2+1.2)pd0={k:'j',sx:snap(p.x),sy:snap(p.y),a:{...it.a},b:{...it.b}}}
  else if(pend.type==='trace'){const vi=it.pts.findIndex(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6);
   if(vi>=0)pd0={k:'v',i:vi};else if(it.pts.some((a,i)=>i&&dseg(p.x,p.y,it.pts[i-1].x,it.pts[i-1].y,a.x,a.y)<it.w/2+1.2))pd0={k:'t',sx:snap(p.x),sy:snap(p.y),orig:it.pts.map(q=>({...q}))}}}
 function erase(p){let it=hit(p),arr=S.parts;
  if(!it){arr=S.holes;it=S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+.6)}
+ if(!it){arr=S.jumpers;it=hitJump(p)}
+ if(!it){arr=S.texts;it=hitText(p)}
  if(!it){arr=S.traces;it=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.6))}
+ if(!it){arr=S.edges;it=S.edges.find(e=>e.pts.some((a,i)=>{const b=e.pts[(i+1)%e.pts.length];return dseg(p.x,p.y,a.x,a.y,b.x,b.y)<.8}))}
  if(!it)return;pend={item:it,type:'erase',arr};if(reqOn())showBar();else confirmPend()}
-function finish(){if(cur){cur.pts=cur.pts.filter((a,i,r)=>!i||a.x!==r[i-1].x||a.y!==r[i-1].y);if(cur.pts.length>1){pushHist();S.traces.push(cur);setPend(cur,'trace')}cur=null}draw()}
+function closeEdge(){const e=curE;curE=null;if(!e||e.pts.length<3)return;pushHist();if(!e.cut)S.edges=S.edges.filter(x=>x.cut);S.edges.push(e);setPend(null,'batch')}
+function finish(){chain=null;curJ=null;if(curE)closeEdge();if(cur){cur.pts=cur.pts.filter((a,i,r)=>!i||a.x!==r[i-1].x||a.y!==r[i-1].y);if(cur.pts.length>1){pushHist();S.traces.push(cur);setPend(cur,'trace')}cur=null}draw()}
 function mp(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left-ox)/sc,y:(e.clientY-r.top-oy)/sc}}
 cv.onpointermove=e=>{if(pn){pan.x=pn.px+e.clientX-pn.x;pan.y=pn.py+e.clientY-pn.y;draw();return}const p=mp(e);m={x:snap(p.x),y:snap(p.y),rx:p.x,ry:p.y};
- if(cur){const c=con(cur.pts.at(-1),m);m.cx=snap(c.x);m.cy=snap(c.y)}
- if(drag){drag.part.x=snap(p.x-drag.dx);drag.part.y=snap(p.y-drag.dy)}
- if(pd0&&pend){const it=pend.item;if(pd0.k==='o'){it.x=snap(p.x-pd0.dx);it.y=snap(p.y-pd0.dy)}else if(pd0.k==='v')it.pts[pd0.i]={x:snap(p.x),y:snap(p.y)};else{const dx=snap(p.x)-pd0.sx,dy=snap(p.y)-pd0.sy;it.pts=pd0.orig.map(q=>({x:+(q.x+dx).toFixed(3),y:+(q.y+dy).toFixed(3)}))}}
- let pin='';S.parts.forEach(pt=>padsOf(pt).forEach((q,i)=>{if(Math.hypot(q.x-p.x,q.y-p.y)<pdOf(pt)/2)pin=`   ${pt.ref||DEFS[pt.type].n} pin ${i+1}${DEFS[pt.type].names?' ('+DEFS[pt.type].names[i]+')':''}`}));$('#st').textContent=`x ${m.x.toFixed(2)}   y ${m.y.toFixed(2)} mm${pin}`;draw()};
+ const anchor=cur?cur.pts.at(-1):curE?curE.pts.at(-1):null;if(anchor){const c=con(anchor,m);m.cx=snap(c.x);m.cy=snap(c.y)}
+ if(drag){const pt=drag.part;moveP(pt,()=>{pt.x=snap(p.x-drag.dx);pt.y=snap(p.y-drag.dy)})}
+ if(pd0&&pend){const it=pend.item;if(pd0.k==='o'){if(pd0.old)moveP(it,()=>{it.x=snap(p.x-pd0.dx);it.y=snap(p.y-pd0.dy)});else{it.x=snap(p.x-pd0.dx);it.y=snap(p.y-pd0.dy)}}
+  else if(pd0.k==='j'){const dx=snap(p.x)-pd0.sx,dy=snap(p.y)-pd0.sy;it.a={x:+(pd0.a.x+dx).toFixed(3),y:+(pd0.a.y+dy).toFixed(3)};it.b={x:+(pd0.b.x+dx).toFixed(3),y:+(pd0.b.y+dy).toFixed(3)}}
+  else if(pd0.k==='v')it.pts[pd0.i]={x:snap(p.x),y:snap(p.y)};else{const dx=snap(p.x)-pd0.sx,dy=snap(p.y)-pd0.sy;it.pts=pd0.orig.map(q=>({x:+(q.x+dx).toFixed(3),y:+(q.y+dy).toFixed(3)}))}}
+ let pin='';const C=conn();S.parts.forEach(pt=>padsFull(pt).forEach(q=>{if(Math.hypot(q.x-p.x,q.y-p.y)<q.R){const D=DEFS[pt.type],key=(pt.ref||'')+'.'+(q.i+1),nk=C.pinNet[key];pin=`   ${pt.ref||D.n} pin ${q.i+1}${D.names?' ('+D.names[q.i]+')':''}${nk!==undefined?'  ·  '+S.nets[nk].name:''}`}}));
+ $('#st').textContent=`x ${m.x.toFixed(2)}   y ${m.y.toFixed(2)} mm${pin}`;draw()};
 cv.onpointerdown=e=>{if(e.button===1){e.preventDefault();pn={x:e.clientX,y:e.clientY,px:pan.x,py:pan.y};cv.setPointerCapture(e.pointerId);return}if(e.button)return;const p=mp(e),q={x:snap(p.x),y:snap(p.y)};
  if(pend){pendDown(p);if(!pd0)busy();draw();return}
- if(tool==='part'){pushHist();const o={type:ptype,x:q.x,y:q.y,rot};S.parts.push(o);setPend(o,'part')}
+ if(tool==='part'){pushHist();const o={ref:nextRef(ptype),type:ptype,x:q.x,y:q.y,rot};if(flp)o.flip=true;S.parts.push(o);setPend(o,'part')}
  else if(tool==='hole'){pushHist();const o={x:q.x,y:q.y,d:3.2};S.holes.push(o);setPend(o,'hole')}
- else if(tool==='trace'){if(!cur)cur={pts:[q],w:tw};else{const a=cur.pts.at(-1),c=con(a,q),e={x:snap(c.x),y:snap(c.y)};
-  if(reqOn()){if(e.x!==a.x||e.y!==a.y){pushHist();const t={pts:[{x:a.x,y:a.y},e],w:cur.w};S.traces.push(t);cur.pts=[e];setPend(t,'trace');if(pend)pend.from={x:a.x,y:a.y}}}
+ else if(tool==='text'){const s=prompt('Text to engrave into the plate (letters, numbers and + - . / : ( ) #):','');if(s&&s.trim()){pushHist();const o={x:q.x,y:q.y,s:s.trim().slice(0,40),size:Math.max(1.5,+$('#tsz').value||3),rot:0};S.texts.push(o);setPend(o,'text')}}
+ else if(tool==='edge'){if(!curE)curE={pts:[q],cut:$('#ekind').value==='cut'};else{const a=curE.pts.at(-1),c=con(a,q),e2={x:snap(c.x),y:snap(c.y)},f=curE.pts[0];
+  if(curE.pts.length>=3&&(Math.hypot(q.x-f.x,q.y-f.y)<Math.max(grid*.6,.8)||Math.hypot(e2.x-f.x,e2.y-f.y)<1e-6))closeEdge();else if(e2.x!==a.x||e2.y!==a.y)curE.pts.push(e2)}}
+ else if(tool==='trace'){if(!cur){cur={pts:[q],w:tw};chain=null}else{const a=cur.pts.at(-1),c=con(a,q),e={x:snap(c.x),y:snap(c.y)};
+  if(reqOn()){if(e.x!==a.x||e.y!==a.y){pushHist();
+   /* carrying on from Extend adds a corner to the same run, so the joint is mitered, not two butted ends */
+   const ch=chain&&S.traces.indexOf(chain)>=0&&chain.w===cur.w&&chain.pts.at(-1).x===a.x&&chain.pts.at(-1).y===a.y?chain:null;
+   let t;if(ch){ch.pts.push(e);t=ch}else{t={pts:[{x:a.x,y:a.y},e],w:cur.w};S.traces.push(t)}
+   cur.pts=[e];setPend(t,'trace');if(pend)pend.from={x:a.x,y:a.y}}}
   else cur.pts.push(e)}}
  else if(tool==='select')setSel(hitBox(p));
  else if(tool==='erase')erase(p);
- else if(tool==='rotate'){const pt=hit(p);if(pt){pushHist();pt.rot=(pt.rot+1)%4;setPend(pt,'move')}}
+ else if(tool==='rotate'){const pt=hit(p);if(pt){pushHist();moveP(pt,()=>pt.rot=(pt.rot+1)%4);setPend(pt,'move')}else{const t=hitText(p);if(t){pushHist();t.rot=((t.rot||0)+1)%4;setPend(t,'text')}}}
  else if(tool==='move'){const pt=hit(p);if(pt){setSel(pt);pushHist();drag={part:pt,dx:p.x-pt.x,dy:p.y-pt.y}}
-  else{const tr=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8)||t.pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6)),ho=tr?null:S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1);
-   if(tr){pushHist();pend={item:tr,type:'trace',old:true};if(reqOn())showBar();pendDown(p)}else if(ho){pushHist();pend={item:ho,type:'hole',old:true};if(reqOn())showBar();pendDown(p)}}}
+  else{const tr=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8)||t.pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6)),
+   ho=tr?null:S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1),jm=tr||ho?null:hitJump(p),tx=tr||ho||jm?null:hitText(p),
+   it=tr||ho||jm||tx,ty=tr?'trace':ho?'hole':jm?'jump':'text';
+   if(it){pushHist();pend={item:it,type:ty,old:true};if(reqOn())showBar();pendDown(p)}}}
  draw()};
 cv.onpointerup=()=>{if(drag){const pt=drag.part;drag=null;setPend(pt,'move')}pd0=null;pn=null;if(pend&&pend.old&&!reqOn()){pend=null;showBar()}};cv.onwheel=e=>{e.preventDefault();const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,bx=(px-ox)/sc,by=(py-oy)/sc,f=sc/zm;zm=Math.max(.5,Math.min(8,zm*(e.deltaY<0?1.15:1/1.15)));const k=f*zm;pan.x=px-bx*k-(cv.clientWidth-S.W*k)/2;pan.y=py-by*k-(cv.clientHeight-S.H*k)/2-18;draw()};cv.ondblclick=finish;cv.oncontextmenu=e=>{e.preventDefault();finish()};
 addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();
+ if((e.ctrlKey||e.metaKey)&&(k==='y'||(k==='z'&&e.shiftKey))){e.preventDefault();if(!pend)redo();return}
  if((e.ctrlKey||e.metaKey)&&k==='z'){e.preventDefault();return pend?cancelPend():undo()}
- if(pend){if(k==='enter'){e.preventDefault();confirmPend()}else if(k==='escape')cancelPend();else if(k==='e'&&pend.type==='trace'&&!pend.old)confirmPend(true);else if(k==='r'&&(pend.type==='part'||pend.type==='move')){pend.item.rot=(pend.item.rot+1)%4;draw()}return}
- const T={t:'trace',p:'part',v:'move',s:'select',h:'hole',x:'erase'};if(T[k])setTool(T[k]);
- if(k==='r'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();pt.rot=(pt.rot+1)%4}}else rot=(rot+1)%4}
- if(k==='enter')finish();if(k==='escape'){cur=null}draw()});
-function setTool(t){if(busy())return;finish();tool=t;$('#hint').textContent=HINTS[t];document.querySelectorAll('#tools button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('#parts button').forEach(b=>b.classList.toggle('on',t==='part'&&b.dataset.k===ptype));draw()}
+ if(pend){if(k==='enter'){e.preventDefault();confirmPend()}else if(k==='escape')cancelPend();else if(k==='e'&&pend.type==='trace'&&!pend.old)confirmPend(true);else if(k==='r'&&(pend.type==='part'||pend.type==='move'))rotateCur();else if(k==='f'&&(pend.type==='part'||pend.type==='move'))flipCur();return}
+ const T={t:'trace',p:'part',v:'move',s:'select',h:'hole',x:'erase',l:'text',o:'edge'};if(T[k])setTool(T[k]);
+ if(k==='r'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();moveP(pt,()=>pt.rot=(pt.rot+1)%4)}}else rot=(rot+1)%4}
+ if(k==='f'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();moveP(pt,()=>pt.flip=!pt.flip)}}else flp=!flp}
+ if(k==='enter')finish();if(k==='escape'){cur=null;chain=null;curJ=null;curE=null}draw()});
+function setTool(t){if(busy())return;finish();tool=t;$('#hint').textContent=HINTS[t];document.querySelectorAll('#tools button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));draw()}
 document.querySelectorAll('#tools button').forEach(b=>b.onclick=()=>setTool(b.dataset.t));
 const bind=(id,f)=>$(id).onchange=$(id).oninput=()=>{f($(id).value);draw()};
-bind('#tw',v=>tw=+v);bind('#ang',v=>ang=v);
+bind('#tw',v=>tw=+v);bind('#ang',v=>ang=v);bind('#cr',()=>{});bind('#lbl',()=>{});bind('#dclr',()=>{});
 bind('#grid',v=>{const c=v==='c';$('#gclab').style.display=c?'':'none';grid=c?Math.max(.1,+$('#gcus').value||2):+v});bind('#gcus',v=>{grid=Math.max(.1,+v||2)});bind('#th',v=>thick=+v||2);bind('#gd',v=>gdep=+v);const updPad=()=>{padD=$('#padon').checked?Math.max(+$('#pd').value||3,holeD+.4):holeD+1;$('#pd').disabled=!$('#padon').checked};bind('#pd',updPad);bind('#hd',v=>{holeD=+v||1;updPad()});bind('#padon',updPad);
 bind('#bw',v=>S.W=Math.max(15,Math.min(200,+v||60)));bind('#bh',v=>S.H=Math.max(15,Math.min(200,+v||40)));
-function draw(){
+$('#bnoe').onclick=()=>{if(busy()||!S.edges.length)return;pushHist();S.edges=[];draw()};
+
+/* ---- connectivity: which copper touches which, the netlist, ratsnest and shorts ---- */
+let CN=null;
+function conn(){const clr=Math.max(0,+$('#dclr').value||.3),sig=JSON.stringify([S.parts,S.traces,S.jumpers,S.nets,padD,holeD,clr]);if(CN&&CN.sig===sig)return CN;
+ const els=[];S.parts.forEach((pt,pi)=>padsFull(pt).forEach(p=>els.push({...p.cap,k:'pad',key:pt.ref?pt.ref+'.'+(p.i+1):null,ref:pt.ref,pin:p.i+1,x:p.x,y:p.y,jg:DEFS[pt.type].jmp?pi:undefined})));
+ S.traces.forEach((t,ti)=>{if(t.pts.length===1)els.push({ax:t.pts[0].x,ay:t.pts[0].y,bx:t.pts[0].x,by:t.pts[0].y,r:t.w/2,k:'tr',ti});for(let i=1;i<t.pts.length;i++){const a=t.pts[i-1],b=t.pts[i];els.push({ax:a.x,ay:a.y,bx:b.x,by:b.y,r:t.w/2,k:'tr',ti})}});
+ S.jumpers.forEach((j,ji)=>[j.a,j.b].forEach(q=>els.push({ax:q.x,ay:q.y,bx:q.x,by:q.y,r:padD/2,k:'jp',ji,x:q.x,y:q.y})));
+ const n=els.length,par=els.map((_,i)=>i),fd=i=>{while(par[i]!==i){par[i]=par[par[i]];i=par[i]}return i},U=(a,b)=>{par[fd(a)]=fd(b)};
+ els.forEach(e=>{e.x0=Math.min(e.ax,e.bx)-e.r;e.x1=Math.max(e.ax,e.bx)+e.r;e.y0=Math.min(e.ay,e.by)-e.r;e.y1=Math.max(e.ay,e.by)+e.r});
+ const near=[],ord=els.map((_,i)=>i).sort((a,b)=>els[a].x0-els[b].x0);
+ for(let u=0;u<n;u++){const A=els[ord[u]];for(let v=u+1;v<n;v++){const B=els[ord[v]];if(B.x0>A.x1+clr)break;if(B.y0>A.y1+clr||B.y1<A.y0-clr)continue;
+  if(A.k==='pad'&&B.k==='pad'&&A.ref&&A.ref===B.ref&&A.pin===B.pin)continue;
+  const q=segSeg(A.ax,A.ay,A.bx,A.by,B.ax,B.ay,B.bx,B.by),d=q.d-A.r-B.r;
+  if(d<.005)U(ord[u],ord[v]);else if(d<clr)near.push({i:ord[u],j:ord[v],d,x:q.x,y:q.y})}}
+ for(let i=0;i+1<n;i++)if((els[i].k==='jp'&&els[i+1].k==='jp'&&els[i+1].ji===els[i].ji)||(els[i].jg!==undefined&&els[i+1].jg===els[i].jg)){U(i,i+1);i++}
+ const R=els.map((_,i)=>fd(i)),pinNet={},keyEl={};S.nets.forEach((nt,k)=>nt.pins.forEach(p=>pinNet[p]=k));
+ els.forEach((e,i)=>{if(e.key&&keyEl[e.key]===undefined)keyEl[e.key]=i});
+ const rootNets=new Map();els.forEach((e,i)=>{if(e.key&&pinNet[e.key]!==undefined){let s=rootNets.get(R[i]);if(!s)rootNets.set(R[i],s=new Set());s.add(pinNet[e.key])}});
+ const shorts=[];rootNets.forEach((s,r)=>{if(s.size>1){const i=R.indexOf(r),e=els[i];shorts.push({names:[...s].map(k=>S.nets[k].name),x:(e.ax+e.bx)/2,y:(e.ay+e.by)/2})}});
+ const rats=[];let unrouted=0;
+ S.nets.forEach((nt,k)=>{const groups=new Map();nt.pins.forEach(p=>{const i=keyEl[p];if(i===undefined)return;const r=R[i];if(!groups.has(r))groups.set(r,[]);groups.get(r).push(els[i])});
+  const G=[...groups.values()];if(G.length<2)return;const inT=[G[0]],rest=G.slice(1);
+  while(rest.length){let best=null;rest.forEach((g,gi)=>inT.forEach(h=>g.forEach(a=>h.forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(!best||d<best.d)best={d,gi,a,b}}))));
+   rats.push({a:best.a,b:best.b,k});unrouted++;inT.push(rest.splice(best.gi,1)[0])}});
+ return CN={sig,els,R,near,rats,unrouted,shorts,pinNet,rootNets,clr}}
+const netNamesOfRoot=(C,r)=>{const s=C.rootNets.get(r);return s?[...s].map(k=>S.nets[k].name):[]};
+function inBoard(x,y){const pip=(P,x,y)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a.y>y)!==(b.y>y)&&x<(b.x-a.x)*(y-a.y)/(b.y-a.y)+a.x)c=!c}return c};
+ const o=S.edges.find(e=>!e.cut);if(o?!pip(o.pts,x,y):(x<0||y<0||x>S.W||y>S.H))return'off';return S.edges.some(e=>e.cut&&pip(e.pts,x,y))?'cut':''}
+function bodyBox(pt){const D=DEFS[pt.type],P=[];padsFull(pt).forEach(p=>{P.push([p.x-p.R,p.y-p.R],[p.x+p.R,p.y+p.R])});
+ const add=(x,y)=>{const q=xf(pt,[x,y]);P.push([pt.x+q[0],pt.y+q[1]])};
+ if(D.box){add(D.box[0],D.box[1]);add(D.box[0]+D.box[2],D.box[1]+D.box[3])}
+ if(D.dip){const cxL=(D.w||7.62)/2,bw=D.bw||4.6,bm=D.bm||1.2;add(cxL-bw/2,-bm);add(cxL+bw/2,(D.dip-1)*2.54+bm)}
+ return{x0:Math.min(...P.map(a=>a[0])),y0:Math.min(...P.map(a=>a[1])),x1:Math.max(...P.map(a=>a[0])),y1:Math.max(...P.map(a=>a[1]))}}
+function runDRC(){const C=conn(),out=[],minW=+$('#dmin').value||.8,clr=C.clr,nm=e=>e.k==='pad'?(e.ref?e.ref+' pin '+e.pin:'a pad'):e.k==='jp'?'a jumper pad':'tape',
+  add=(e,mm,x,y)=>{if(!out.some(o=>o.mm===mm&&Math.hypot(o.x-x,o.y-y)<1.5))out.push({e,mm,x,y})};
+ C.shorts.forEach(s=>add(1,'Short circuit: '+s.names.join(' and ')+' are joined by copper.',s.x,s.y));
+ C.near.forEach(q=>{if(C.R[q.i]!==C.R[q.j])add(0,`Only ${q.d.toFixed(2)} mm between ${nm(C.els[q.i])} and ${nm(C.els[q.j])} (minimum ${clr} mm). Tape this close can bridge when soldering.`,q.x,q.y)});
+ S.traces.forEach(t=>{if(t.w<minW-1e-9)add(0,`Tape ${t.w} mm wide is narrower than ${minW} mm and is hard to print and lay.`,t.pts[0].x,t.pts[0].y)});
+ S.traces.forEach((t,ti)=>[t.pts[0],t.pts.at(-1)].forEach(p=>{const touch=C.els.some(e=>e.ti!==ti&&ptSeg(p.x,p.y,e.ax,e.ay,e.bx,e.by).d-e.r-t.w/2<.005);if(!touch)add(0,'This tape ends without reaching a pad or other tape.',p.x,p.y)}));
+ const byNet={};C.rats.forEach(r=>{(byNet[r.k]=byNet[r.k]||[]).push(r)});Object.entries(byNet).forEach(([k,L])=>add(0,`${S.nets[k].name}: ${L.length} connection${L.length>1?'s':''} not routed yet (dashed line${L.length>1?'s':''}).`,(L[0].a.x+L[0].b.x)/2,(L[0].a.y+L[0].b.y)/2));
+ const refs=new Set(S.parts.map(p=>p.ref));S.nets.forEach(nt=>{const miss=[...new Set(nt.pins.map(p=>p.split('.')[0]).filter(r=>!refs.has(r)))];if(miss.length)add(0,`${nt.name} needs ${miss.join(', ')}, which ${miss.length>1?'are':'is'} not on the board.`,S.W/2,S.H/2)});
+ C.els.forEach(e=>{const w=inBoard(e.ax,e.ay)||inBoard(e.bx,e.by);if(w)add(1,`${nm(e)[0].toUpperCase()+nm(e).slice(1)} is ${w==='off'?'off the board':'inside a cutout'}.`,e.ax,e.ay)});
+ S.holes.forEach(h=>{if(inBoard(h.x,h.y))add(1,'A mounting hole is off the board.',h.x,h.y);const e=C.els.find(e=>ptSeg(h.x,h.y,e.ax,e.ay,e.bx,e.by).d-e.r-h.d/2<.5);if(e)add(1,`A mounting hole cuts into ${nm(e)}.`,h.x,h.y)});
+ autoLabels();ALmiss.forEach(m=>add(0,`No clear spot to engrave ${m.who} next to the part, so it was left off. Move nearby tape or the part to make room.`,m.x,m.y));
+ S.texts.forEach(t=>{if(boxHitsCopper(textBox(t),0))add(0,`The text "${t.s}" runs under tape or a pad, so copper will cover part of it. Move it with the Move tool.`,t.x,t.y)});
+ S.parts.forEach(pt=>{if(!DEFS[pt.type].smd&&pdOf(pt)-hdOf(pt)<.8)add(0,`${pt.ref||DEFS[pt.type].n}: the copper ring around each hole is under 0.4 mm. Use a bigger pad.`,pt.x,pt.y)});
+ const B=S.parts.map(bodyBox);for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){if(DEFS[S.parts[i].type].jmp||DEFS[S.parts[j].type].jmp)continue;const a=B[i],b=B[j],w=Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0),h=Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0);if(w>.3&&h>.3)add(0,`${S.parts[i].ref||'A part'} and ${S.parts[j].ref||'a part'} overlap.`,(Math.max(a.x0,b.x0)+Math.min(a.x1,b.x1))/2,(Math.max(a.y0,b.y0)+Math.min(a.y1,b.y1))/2)}
+ drcMarks=out;drcSig=C.sig;draw();
+ const errs=out.filter(o=>o.e).length;let h=`<h3 class="dt">Design check</h3><p class="${errs?'err':'mu'}">${out.length?`${errs} problem${errs===1?'':'s'} and ${out.length-errs} warning${out.length-errs===1?'':'s'}. They are circled on the board. Tap one to zoom to it.`:'No problems found. Every connection is routed and nothing touches that should not.'}</p>`;
+ if(out.length){h+='<ul class="drc">';out.sort((a,b)=>b.e-a.e).forEach((o,i)=>h+=`<li data-i="${i}" class="${o.e?'err':'wrn'}"><b>${o.e?'Problem':'Warning'}:</b> ${hesc(o.mm)}</li>`);h+='</ul>'}
+ showDlg(h,[['Close',closeDlg,'accent']]);document.querySelectorAll('#dlgc li[data-i]').forEach(li=>li.onclick=()=>{const o=out[+li.dataset.i];closeDlg();focusAt(o.x,o.y)})}
+function focusAt(x,y){const w=cv.clientWidth,h=cv.clientHeight,bh=(barH||48)+26;zm=3;sc=Math.min((w-60)/S.W,(h-90-bh)/S.H)*zm;pan.x=w/2-x*sc-(w-S.W*sc)/2;pan.y=(h-bh)/2-y*sc-(h-bh-S.H*sc)/2-18;draw()}
+const hesc=a=>String(a).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function showDlg(html,btns){$('#dlgc').innerHTML=html;const b=$('#dlgb');b.innerHTML='';btns.forEach(a=>{const x=document.createElement('button');x.textContent=a[0];if(a[2])x.className=a[2];x.onclick=a[1];b.appendChild(x)});$('#dlg').classList.add('open')}
+const closeDlg=()=>$('#dlg').classList.remove('open');
+function copyText(t,btn){const done=()=>{btn.textContent='Copied'},
+ fb=()=>{try{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';
+  document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}catch(e){btn.textContent='Press and hold to copy'}};
+ try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);return}}catch(e){}
+ fb()}
+$('#dlg').onclick=e=>{if(e.target.id==='dlg')closeDlg()};
+function cutList(){const C=conn(),rows=S.traces.map((t,i)=>{let L=0;for(let k=1;k<t.pts.length;k++)L+=Math.hypot(t.pts[k].x-t.pts[k-1].x,t.pts[k].y-t.pts[k-1].y);const ei=C.els.findIndex(e=>e.k==='tr'&&e.ti===i);return{n:i+1,net:ei>=0?netNamesOfRoot(C,C.R[ei]).join(' + ')||'—':'—',w:t.w,L,b:t.pts.length-2}}),
+  J=S.jumpers.map((j,i)=>({n:i+1,L:Math.hypot(j.a.x-j.b.x,j.a.y-j.b.y)})).concat(S.parts.filter(p=>DEFS[p.type].jmp).map(p=>({n:p.ref,L:DEFS[p.type].p[1][0]}))),tot={};rows.forEach(r=>tot[r.w]=(tot[r.w]||0)+r.L);
+ let h='<h3 class="dt">Tape cut list</h3>';if(!rows.length&&!J.length)h+='<p class="mu">No tape on the board yet.</p>';
+ if(rows.length){h+='<table><tr><th>Run</th><th>Connection</th><th>Width</th><th>Length</th><th>Bends</th></tr>'+rows.map(r=>`<tr><td>${r.n}</td><td>${hesc(r.net)}</td><td>${r.w} mm</td><td>${r.L.toFixed(1)} mm</td><td>${r.b}</td></tr>`).join('')+'</table><p>'+Object.entries(tot).map(([w,L])=>`<b>${w} mm tape:</b> ${Math.ceil(L)} mm in all (cut about ${Math.ceil(L*1.1+rows.length*2)} mm to allow for overlap onto pads)`).join('<br>')+'</p>'}
+ if(J.length)h+='<p><b>Jumper wires:</b> '+J.map(j=>`${typeof j.n==='number'?'#'+j.n:j.n} ${Math.ceil(j.L+4)} mm`).join(', ')+' (lengths include 2 mm each end to go through the holes)</p>';
+ const txt=rows.map(r=>`Run ${r.n}  ${r.net}  ${r.w} mm x ${r.L.toFixed(1)} mm  (${r.b} bends)`).concat(J.map(j=>`Jumper ${j.n}  ${Math.ceil(j.L+4)} mm wire`)).join('\n');
+ showDlg(h,[...(txt?[['Copy',function(){copyText(txt,this)}]]:[]),['Close',closeDlg,'accent']])}
+
+function draw(){norm(S);
  if(sel&&!S.parts.includes(sel))setSel(null);else updSel();
- const w=cv.clientWidth,h=cv.clientHeight,d=devicePixelRatio||1;
+ const w=cv.clientWidth,h=cv.clientHeight,d=devicePixelRatio||1,C=conn();
  if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}
  cx.setTransform(d,0,0,d,0,0);cx.clearRect(0,0,w,h);
- sc=Math.min((w-60)/S.W,(h-90)/S.H)*zm;ox=(w-S.W*sc)/2+pan.x;oy=(h-S.H*sc)/2+pan.y+18;
+ const cb=$('#cbar');if(!cb.hidden)barH=cb.offsetHeight;const bh=(barH||48)+26;
+ sc=Math.min((w-60)/S.W,(h-90-bh)/S.H)*zm;ox=(w-S.W*sc)/2+pan.x;oy=(h-bh-S.H*sc)/2+pan.y+18;
  cx.save();cx.translate(ox,oy);cx.scale(sc,sc);
- cx.fillStyle='#c4c9cb';cx.beginPath();cx.roundRect(0,0,S.W,S.H,2);cx.fill();
- cx.save();cx.beginPath();cx.roundRect(0,0,S.W,S.H,2);cx.clip();
+ const outl=S.edges.find(e=>!e.cut),cr=Math.max(0,Math.min(+$('#cr').value||0,S.W/2,S.H/2)),poly=P=>{cx.beginPath();P.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.closePath()};
+ if(outl){cx.fillStyle='rgba(196,201,203,.18)';cx.fillRect(0,0,S.W,S.H);cx.fillStyle='#c4c9cb';poly(outl.pts);cx.fill()}else{cx.fillStyle='#c4c9cb';cx.beginPath();cx.roundRect(0,0,S.W,S.H,cr);cx.fill()}
+ cx.save();cx.beginPath();cx.rect(0,0,S.W,S.H);cx.clip();
  const gl=(st,col,wd)=>{cx.beginPath();for(let k=0;k*st<=S.W+1e-6;k++){cx.moveTo(k*st,0);cx.lineTo(k*st,S.H)}for(let k=0;k*st<=S.H+1e-6;k++){cx.moveTo(0,k*st);cx.lineTo(S.W,k*st)}cx.strokeStyle=col;cx.lineWidth=wd/sc;cx.stroke()};
  if(grid*sc>=5)gl(grid,'rgba(24,33,31,.25)',1);if(grid*5*sc>=5)gl(grid*5,'rgba(24,33,31,.5)',1.5);cx.restore();
+ S.edges.filter(e=>e.cut).forEach(e=>{cx.fillStyle='#0d1115';poly(e.pts);cx.fill()});
+ if(outl){cx.strokeStyle='#2dd4a8';cx.lineWidth=1.5/sc;poly(outl.pts);cx.stroke()}
  cx.fillStyle='#9fb3ad';cx.font=`${11/sc}px system-ui`;cx.textAlign='center';for(let k=0;k<=S.W;k+=10)cx.fillText(k,k,-6/sc);
  cx.textAlign='right';for(let k=0;k<=S.H;k+=10)cx.fillText(k,-6/sc,k+4/sc);cx.textAlign='left';cx.fillText('mm',S.W+6/sc,-6/sc);
  const line=(pts,w,c)=>{cx.beginPath();pts.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y));cx.lineWidth=w;cx.strokeStyle=c;cx.lineJoin='miter';cx.lineCap='butt';cx.stroke()};
+ const strokeText=(t,col)=>{cx.strokeStyle=col;cx.lineWidth=sw(t.size);cx.lineCap='round';cx.lineJoin='round';strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>{cx.beginPath();pl.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));if(pl.length===1)cx.lineTo(pl[0].x+.01,pl[0].y);cx.stroke()});cx.lineCap='butt'};
+ S.texts.forEach(t=>strokeText(t,'#56625f'));
  S.traces.forEach(t=>{line(t.pts,t.w+.3,'#7a4318');line(t.pts,t.w,'#c9793a');line(t.pts,t.w*.2,'#e6a56d')});
- S.parts.forEach(pt=>{const D=DEFS[pt.type],pd=pdOf(pt);
-  if(D.dip){const r=rotp([(D.w||7.62)/2,(D.dip-1)*1.27],pt.rot),bw=D.bw||4.6,bm=D.bm||1.2,top=-(D.dip-1)*1.27-bm;cx.save();cx.translate(pt.x+r[0],pt.y+r[1]);cx.rotate(pt.rot*Math.PI/2);cx.strokeStyle='rgba(24,33,31,.6)';cx.lineWidth=.25;cx.strokeRect(-bw/2,top,bw,(D.dip-1)*2.54+2*bm);if(D.ant||D.usbb){if(D.ant)cx.strokeRect(-D.ant[0]/2,top-D.ant[1],D.ant[0],D.ant[1]);if(D.usbb){const bot=(D.dip-1)*1.27+bm;cx.strokeRect(-D.usbb[0]/2,bot-1,D.usbb[0],D.usbb[1])}}else{cx.beginPath();cx.arc(0,top,.8,0,Math.PI);cx.stroke()}cx.restore()}
-  if(D.box){cx.save();cx.translate(pt.x,pt.y);cx.rotate(pt.rot*Math.PI/2);cx.strokeStyle='rgba(24,33,31,.6)';cx.lineWidth=.25;cx.strokeRect(D.box[0],D.box[1],D.box[2],D.box[3]);cx.fillStyle='rgba(24,33,31,.55)';cx.font='bold 1.6px system-ui';cx.textAlign='center';cx.fillText(D.label||'',D.box[0]+D.box[2]/2,D.box[1]+D.box[3]/2+.6);(D.extra||[]).forEach(e=>cx.strokeRect(e[0],e[1],e[2],e[3]));(D.circ||[]).forEach(c=>{cx.beginPath();cx.arc(c[0],c[1],c[2],0,7);cx.stroke()});(D.slots||[]).forEach(sl=>{cx.fillStyle='#17201f';cx.fillRect(sl[0]-sl[2]/2,sl[1]-sl[3]/2,sl[2],sl[3])});cx.restore()}
-  padsOf(pt).forEach((q,i)=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;cx.beginPath();cx.arc(q.x,q.y,pd/2,0,7);cx.fill();cx.stroke();
-   cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,hdOf(pt)/2,0,7);cx.fill();
-   if(D.names){const all=padsOf(pt),mx=all.reduce((u,v)=>u+v.x,0)/all.length,my=all.reduce((u,v)=>u+v.y,0)/all.length,vx=mx-q.x,vy=my-q.y;cx.fillStyle='rgba(24,33,31,.85)';cx.font='1.25px system-ui';
-    if(Math.abs(vx)>=Math.abs(vy)){cx.textAlign=vx>=0?'left':'right';cx.fillText(D.names[i],q.x+(vx>=0?1:-1)*(pd/2+.4),q.y+.45)}else{cx.textAlign='center';cx.fillText(D.names[i],q.x,q.y+(vy>=0?1:-1)*(pd/2+1.3))}}
-   else if(D.p.length>1){cx.fillStyle='rgba(24,33,31,.8)';cx.font='1.3px system-ui';cx.textAlign='center';cx.fillText(pt.type==='led'?(i?'−':'+'):i+1,q.x,q.y-pd/2-.4)}})});
- S.parts.forEach(pt=>{if(!pt.ref)return;const a=padsOf(pt),x=a.reduce((s,p)=>s+p.x,0)/a.length,y=Math.min(...a.map(p=>p.y))-pdOf(pt)/2-1.8;cx.fillStyle='#17201f';cx.font='bold 1.8px system-ui';cx.textAlign='center';cx.fillText(pt.ref,x,y)});
+ const padShape=(q,grow)=>{cx.beginPath();if(q.smd||q.sq)cx.rect(q.x-q.w/2-grow,q.y-q.h/2-grow,q.w+2*grow,q.h+2*grow);else cx.arc(q.x,q.y,q.w/2+grow,0,7)};
+ S.parts.forEach(pt=>{const D=DEFS[pt.type],P=padsFull(pt);
+  cx.save();cx.translate(pt.x,pt.y);cx.rotate(pt.rot*Math.PI/2);if(pt.flip)cx.scale(-1,1);cx.strokeStyle=pt.flip?'rgba(24,33,31,.45)':'rgba(24,33,31,.6)';cx.lineWidth=.25;if(pt.flip)cx.setLineDash([.6,.4]);
+  if(D.dip){const cxL=(D.w||7.62)/2,bw=D.bw||4.6,bm=D.bm||1.2;cx.strokeRect(cxL-bw/2,-bm,bw,(D.dip-1)*2.54+2*bm);if(D.ant||D.usbb){if(D.ant)cx.strokeRect(cxL-D.ant[0]/2,-bm-D.ant[1],D.ant[0],D.ant[1]);if(D.usbb){const bot=(D.dip-1)*2.54+bm;cx.strokeRect(cxL-D.usbb[0]/2,bot-1,D.usbb[0],D.usbb[1])}}else{cx.beginPath();cx.arc(cxL,-bm,.8,0,Math.PI);cx.stroke()}}
+  if(D.box){cx.strokeRect(D.box[0],D.box[1],D.box[2],D.box[3]);cx.fillStyle='rgba(24,33,31,.55)';cx.font='bold 1.6px system-ui';cx.textAlign='center';cx.fillText(D.label||'',D.box[0]+D.box[2]/2,D.box[1]+D.box[3]/2+.6);(D.extra||[]).forEach(e=>cx.strokeRect(e[0],e[1],e[2],e[3]));(D.circ||[]).forEach(c=>{cx.beginPath();cx.arc(c[0],c[1],c[2],0,7);cx.stroke()});(D.slots||[]).forEach(sl=>{cx.fillStyle='#17201f';cx.fillRect(sl[0]-sl[2]/2,sl[1]-sl[3]/2,sl[2],sl[3])})}
+  cx.restore();
+  P.forEach(q=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;padShape(q,0);cx.fill();cx.stroke();
+   if(q.hole){cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,q.hole/2,0,7);cx.fill()}
+   if(D.names&&D.names[q.i]){const mx=P.reduce((u,v)=>u+v.x,0)/P.length,my=P.reduce((u,v)=>u+v.y,0)/P.length,vx=mx-q.x,vy=my-q.y;cx.fillStyle='rgba(24,33,31,.85)';cx.font='1.25px system-ui';
+    if(Math.abs(vx)>=Math.abs(vy)){cx.textAlign=vx>=0?'left':'right';cx.fillText(D.names[q.i],q.x+(vx>=0?1:-1)*(q.R+.4),q.y+.45)}else{cx.textAlign='center';cx.fillText(D.names[q.i],q.x,q.y+(vy>=0?1:-1)*(q.R+1.3))}}
+   else if(P.length>1&&!D.smd&&!D.jmp){cx.fillStyle='rgba(24,33,31,.8)';cx.font='1.3px system-ui';cx.textAlign='center';cx.fillText(pt.type==='led'?(q.i?'−':'+'):q.i+1,q.x,q.y-q.R-.4)}})});
+ if($('#lbl').checked)autoLabels().forEach(t=>strokeText(t,'#2f3a37'));else S.parts.forEach(pt=>{if(!pt.ref)return;const a=padsFull(pt),x=a.reduce((s,p)=>s+p.x,0)/a.length,y=Math.min(...a.map(p=>p.y-p.R))-1.8;cx.fillStyle='#17201f';cx.font='bold 1.8px system-ui';cx.textAlign='center';cx.fillText(pt.ref+(pt.flip?' ⇋':''),x,y)});
  S.holes.forEach(o=>{cx.fillStyle='#17201f';cx.beginPath();cx.arc(o.x,o.y,o.d/2,0,7);cx.fill()});
- if(tool==='part'&&!pend){cx.globalAlpha=.55;padsOf({type:ptype,x:m.x,y:m.y,rot}).forEach(q=>{cx.fillStyle='#c9793a';cx.beginPath();cx.arc(q.x,q.y,padD/2,0,7);cx.fill()});cx.globalAlpha=1}
+ S.parts.forEach(pt=>{if(!DEFS[pt.type].jmp)return;const a=padsOf(pt);cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.lineCap='round';cx.beginPath();cx.moveTo(a[0].x,a[0].y);cx.lineTo(a[1].x,a[1].y);cx.stroke();cx.lineCap='butt'});
+ S.jumpers.forEach(j=>{[j.a,j.b].forEach(q=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;cx.beginPath();cx.arc(q.x,q.y,padD/2,0,7);cx.fill();cx.stroke();cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,holeD/2,0,7);cx.fill()});
+  cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.lineCap='round';cx.beginPath();cx.moveTo(j.a.x,j.a.y);cx.lineTo(j.b.x,j.b.y);cx.stroke();cx.lineCap='butt'});
+ if(C.rats.length){cx.strokeStyle='#ffe066';cx.lineWidth=1.3/sc;cx.setLineDash([5/sc,4/sc]);cx.beginPath();C.rats.forEach(r=>{cx.moveTo(r.a.x,r.a.y);cx.lineTo(r.b.x,r.b.y)});cx.stroke();cx.setLineDash([])}
+ if(drcMarks.length&&drcSig!==C.sig)drcMarks=[];
+ drcMarks.forEach(o=>{cx.strokeStyle=o.e?'#ff4d4d':'#ffb347';cx.lineWidth=2/sc;cx.beginPath();cx.arc(o.x,o.y,1.4,0,7);cx.stroke();cx.beginPath();cx.moveTo(o.x-.7,o.y-.7);cx.lineTo(o.x+.7,o.y+.7);cx.moveTo(o.x+.7,o.y-.7);cx.lineTo(o.x-.7,o.y+.7);cx.stroke()});
+ if(tool==='part'&&!pend){cx.globalAlpha=.55;padsFull({type:ptype,x:m.x,y:m.y,rot,flip:flp}).forEach(q=>{cx.fillStyle='#c9793a';padShape(q,0);cx.fill()});cx.globalAlpha=1}
  if(tool==='hole'&&!pend){cx.strokeStyle='#17201f';cx.lineWidth=.2;cx.beginPath();cx.arc(m.x,m.y,1.6,0,7);cx.stroke()}
+ if(curJ){cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.setLineDash([1,.6]);cx.beginPath();cx.moveTo(curJ.a.x,curJ.a.y);cx.lineTo(m.x,m.y);cx.stroke();cx.setLineDash([])}
+ if(curE){const e={x:m.cx??m.x,y:m.cy??m.y};cx.strokeStyle=curE.cut?'#ff7a59':'#2dd4a8';cx.lineWidth=2/sc;cx.beginPath();[...curE.pts,e].forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.stroke();cx.fillStyle=cx.strokeStyle;curE.pts.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,3/sc,0,7);cx.fill()})}
  if(cur&&!pend){const e={x:m.cx??m.x,y:m.cy??m.y};line([...cur.pts,e],cur.w,'rgba(201,121,58,.75)');const a=cur.pts.at(-1);
   cx.fillStyle='#fff';cx.font='1.6px system-ui';cx.textAlign='left';cx.fillText(Math.hypot(e.x-a.x,e.y-a.y).toFixed(1)+' mm',e.x+1,e.y-1)}
  else if(tool==='trace'&&!pend){cx.strokeStyle='#0b5a4d';cx.lineWidth=1.5/sc;cx.beginPath();cx.arc(m.x,m.y,.9,0,7);cx.moveTo(m.x-1.8,m.y);cx.lineTo(m.x+1.8,m.y);cx.moveTo(m.x,m.y-1.8);cx.lineTo(m.x,m.y+1.8);cx.stroke()}
- if(pend&&pend.item){const it=pend.item,col=pend.type==='erase'?'#ff5a5a':'#2dd4a8';cx.strokeStyle=col;cx.fillStyle=col;
-  if(it.pts){cx.beginPath();it.pts.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.lineWidth=it.w+1.4;cx.globalAlpha=.35;cx.lineJoin='miter';cx.stroke();cx.globalAlpha=1;
+ if(pend&&pend.item){const it=pend.item,col=pend.type==='erase'?'#ff5a5a':'#2dd4a8';cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=2/sc;
+  if(it.a){cx.setLineDash([6/sc,4/sc]);[it.a,it.b].forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,padD/2+.8,0,7);cx.stroke()});cx.setLineDash([])}
+  else if(it.s!==undefined){const b=textBox(it);cx.setLineDash([6/sc,4/sc]);cx.strokeRect(b.x0,b.y0,b.x1-b.x0,b.y1-b.y0);cx.setLineDash([])}
+  else if(it.pts&&it.w){cx.beginPath();it.pts.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.lineWidth=it.w+1.4;cx.globalAlpha=.35;cx.lineJoin='miter';cx.stroke();cx.globalAlpha=1;
    if(pend.type==='trace')it.pts.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,.8,0,7);cx.fill()})}
-  else{cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);if(it.d){cx.beginPath();cx.arc(it.x,it.y,it.d/2+.8,0,7);cx.stroke()}else padsOf(it).forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,pdOf(it)/2+.9,0,7);cx.stroke()});cx.setLineDash([])}}
- if(sel&&!(pend&&pend.item===sel)){const a=padsOf(sel),r=pdOf(sel)/2+.9,xs=a.map(q=>q.x),ys=a.map(q=>q.y);cx.strokeStyle='#ffd166';cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);a.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,r,0,7);cx.stroke()});if(a.length>1)cx.strokeRect(Math.min(...xs)-r,Math.min(...ys)-r,Math.max(...xs)-Math.min(...xs)+2*r,Math.max(...ys)-Math.min(...ys)+2*r);cx.setLineDash([])}
- cx.restore();stats()}
-function stats(){const t={};S.traces.forEach(r=>{let L=0;for(let i=1;i<r.pts.length;i++)L+=Math.hypot(r.pts[i].x-r.pts[i-1].x,r.pts[i].y-r.pts[i-1].y);t[r.w]=(t[r.w]||0)+L});
+  else if(it.pts){poly(it.pts);cx.lineWidth=3/sc;cx.stroke()}
+  else{cx.setLineDash([6/sc,4/sc]);if(it.d){cx.beginPath();cx.arc(it.x,it.y,it.d/2+.8,0,7);cx.stroke()}else padsFull(it).forEach(q=>{padShape(q,.9);cx.stroke()});cx.setLineDash([])}}
+ if(sel&&!(pend&&pend.item===sel)){const a=padsFull(sel),r=a[0].R+.9,xs=a.map(q=>q.x),ys=a.map(q=>q.y);cx.strokeStyle='#ffd166';cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);a.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,q.R+.9,0,7);cx.stroke()});if(a.length>1)cx.strokeRect(Math.min(...xs)-r,Math.min(...ys)-r,Math.max(...xs)-Math.min(...xs)+2*r,Math.max(...ys)-Math.min(...ys)+2*r);cx.setLineDash([])}
+ cx.restore();stats(C)}
+function stats(C){const t={};S.traces.forEach(r=>{let L=0;for(let i=1;i<r.pts.length;i++)L+=Math.hypot(r.pts[i].x-r.pts[i-1].x,r.pts[i].y-r.pts[i-1].y);t[r.w]=(t[r.w]||0)+L});
  const pads=S.parts.reduce((n,p)=>n+DEFS[p.type].p.length,0);
- $('#stats').innerHTML=`<b>${pads}</b> pads, <b>${S.traces.length}</b> tape runs<br>`+(Object.keys(t).length?Object.entries(t).map(([w,L])=>`${w} mm tape: <b>${Math.ceil(L)} mm</b>`).join('<br>'):'No tape placed yet')}
+ $('#stats').innerHTML=`<b>${pads}</b> pads, <b>${S.traces.length}</b> tape runs${S.jumpers.length?`, <b>${S.jumpers.length}</b> jumper${S.jumpers.length>1?'s':''}`:''}<br>`+(Object.keys(t).length?Object.entries(t).map(([w,L])=>`${w} mm tape: <b>${Math.ceil(L)} mm</b>`).join('<br>'):'No tape placed yet')+
+  (S.nets.length?`<br>${S.nets.length} connections in the netlist<br>`+(C.unrouted?`<span style="color:#ffe066">${C.unrouted} still to route</span>`:'<span style="color:var(--ac)">All routed</span>')+(C.shorts.length?`<br><span style="color:#ff6b6b">${C.shorts.length} short circuit${C.shorts.length>1?'s':''}</span>`:''):'')}
 function dl(name,blob){
   const C=window.Capacitor,P=C&&C.Plugins;
   if(C&&C.isNativePlatform&&C.isNativePlatform()&&P&&P.Filesystem&&P.Share){
@@ -357,30 +640,48 @@ function dl(name,blob){
     fr.readAsDataURL(blob);return;
   }
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove()}
-function svg(){let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${S.W}mm" height="${S.H}mm" viewBox="0 0 ${S.W} ${S.H}">${S.keep?outlineSvg():`<rect width="${S.W}" height="${S.H}" rx="2" fill="#fff" stroke="#000" stroke-width=".2"/>`}`;
+/* ---- shared export geometry ---- */
+const roundRect=(W,H,r)=>{if(r<=0)return[[0,0],[W,0],[W,H],[0,H]];const P=[],arc=(cx0,cy0,a0)=>{for(let k=0;k<=8;k++){const a=a0+k*Math.PI/16;P.push([cx0+r*Math.cos(a),cy0+r*Math.sin(a)])}};arc(W-r,r,-Math.PI/2);arc(W-r,H-r,0);arc(r,H-r,Math.PI/2);arc(r,r,Math.PI);return P};
+const area=P=>{let a=0;for(let i=0;i<P.length;i++){const p=P[i],q=P[(i+1)%P.length];a+=p[0]*q[1]-q[0]*p[1]};return a/2};
+const orient=(P,ccw)=>(area(P)>0)===ccw?P:P.slice().reverse();
+const crOf=()=>Math.max(0,Math.min(+$('#cr').value||0,S.W/2,S.H/2));
+const allTexts=()=>S.texts.concat(autoLabels());
+function svg(){const outl=S.edges.find(e=>!e.cut),pth=P=>'M'+P.map(p=>p.x+','+p.y).join('L')+'Z';
+ let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${S.W}mm" height="${S.H}mm" viewBox="0 0 ${S.W} ${S.H}">`+(outl?`<path d="${pth(outl.pts)}" fill="#fff" stroke="#000" stroke-width=".2"/>`:S.keep?outlineSvg():`<rect width="${S.W}" height="${S.H}" rx="${crOf()}" fill="#fff" stroke="#000" stroke-width=".2"/>`);
+ S.edges.filter(e=>e.cut).forEach(e=>s+=`<path d="${pth(e.pts)}" fill="#ddd" stroke="#000" stroke-width=".2"/>`);
  S.traces.forEach(t=>s+=`<polyline points="${t.pts.map(p=>p.x+','+p.y).join(' ')}" fill="none" stroke="#c9793a" stroke-width="${t.w}"/>`);
- S.parts.forEach(pt=>{const D=DEFS[pt.type],hd=hdOf(pt),pd=pdOf(pt);padsOf(pt).forEach(p=>s+=`<circle cx="${p.x}" cy="${p.y}" r="${pd/2}" fill="#c9793a"/><circle cx="${p.x}" cy="${p.y}" r="${hd/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`);
-  (D.slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3];s+=`<rect x="${(pt.x+c[0]-w/2).toFixed(3)}" y="${(pt.y+c[1]-h/2).toFixed(3)}" width="${w}" height="${h}" fill="#fff" stroke="#000" stroke-width=".1"/>`})});
+ S.parts.forEach(pt=>{const D=DEFS[pt.type];padsFull(pt).forEach(p=>{s+=p.smd||p.sq?`<rect x="${(p.x-p.w/2).toFixed(3)}" y="${(p.y-p.h/2).toFixed(3)}" width="${p.w.toFixed(3)}" height="${p.h.toFixed(3)}" fill="#c9793a"/>`:`<circle cx="${p.x}" cy="${p.y}" r="${p.w/2}" fill="#c9793a"/>`;if(p.hole)s+=`<circle cx="${p.x}" cy="${p.y}" r="${p.hole/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`});
+  (D.slots||[]).forEach(sl=>{const c=xf(pt,[sl[0],sl[1]]),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3];s+=`<rect x="${(pt.x+c[0]-w/2).toFixed(3)}" y="${(pt.y+c[1]-h/2).toFixed(3)}" width="${w}" height="${h}" fill="#fff" stroke="#000" stroke-width=".1"/>`})});
+ S.jumpers.forEach(j=>{[j.a,j.b].forEach(q=>s+=`<circle cx="${q.x}" cy="${q.y}" r="${padD/2}" fill="#c9793a"/><circle cx="${q.x}" cy="${q.y}" r="${holeD/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`);s+=`<line x1="${j.a.x}" y1="${j.a.y}" x2="${j.b.x}" y2="${j.b.y}" stroke="#4678dc" stroke-width=".6" stroke-dasharray="1 .6"/>`});
+ allTexts().forEach(t=>strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>s+=`<polyline points="${pl.map(p=>p.x.toFixed(3)+','+p.y.toFixed(3)).join(' ')}" fill="none" stroke="#555" stroke-width="${sw(t.size)}" stroke-linecap="round" stroke-linejoin="round"/>`));
  S.holes.forEach(o=>s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.d/2}" fill="#fff" stroke="#000" stroke-width=".2"/>`);
  return s+'</svg>'}
-
-function stl(){return stlSolid()}
-function stlSolid(){
- const W=S.W,H=S.H,t=thick,z1=t+Math.max(0,gdep),gz=Math.max(.2,t-gdep),up=$('#tm').value==='up',Y=y=>H-y,tri=[],QN=v=>Math.round(v*1e4)/1e4,T=(a,b,c)=>tri.push(a,b,c);
+function stl(){const M=mesh(),tri=M.tri;const buf=new ArrayBuffer(84+tri.length/3*50),dv=new DataView(buf);let o=84,cnt=0;
+ for(let k=0;k<tri.length;k+=3){const a=tri[k],b=tri[k+1],c=tri[k+2],ux1=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2];
+  const nx=uy*vz-uz*vy,ny=uz*vx-ux1*vz,nz=ux1*vy-uy*vx,l=Math.hypot(nx,ny,nz);if(l<1e-12)continue;
+  [nx/l,ny/l,nz/l,...a,...b,...c].forEach(v=>{dv.setFloat32(o,v,true);o+=4});o+=2;cnt++}
+ dv.setUint32(80,cnt,true);return new Blob([buf.slice(0,84+cnt*50)],{type:'model/stl'})}
+/* builds the plate as triangles: plate (tag 0), copper (tag 1) and engraved text (tag 2), merged by a sweep */
+function mesh(){
+ const W=S.W,H=S.H,t=thick,z1=t+Math.max(0,gdep),gz=Math.max(.2,t-gdep),tz=Math.max(.2,t-.3),up=$('#tm').value==='up',hc=+$('#hcomp').value||0,Y=y=>H-y,tri=[],QN=v=>Math.round(v*1e4)/1e4,T=(a,b,c)=>tri.push(a,b,c);
  const nN=r=>Math.max(48,Math.ceil(r*40/4)*4),circ=(x,y,r,n)=>Array.from({length:n},(_,k)=>{const a=k*2*Math.PI/n;return[x+r*Math.cos(a),y+r*Math.sin(a)]});
- const plate=[...(S.keep?outlineLoops(S.keep,Math.max(0,+$('#mg').value||0),W,H):[[[0,0],[W,0],[W,H],[0,H]]])],raised=[],pads=[];
- const addHole=(x,y,d)=>{const r=d/2;if(x-r<0||x+r>W||y-r<0||y+r>H)return;plate.push(circ(x,Y(y),r,nN(r)).reverse())};
- S.parts.forEach(pt=>{const D=DEFS[pt.type],hd=hdOf(pt),pd=pdOf(pt);padsOf(pt).forEach(p=>{pads.push([p.x,Y(p.y),Math.max(pd/2,hd/2+.3)]);addHole(p.x,p.y,hd)});
-  (D.slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3],x0=pt.x+c[0],y0=Y(pt.y+c[1]);if(x0-w/2<0||x0+w/2>W||y0-h/2<0||y0+h/2>H)return;
+ const outl=S.edges.find(e=>!e.cut),yl=P=>P.map(p=>[p.x,Y(p.y)]);
+ const plate=outl?[orient(yl(outl.pts),true)]:S.keep?outlineLoops(S.keep,Math.max(0,+$('#mg').value||0),W,H):[roundRect(W,H,crOf())],raised=[],engr=[];
+ S.edges.filter(e=>e.cut).forEach(e=>plate.push(orient(yl(e.pts),false)));
+ const addHole=(x,y,d)=>{const r=d/2;if(x-r<-1||x+r>W+1||y-r<-1||y+r>H+1)return;plate.push(circ(x,Y(y),r,nN(r)).reverse())};
+ const rectP=(x,y,w,h)=>[[x-w/2,y-h/2],[x+w/2,y-h/2],[x+w/2,y+h/2],[x-w/2,y+h/2]];
+ S.parts.forEach(pt=>{const D=DEFS[pt.type];padsFull(pt).forEach(p=>{if(gdep>0)raised.push(p.smd||p.sq?rectP(p.x,Y(p.y),p.w,p.h):circ(p.x,Y(p.y),Math.max(p.w/2,p.hole/2+.3),nN(p.w/2)));if(p.hole)addHole(p.x,p.y,p.hole+hc)});
+  (D.slots||[]).forEach(sl=>{const c=xf(pt,[sl[0],sl[1]]),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3],x0=pt.x+c[0],y0=Y(pt.y+c[1]);if(x0-w/2<0||x0+w/2>W||y0-h/2<0||y0+h/2>H)return;
    plate.push([[x0-w/2,y0-h/2],[x0-w/2,y0+h/2],[x0+w/2,y0+h/2],[x0+w/2,y0-h/2]])})});
- S.holes.forEach(o=>addHole(o.x,o.y,o.d));
- if(gdep>0){pads.forEach(p=>raised.push(circ(p[0],p[1],p[2],nN(p[2]))));
-  S.traces.forEach(tr=>{const hw=tr.w/2+.01;for(let k=1;k<tr.pts.length;k++){const ax=tr.pts[k-1].x,ay=Y(tr.pts[k-1].y),bx=tr.pts[k].x,by=Y(tr.pts[k].y),L=Math.hypot(bx-ax,by-ay);if(L<1e-6)continue;
-   const dx=(bx-ax)/L,dy=(by-ay)/L,nx=-dy*hw,ny=dx*hw;
-   raised.push([[ax-nx,ay-ny],[bx-nx,by-ny],[bx+nx,by+ny],[ax+nx,ay+ny]])}
-  tr.pts.forEach(p=>raised.push(circ(p.x,Y(p.y),hw,32)))})}
+ S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>{if(gdep>0)raised.push(circ(q.x,Y(q.y),padD/2,nN(padD/2)));addHole(q.x,q.y,holeD+hc)}));
+ S.holes.forEach(o=>addHole(o.x,o.y,o.d+hc));
+ const capPoly=(pts,hw,into)=>{for(let k=1;k<pts.length;k++){const ax=pts[k-1].x,ay=Y(pts[k-1].y),bx=pts[k].x,by=Y(pts[k].y),L=Math.hypot(bx-ax,by-ay);if(L<1e-6)continue;
+   const dx=(bx-ax)/L,dy=(by-ay)/L,nx=-dy*hw,ny=dx*hw;into.push([[ax-nx,ay-ny],[bx-nx,by-ny],[bx+nx,by+ny],[ax+nx,ay+ny]])}
+  pts.forEach(p=>into.push(circ(p.x,Y(p.y),hw,into===engr?16:32)))};
+ if(gdep>0)S.traces.forEach(tr=>capPoly(tr.pts,tr.w/2+.01,raised));
+ allTexts().forEach(tx=>strokes(tx.s,tx.x,tx.y,tx.size,tx.rot).forEach(pl=>capPoly(pl,sw(tx.size)/2,engr)));
  const E=[],addPoly=(poly,tag)=>{const P=poly.map(p=>[QN(p[0]),QN(p[1])]),n=P.length;for(let k=0;k<n;k++){const p=P[k],q=P[(k+1)%n];if(p[0]===q[0])continue;const d=p[0]<q[0]?1:-1,a=d>0?p:q,b=d>0?q:p;E.push({x0:a[0],y0:a[1],x1:b[0],y1:b[1],tag,d,ts:[]})}};
- plate.forEach(p=>addPoly(p,0));raised.forEach(p=>addPoly(p,1));
+ plate.forEach(p=>addPoly(p,0));raised.forEach(p=>addPoly(p,1));engr.forEach(p=>addPoly(p,2));
  const cell=new Map();E.forEach((e,i)=>{const j0=Math.floor(Math.min(e.y0,e.y1)),j1=Math.floor(Math.max(e.y0,e.y1));for(let a=Math.floor(e.x0);a<=Math.floor(e.x1);a++)for(let b=j0;b<=j1;b++){const k=a*100003+b;let l=cell.get(k);if(!l)cell.set(k,l=[]);l.push(i)}});
  const done=new Set(),eps=1e-7;
  for(const L of cell.values())for(let u=0;u<L.length;u++)for(let v=u+1;v<L.length;v++){const i=L[u],j=L[v],key=i<j?i*1e6+j:j*1e6+i;if(done.has(key))continue;done.add(key);
@@ -395,9 +696,9 @@ function stlSolid(){
  const slabs=[];let act=[],ptr=0;
  for(let i=0;i+1<ux.length;i++){const xa=ux[i],xb=ux[i+1];while(ptr<F.length&&F[ptr].x0<=xa)act.push(F[ptr++]);act=act.filter(e=>e.x1>=xb);
   const xm=(xa+xb)/2,es=act.map(e=>{const sl=(e.y1-e.y0)/(e.x1-e.x0);return{m:e.y0+(xm-e.x0)*sl,a:QN(e.y0+(xa-e.x0)*sl),b:QN(e.y0+(xb-e.x0)*sl),tag:e.tag,d:e.d}});
-  es.sort((p,q)=>p.m-q.m||p.a-q.a||p.b-q.b);let par=0,wind=0;const upd=e=>{if(e.tag===0)par+=e.d;else wind+=e.d},iv=[];
+  es.sort((p,q)=>p.m-q.m||p.a-q.a||p.b-q.b);let par=0,wind=0,wt=0;const upd=e=>{if(e.tag===0)par+=e.d;else if(e.tag===1)wind+=e.d;else wt+=e.d},iv=[];
   if(es.length)upd(es[0]);
-  for(let k=1;k<es.length;k++){const lo=es[k-1],hi=es[k];if(hi.a-lo.a>1e-9||hi.b-lo.b>1e-9)iv.push({la:lo.a,lb:lo.b,ha:hi.a,hb:hi.b,h:par>0?(wind>0?(up?z1:gz):t):0});upd(hi)}
+  for(let k=1;k<es.length;k++){const lo=es[k-1],hi=es[k];if(hi.a-lo.a>1e-9||hi.b-lo.b>1e-9)iv.push({la:lo.a,lb:lo.b,ha:hi.a,hb:hi.b,h:par>0?(wind>0?(up?z1:gz):wt>0?tz:t):0});upd(hi)}
   slabs.push({xa,xb,iv,ya:es.map(e=>e.a),yb:es.map(e=>e.b)})}
  const n=slabs.length,bx=[];
  for(let i=0;i<=n;i++){const set=new Set([...(i>0?slabs[i-1].yb:[]),...(i<n?slabs[i].ya:[])]);bx.push([...set].sort((a,b)=>a-b))}
@@ -405,7 +706,7 @@ function stlSolid(){
  const strip=(xa,xb,Lc,Rc,z,up)=>{let i=0,j=0;const Lp=y=>[xa,y,z],Rp=y=>[xb,y,z],sl=(Lc.at(-1)-Lc[0])||1,sr=(Rc.at(-1)-Rc[0])||1;
   while(i<Lc.length-1||j<Rc.length-1){const advR=i>=Lc.length-1?true:j>=Rc.length-1?false:(Rc[j+1]-Rc[0])/sr<=(Lc[i+1]-Lc[0])/sl;
    if(advR){up?T(Lp(Lc[i]),Rp(Rc[j]),Rp(Rc[j+1])):T(Lp(Lc[i]),Rp(Rc[j+1]),Rp(Rc[j]));j++}else{up?T(Lp(Lc[i]),Rp(Rc[j]),Lp(Lc[i+1])):T(Lp(Lc[i]),Lp(Lc[i+1]),Rp(Rc[j]));i++}}};
- const lv=[...new Set([0,t,z1,gz])].sort((a,b)=>a-b),steps=(lo,hi)=>{const r=[lo];for(const l of lv)if(l>lo+1e-9&&l<hi-1e-9)r.push(l);r.push(hi);return r};
+ const lv=[...new Set([0,t,z1,gz,tz])].sort((a,b)=>a-b),steps=(lo,hi)=>{const r=[lo];for(const l of lv)if(l>lo+1e-9&&l<hi-1e-9)r.push(l);r.push(hi);return r};
  const wall=(xa,ya,xb,yb,hBelow,hAbove)=>{const lo=Math.min(hBelow,hAbove),hi=Math.max(hBelow,hAbove),a=[xa,ya],b=[xb,yb],z=steps(lo,hi);
   for(let k=0;k+1<z.length;k++){const l=z[k],h=z[k+1];if(hAbove>hBelow){T([...a,l],[...b,l],[...b,h]);T([...a,l],[...b,h],[...a,h])}else{T([...b,l],[...a,l],[...a,h]);T([...b,l],[...a,h],[...b,h])}}};
  slabs.forEach((sl,i)=>{const{xa,xb,iv}=sl;
@@ -416,17 +717,13 @@ function stlSolid(){
  for(let i=0;i<=n;i++){const ys=bx[i],x=i<n?slabs[i].xa:slabs[n-1].xb;
   for(let k=0;k+1<ys.length;k++){const y0=ys[k],y1=ys[k+1];if(y1-y0<1e-9)continue;const ym=(y0+y1)/2,hL=hAt(slabs[i-1],ym,1),hR=hAt(slabs[i],ym,0);if(hL===hR)continue;
    const z=steps(Math.min(hL,hR),Math.max(hL,hR));for(let q=0;q+1<z.length;q++){const l=z[q],h=z[q+1],A=[x,y0,l],B=[x,y1,l],C=[x,y1,h],D=[x,y0,h];if(hL>hR){T(A,B,C);T(A,C,D)}else{T(B,A,D);T(B,D,C)}}}}
- const buf=new ArrayBuffer(84+tri.length/3*50),dv=new DataView(buf);let o=84,cnt=0;
- for(let k=0;k<tri.length;k+=3){const a=tri[k],b=tri[k+1],c=tri[k+2],ux1=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2];
-  const nx=uy*vz-uz*vy,ny=uz*vx-ux1*vz,nz=ux1*vy-uy*vx,l=Math.hypot(nx,ny,nz);if(l<1e-12)continue;
-  [nx/l,ny/l,nz/l,...a,...b,...c].forEach(v=>{dv.setFloat32(o,v,true);o+=4});o+=2;cnt++}
- dv.setUint32(80,cnt,true);return new Blob([buf.slice(0,84+cnt*50)],{type:'model/stl'})}
+ return{tri,t,z1,gz,tz,up,W,H}}
 $('#bstl').onclick=()=>dl('tape-board.stl',trimmed(stl));
 $('#bsvg').onclick=()=>dl('tape-board.svg',new Blob([trimmed(svg)],{type:'image/svg+xml'}));
-$('#bsave').onclick=()=>dl('tape-board.json',new Blob([JSON.stringify({...S,custom:CUSTOM})],{type:'application/json'}));
+$('#bsave').onclick=()=>dl('tape-board.json',new Blob([JSON.stringify({...S,custom:CUSTOM,sch:window.TBSCH?window.TBSCH.get():undefined})],{type:'application/json'}));
 $('#bload').onclick=()=>$('#file').click();
-$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.parts&&d.traces){Object.entries(d.custom||{}).forEach(([k,v])=>addCustom(k,v));pend=null;showBar();pushHist();S={W:d.W||60,H:d.H||40,parts:d.parts,traces:d.traces,holes:d.holes||[]};dims();draw()}}catch(_){alert('That file is not a Tape Board design.')}e.target.value=''};
-const DX=[1,0,-1,0],DY=[0,1,0,-1];
+$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.parts&&d.traces){Object.entries(d.custom||{}).forEach(([k,v])=>addCustom(k,v));pend=null;showBar();pushHist();S=norm({W:d.W||60,H:d.H||40,parts:d.parts,traces:d.traces,holes:d.holes,jumpers:d.jumpers,texts:d.texts,edges:d.edges,nets:d.nets});if(d.sch&&window.TBSCH)window.TBSCH.set(d.sch);dims();draw()}}catch(_){alert('That file is not a Tape Board design.')}e.target.value=''};
+$('#bdrc').onclick=runDRC;$('#bcut').onclick=cutList;$('#b3d').onclick=()=>preview();
 function place(parts,a){
  const gap=7.62,maxW=70,out=[],order=parts.map((_,i)=>i);if(a)order.sort(()=>Math.random()-.5);
  let x=5.08,y=5.08,rowH=0;
@@ -435,58 +732,89 @@ function place(parts,a){
   if(x>5.08&&x+w>maxW){x=5.08;y+=rowH+gap;rowH=0}
   out.push({ref:d.ref,type:d.type,rot:rt,x:+(x-mx).toFixed(3),y:+(y-my).toFixed(3)});x+=w+gap;rowH=Math.max(rowH,h)}
  return out}
-function route(placed,nets,W,H,w,diag){
- const g=1.27,nx=Math.floor(W/g)+1,ny=Math.floor(H/g)+1,N=nx*ny,mask=new Int32Array(N),cm=new Int32Array(N),ex=new Int16Array(N).fill(-1);
+/* maze router on a 1.27 mm grid. Each cell remembers which connection owns it (-1 free, -2 more than one),
+   so there is no limit on the number of connections. With jumpers on, a route may hop over other tape. */
+function route(placed,nets,W,H,w,diag,jmp){
+ const g=1.27,nx=Math.floor(W/g)+1,ny=Math.floor(H/g)+1,N=nx*ny,CL=.4,JC=300;
+ const own=new Int32Array(N).fill(-1),cown=new Int32Array(N).fill(-1),pown=new Int32Array(N).fill(-1),jown=new Int32Array(N).fill(-1),ex=new Int32Array(N).fill(-1);
  const DX8=[1,1,0,-1,-1,-1,0,1],DY8=[0,1,1,1,0,-1,-1,-1];
  const netOf={};nets.forEach((n,k)=>n.pins.forEach(p=>netOf[p]=k));
- const cl=padD/2+w/2,cl2=w+.5;
- const mark=(x,y,r,bit)=>{for(let j=Math.max(0,Math.floor((y-r)/g)-1);j<=Math.min(ny-1,Math.ceil((y+r)/g));j++)for(let i=Math.max(0,Math.floor((x-r)/g)-1);i<=Math.min(nx-1,Math.ceil((x+r)/g));i++){
-  if(Math.hypot(i*g-x,j*g-y)<r)mask[j*nx+i]|=bit;if(Math.hypot((i+.5)*g-x,(j+.5)*g-y)<r)cm[j*nx+i]|=bit}};
+ const setO=(A,i,k)=>{A[i]=A[i]===-1||A[i]===k?k:-2};
+ const markCap=(c,r,k,arrs,corner)=>{const x0=Math.min(c.ax,c.bx)-r,x1=Math.max(c.ax,c.bx)+r,y0=Math.min(c.ay,c.by)-r,y1=Math.max(c.ay,c.by)+r;
+  for(let j=Math.max(0,Math.floor(y0/g)-1);j<=Math.min(ny-1,Math.ceil(y1/g));j++)for(let i=Math.max(0,Math.floor(x0/g)-1);i<=Math.min(nx-1,Math.ceil(x1/g));i++){
+   if(ptSeg(i*g,j*g,c.ax,c.ay,c.bx,c.by).d<r)arrs.forEach(A=>setO(A,j*nx+i,k));if(corner&&ptSeg((i+.5)*g,(j+.5)*g,c.ax,c.ay,c.bx,c.by).d<r)setO(cown,j*nx+i,k)}};
+ const pt0=(x,y)=>({ax:x,ay:y,bx:x,by:y});
  const pinNode={},pinXY=new Map();
- placed.forEach(pt=>padsOf(pt).forEach((p,i)=>{const key=pt.ref+'.'+(i+1),k=netOf[key];mark(p.x,p.y,cl,k===undefined?1<<30:1<<k);const nd=Math.round(p.y/g)*nx+Math.round(p.x/g);pinNode[key]=nd;pinXY.set(nd,{x:p.x,y:p.y});if(k!==undefined)ex[nd]=k}));
- placed.forEach(pt=>(DEFS[pt.type].slots||[]).forEach(sl=>{const c=rotp([sl[0],sl[1]],pt.rot);mark(pt.x+c[0],pt.y+c[1],Math.hypot(sl[2],sl[3])/2+w/2,1<<30)}));
- const traces=[];let fail=0,len=0;const failed=[];
+ placed.forEach(pt=>padsFull(pt).forEach(p=>{const key=pt.ref+'.'+(p.i+1),k=netOf[key]===undefined?-2:netOf[key];markCap(p.cap,p.cap.r+w/2+CL,k,[own,pown],true);markCap(p.cap,p.cap.r+padD/2+CL,k,[jown]);
+  const nd=Math.round(p.y/g)*nx+Math.round(p.x/g);pinNode[key]=nd;pinXY.set(nd,{x:p.x,y:p.y});if(k>=0)ex[nd]=k}));
+ const pinMax={};placed.forEach(pt=>{const P=padsOf(pt);P.forEach((a,i)=>{let d=1e9;P.forEach((b,j)=>{if(i!==j)d=Math.min(d,Math.hypot(a.x-b.x,a.y-b.y))});pinMax[pt.ref+'.'+(i+1)]=Math.max(.5,Math.floor((d-.45)*10)/10)})});
+ const wOf=nets.map(n=>Math.min(w,...n.pins.map(p=>pinMax[p]||w)));
+ placed.forEach(pt=>(DEFS[pt.type].slots||[]).forEach(sl=>{const c=xf(pt,[sl[0],sl[1]]);markCap(pt0(pt.x+c[0],pt.y+c[1]),Math.hypot(sl[2],sl[3])/2+w/2,-2,[own,pown,jown],true)}));
+ const traces=[],jumpers=[];let fail=0,len=0;const failed=[];
+ const jpair=[];placed.forEach(pt=>{if(DEFS[pt.type].jmp)jpair.push([pt.ref+'.1',pt.ref+'.2'])});
  const order=nets.map((n,k)=>k).sort((a,b)=>nets[a].pins.length-nets[b].pins.length);
  const col=(a,p,b)=>Math.abs((p.x-a.x)*(b.y-p.y)-(p.y-a.y)*(b.x-p.x))<1e-6;
+ const nxy=n=>pinXY.get(n)||{x:+((n%nx)*g).toFixed(3),y:+(((n/nx)|0)*g).toFixed(3)};
  for(const k of order){const pins=nets[k].pins.map(p=>pinNode[p]);if(pins.length<2)continue;
-  const tgt=new Uint8Array(N),bit=1<<k,blk=n=>ex[n]!==k&&(mask[n]&~bit)!==0;
-  tgt[pins[0]]=1;const rest=pins.slice(1);let ok=true;
+  const tgt=new Uint8Array(N),blk=n=>ex[n]!==k&&own[n]!==-1&&own[n]!==k,cblk=n=>cown[n]!==-1&&cown[n]!==k,under=n=>pown[n]===-1||pown[n]===k,jok=n=>jown[n]===-1||jown[n]===k;
+  const jp=jpair.map(([a,b])=>[pinNode[a],pinNode[b]]),syncJ=()=>jp.forEach(([a,b])=>{if(tgt[a]||tgt[b]){tgt[a]=1;tgt[b]=1}});
+  tgt[pins[0]]=1;syncJ();const rest=pins.slice(1);let ok=true;
   while(rest.length){const tn=[];for(let n=0;n<N;n++)if(tgt[n])tn.push(n);
    const dist=a=>Math.min(...tn.map(t=>Math.abs(t%nx-a%nx)+Math.abs((t/nx|0)-(a/nx|0))));rest.sort((a,b)=>dist(a)-dist(b));
-   const src=rest.shift();if(tgt[src])continue;
-   const D=new Int32Array(N*8).fill(1e9),P=new Int32Array(N*8).fill(-1),B=[];let end=-1;
-   const push=(c,s)=>(B[c]||(B[c]=[])).push(s);for(let d=0;d<8;d++){D[src*8+d]=0;push(0,src*8+d)}
+   syncJ();const src=rest.shift();if(tgt[src])continue;
+   const D=new Int32Array(N*16).fill(1e9),P=new Int32Array(N*16).fill(-1),B=[];let end=-1;
+   const push=(c,s)=>(B[c]||(B[c]=[])).push(s);for(let d=0;d<8;d++){D[(src*8+d)*2]=0;push(0,(src*8+d)*2)}
    for(let c=0;c<B.length&&end<0;c++){const L=B[c];if(!L)continue;
-    for(let q=0;q<L.length;q++){const s=L[q];if(D[s]!==c)continue;const n=s>>3,d=s&7;if(tgt[n]){end=s;break}
+    for(let q=0;q<L.length;q++){const s=L[q];if(D[s]!==c)continue;const u=s&1,n=s>>4,d=(s>>1)&7;if(!u&&tgt[n]){end=s;break}
      const i=n%nx,j=(n/nx)|0;
-     for(let e=0;e<8;e+=diag?1:2){const ni=i+DX8[e],nj=j+DY8[e];if(ni<0||nj<0||ni>=nx||nj>=ny)continue;const nn=nj*nx+ni;if(blk(nn))continue;
-      if(e&1){const ci=i+(DX8[e]<0?-1:0),cj=j+(DY8[e]<0?-1:0);if((cm[cj*nx+ci]&~bit)!==0)continue}
-      let dd=Math.abs(e-d);dd=Math.min(dd,8-dd);const nc=c+(e&1?14:10)+dd*3,ns=nn*8+e;if(nc<D[ns]){D[ns]=nc;P[ns]=s;push(nc,ns)}}}}
+     for(let e=0;e<8;e+=diag?1:2){const ni=i+DX8[e],nj=j+DY8[e];if(ni<0||nj<0||ni>=nx||nj>=ny)continue;const nn=nj*nx+ni;let nu,nc;
+      if(!blk(nn)){if(u){if(!jok(nn)||(ex[nn]>=0&&ex[nn]!==k))continue}else if(e&1){const ci=i+(DX8[e]<0?-1:0),cj=j+(DY8[e]<0?-1:0);if(cblk(cj*nx+ci))continue}nu=0}
+      else{if(!jmp||!under(nn)||(!u&&(!jok(n)||(ex[n]>=0&&ex[n]!==k))))continue;nu=1}
+      if(u)nc=c+(e&1?14:10);else{let dd=Math.abs(e-d);dd=Math.min(dd,8-dd);nc=c+(e&1?14:10)+dd*3+(nu?JC:0)}
+      const ns=(nn*8+e)*2+nu;if(nc<D[ns]){D[ns]=nc;P[ns]=s;push(nc,ns)}}}}
    if(end<0){ok=false;break}
-   const nodes=[];for(let s=end;s>=0;s=P[s])nodes.push(s>>3);
-   const pts=nodes.map(n=>({x:+((n%nx)*g).toFixed(3),y:+(((n/nx)|0)*g).toFixed(3)})).filter((p,i,a)=>!i||i===a.length-1||!col(a[i-1],p,a[i+1])).map(p=>pinXY.get(Math.round(p.y/g)*nx+Math.round(p.x/g))||p);
-   nodes.forEach(n=>{tgt[n]=1;mark((n%nx)*g,((n/nx)|0)*g,cl2,bit)});
-   for(let i=1;i<pts.length;i++)len+=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);
-   if(pts.length>1)traces.push({pts,w})}
+   const st=[];for(let s=end;s>=0;s=P[s])st.push(s);st.reverse();
+   const runs=[[]];let air=false,last=-1;
+   st.forEach(s=>{const n=s>>4;if(s&1){air=true;return}if(air){jumpers.push({a:nxy(last),b:nxy(n)});runs.push([]);air=false;len+=Math.hypot((last%nx-n%nx)*g,((last/nx|0)-(n/nx|0))*g)+25;
+     [last,n].forEach(q=>{markCap(pt0((q%nx)*g,((q/nx)|0)*g),padD/2+w/2+CL,k,[own,pown],true);markCap(pt0((q%nx)*g,((q/nx)|0)*g),padD+CL,k,[jown])})}
+    runs.at(-1).push(n);last=n});
+   const wk=wOf[k];runs.forEach(nodes=>{nodes.forEach(n=>{tgt[n]=1;const p=pt0((n%nx)*g,((n/nx)|0)*g);markCap(p,w/2+wk/2+.5,k,[own],true);markCap(p,wk/2+padD/2+CL,k,[jown])});
+    if(nodes.length<2)return;const pts=nodes.map(n=>({x:+((n%nx)*g).toFixed(3),y:+(((n/nx)|0)*g).toFixed(3)})).filter((p,i,a)=>!i||i===a.length-1||!col(a[i-1],p,a[i+1])).map(p=>pinXY.get(Math.round(p.y/g)*nx+Math.round(p.x/g))||p);
+    for(let i=1;i<pts.length;i++)len+=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);traces.push({pts,w:wk})})}
   if(!ok){fail++;failed.push(nets[k].name)}}
- return{traces,fail,failed,len}}
-function autogen(){if(busy())return;
- const msg=$('#amsg'),parts=[],nets=[];
+ return{traces,jumpers,fail,failed,len}}
+function parseSpec(){const parts=[],nets=[];
  for(const raw of $('#spec').value.split('\n')){const l=raw.trim();if(!l||l[0]==='#')continue;
-  if(l.includes(':')){const[n,r]=l.split(':');nets.push({name:n.trim(),pins:r.split(/[\s,]+/).filter(Boolean)})}
-  else{const[ref,type]=l.split(/\s+/);if(!DEFS[type]){msg.textContent=`Unknown part type "${type}" in: ${l}`;return}parts.push({ref,type})}}
- if(!parts.length){msg.textContent='Add at least one part line, like: R1 res';return}
- if(nets.length>29){msg.textContent='Up to 29 nets are supported.';return}
+  if(l.includes(':')){const i=l.indexOf(':');nets.push({name:l.slice(0,i).trim(),pins:l.slice(i+1).split(/[\s,]+/).filter(Boolean)})}
+  else{const[ref,type]=l.split(/\s+/);if(!DEFS[type])return`Unknown part type "${type}" in: ${l}`;if(parts.some(p=>p.ref===ref))return`The name ${ref} is used twice.`;parts.push({ref,type})}}
+ if(!parts.length)return'Add at least one part line, like: R1 res';
  const pinIdx=(pt,t)=>{const D=DEFS[pt.type];if(D.custom){const k=D.names.findIndex(x=>x.toLowerCase()===t.toLowerCase());if(k>=0)return k+1}if(/^\d+$/.test(t)){const k=+t;return k>=1&&k<=D.p.length?k:0}const nm=((D.alias&&D.alias[t.toUpperCase()])||t).toLowerCase();return D.names?D.names.findIndex(x=>x.toLowerCase()===nm)+1:0};
+ const used={};
  for(const n of nets){const out=[];for(const p of n.pins){const d=p.indexOf('.'),r=d<0?p:p.slice(0,d),pt=parts.find(x=>x.ref===r),i=pt&&d>=0?pinIdx(pt,p.slice(d+1)):0;
-  if(!i){msg.textContent=`Net ${n.name}: "${p}" does not match a part pin.`;return}out.push(r+'.'+i)}n.pins=out}
- const w=Math.min(tw,2);let best=null;
+  if(!i)return`Net ${n.name}: "${p}" does not match a part pin.`;const key=r+'.'+i;if(used[key]&&used[key]!==n.name)return`${key} is in both ${used[key]} and ${n.name}. Put everything that meets at that pin on one line.`;used[key]=n.name;out.push(key)}n.pins=out}
+ return{parts,nets}}
+function autogen(){if(busy())return;
+ const msg=$('#amsg'),R=parseSpec();if(typeof R==='string'){msg.textContent=R;return}const{parts,nets}=R;
+ const w=Math.min(tw,2),jmp=$('#ajmp').checked;let best=null;
  for(let a=0;a<40;a++){const pl=place(parts,a);let mx=0,my=0;pl.forEach(pt=>padsOf(pt).forEach(p=>{mx=Math.max(mx,p.x);my=Math.max(my,p.y)}));
-  const W=Math.min(200,Math.ceil((mx+7.62)/2.54)*2.54),H=Math.min(200,Math.ceil((my+7.62)/2.54)*2.54),r=route(pl,nets,W,H,w,$('#d45').checked),sc2=r.fail*1e5+r.len+W*H/50;
-  if(!best||sc2<best.sc){best={sc:sc2,pl,W,H,r}}if(!r.fail&&a>=12)break}
- pushHist();S={W:+best.W.toFixed(2),H:+best.H.toFixed(2),parts:best.pl,traces:best.r.traces,holes:[]};cur=null;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw();
- msg.textContent=best.r.fail?`Routed ${nets.length-best.r.fail} of ${nets.length} nets. Couldn't route: ${best.r.failed.join(', ')}. Run again for another arrangement, or finish by hand.`:`Placed ${parts.length} parts and routed all ${nets.length} nets with ${w} mm tape. Run again for a different arrangement.`}
-$('#bauto').onclick=autogen;
+  const W=Math.min(200,Math.ceil((mx+7.62)/2.54)*2.54),H=Math.min(200,Math.ceil((my+7.62)/2.54)*2.54),r=route(pl,nets,W,H,w,$('#d45').checked,jmp),sc2=r.fail*1e5+r.len+W*H/50;
+  if(!best||sc2<best.sc){best={sc:sc2,pl,W,H,r}}if(!r.fail&&a>=12&&(!r.jumpers.length||a>=20))break}
+ pushHist();S=norm({W:+best.W.toFixed(2),H:+best.H.toFixed(2),parts:best.pl,traces:best.r.traces,holes:[],jumpers:best.r.jumpers,nets});cur=null;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw();
+ const jn=best.r.jumpers.length,js=jn?` Used ${jn} jumper wire${jn>1?'s':''} where tape had to cross.`:'';
+ const thin=[...new Set(best.r.traces.filter(t=>t.w<w).map(t=>t.w))];const ts=thin.length?` Tape to closely spaced pins was narrowed to ${thin.sort().join(' / ')} mm.`:'';
+ msg.textContent=(best.r.fail?`Routed ${nets.length-best.r.fail} of ${nets.length} nets.${js} Couldn't route: ${best.r.failed.join(', ')}. Run again for another arrangement, or finish by hand following the dashed lines.`:`Placed ${parts.length} parts and routed all ${nets.length} nets with ${w} mm tape.${js} Run again for a different arrangement.`)+ts}
+/* keep the layout: add new parts, drop removed ones, swap changed footprints and load the new netlist */
+function syncSpec(){if(busy())return false;const msg=$('#amsg'),R=parseSpec();if(typeof R==='string'){msg.textContent=R;return false}
+ pushHist();const want=new Map(R.parts.map(p=>[p.ref,p.type])),rem=[],chg=[],add=[];
+ S.parts=S.parts.filter(pt=>{if(pt.ref&&!want.has(pt.ref)){rem.push(pt.ref);return false}return true});
+ S.parts.forEach(pt=>{const t=want.get(pt.ref);if(t&&t!==pt.type){pt.type=t;delete pt.hd;delete pt.pd;chg.push(pt.ref)}});
+ const have=new Set(S.parts.map(p=>p.ref)),nw=R.parts.filter(p=>!have.has(p.ref));
+ if(nw.length){let my=0;S.parts.forEach(pt=>padsFull(pt).forEach(p=>my=Math.max(my,p.y+p.R)));const pl=place(nw,0),dy=S.parts.length?Math.ceil((my+3)/2.54)*2.54:0;pl.forEach(p=>{p.y=+(p.y+dy).toFixed(3);S.parts.push(p);add.push(p.ref)})}
+ S.nets=R.nets;let mx=0,my2=0;S.parts.forEach(pt=>padsFull(pt).forEach(p=>{mx=Math.max(mx,p.x+p.R);my2=Math.max(my2,p.y+p.R)}));
+ S.W=Math.min(200,Math.max(S.W,Math.ceil((mx+5)/2.54)*2.54));S.H=Math.min(200,Math.max(S.H,Math.ceil((my2+5)/2.54)*2.54));
+ dims();setPend(null,'batch');draw();const C=conn();
+ msg.textContent=`Board updated: ${add.length} added${add.length?' ('+add.join(', ')+', below the others)':''}, ${rem.length} removed${rem.length?' ('+rem.join(', ')+')':''}, ${chg.length} changed footprint. ${C.unrouted?C.unrouted+' connection'+(C.unrouted>1?'s':'')+' still to route, shown as dashed yellow lines.':'Everything is routed.'}`;return true}
+$('#bauto').onclick=autogen;$('#bsync').onclick=syncSpec;
 
 const CUSTOM={};
 const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'part';
@@ -495,50 +823,53 @@ function parseSexp(src){const t=[],re=/\(|\)|"((?:[^"\\]|\\.)*)"|[^\s()"]+/g;let
 function kicadSexp(src,base){const nv=x=>x&&typeof x==='object'&&!Array.isArray(x)?x.q:x,fps=[],out=[];
  const walk=L=>{if(!Array.isArray(L))return;if((L[0]==='footprint'||L[0]==='module')&&L.length>2)fps.push(L);else L.forEach(walk)};walk(parseSexp(src));
  for(const fp of fps){const pads=[];let skip=0,np=0;
-  for(const a of fp){if(!Array.isArray(a)||a[0]!=='pad')continue;const type=a[2];if(type==='np_thru_hole'){np++;continue}if(type!=='thru_hole'){skip++;continue}
+  for(const a of fp){if(!Array.isArray(a)||a[0]!=='pad')continue;const type=a[2];if(type==='np_thru_hole'){np++;continue}if(type!=='thru_hole'&&type!=='smd'){skip++;continue}
    const get=h=>a.find(x=>Array.isArray(x)&&x[0]===h),at=get('at'),sz=get('size'),dr=get('drill');if(!at)continue;
-   const nums=dr?dr.slice(1).filter(x=>typeof x==='string'&&x!==''&&!isNaN(+x)).map(Number):[];
-   pads.push({num:String(nv(a[1])??''),x:+at[1],y:+at[2],d:nums.length?Math.max(...nums):0,sx:sz?+sz[1]:1,sy:sz?+sz[2]:1})}
+   const nums=dr?dr.slice(1).filter(x=>typeof x==='string'&&x!==''&&!isNaN(+x)).map(Number):[];let sx=sz?+sz[1]:1,sy=sz?+sz[2]:1;if(at[3]&&Math.abs(((+at[3]%180)+180)%180-90)<1)[sx,sy]=[sy,sx];
+   pads.push({num:String(nv(a[1])??''),x:+at[1],y:+at[2],d:type==='smd'?0:nums.length?Math.max(...nums):0,smd:type==='smd',sx,sy})}
   out.push({name:String(nv(fp[1])||base),pads,skip,np})}
  return out}
 function kicadLegacy(src){const u=/^\s*Units\s+mm/im.test(src)?1:.00254,out=[],re=/\$MODULE\s+(\S+)([\s\S]*?)\$EndMODULE/g;let m;
  while((m=re.exec(src))){const pads=[];let skip=0,np=0;const pr=/\$PAD([\s\S]*?)\$EndPAD/g;let q;
-  while((q=pr.exec(m[2]))){const b=q[1],sh=b.match(/^\s*Sh\s+("[^"]*"|\S+)\s+\S\s+(-?[\d.]+)\s+(-?[\d.]+)/m),po=b.match(/^\s*Po\s+(-?[\d.]+)\s+(-?[\d.]+)/m),dr=b.match(/^\s*Dr\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+O\s+(-?[\d.]+)\s+(-?[\d.]+))?/m),at=b.match(/^\s*At\s+(\S+)/m);
-   if(!sh||!po)continue;const kind=at?at[1]:'',d=dr?Math.max(+dr[1],dr[4]?+dr[4]:0,dr[5]?+dr[5]:0)*u:0;
-   if(kind==='HOLE'){np++;continue}if(!d||kind==='SMD'){skip++;continue}
-   pads.push({num:sh[1].replace(/"/g,''),x:+po[1]*u,y:+po[2]*u,d,sx:+sh[2]*u,sy:+sh[3]*u})}
+  while((q=pr.exec(m[2]))){const b=q[1],sh=b.match(/^\s*Sh\s+("[^"]*"|\S+)\s+\S\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+\S+\s+\S+\s+(-?[\d.]+))?/m),po=b.match(/^\s*Po\s+(-?[\d.]+)\s+(-?[\d.]+)/m),dr=b.match(/^\s*Dr\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)(?:\s+O\s+(-?[\d.]+)\s+(-?[\d.]+))?/m),at=b.match(/^\s*At\s+(\S+)/m);
+   if(!sh||!po)continue;const kind=at?at[1]:'',d=dr?Math.max(+dr[1],dr[4]?+dr[4]:0,dr[5]?+dr[5]:0)*u:0;let sx=+sh[2]*u,sy=+sh[3]*u;if(sh[4]&&Math.abs(((+sh[4]/10%180)+180)%180-90)<1)[sx,sy]=[sy,sx];
+   if(kind==='HOLE'){np++;continue}if(kind==='SMD'){pads.push({num:sh[1].replace(/"/g,''),x:+po[1]*u,y:+po[2]*u,d:0,smd:true,sx,sy});continue}if(!d){skip++;continue}
+   pads.push({num:sh[1].replace(/"/g,''),x:+po[1]*u,y:+po[2]*u,d,sx,sy})}
   out.push({name:m[1],pads,skip,np})}
  return out}
 function makeDef(f){const isN=a=>/^\d+$/.test(a.num),P=f.pads.slice().sort((a,b)=>isN(a)&&isN(b)?a.num-b.num:isN(a)?-1:isN(b)?1:a.num.localeCompare(b.num,undefined,{numeric:true})),o=P[0],seen=new Set(),names=[];
  P.forEach((p,i)=>{const n=p.num||'P'+(i+1);let k=n,c=2;while(seen.has(k.toLowerCase()))k=n+'_'+c++;seen.add(k.toLowerCase());names.push(k)});
  const r2=v=>+v.toFixed(2),xs=P.flatMap(p=>[p.x-o.x-p.sx/2,p.x-o.x+p.sx/2]),ys=P.flatMap(p=>[p.y-o.y-p.sy/2,p.y-o.y+p.sy/2]),x0=Math.min(...xs)-.6,y0=Math.min(...ys)-.6,nm=f.name.split(':').pop();
- return{n:nm+' (KiCad)',custom:1,p:P.map(p=>[+(p.x-o.x).toFixed(3),+(p.y-o.y).toFixed(3)]),names,hd:r2(Math.max(...P.map(p=>p.d))),box:[r2(x0),r2(y0),r2(Math.max(...xs)+.6-x0),r2(Math.max(...ys)+.6-y0)],label:''}}
+ const def={n:nm+' (KiCad)',custom:1,p:P.map(p=>[+(p.x-o.x).toFixed(3),+(p.y-o.y).toFixed(3)]),names,hd:r2(Math.max(0,...P.map(p=>p.d))),box:[r2(x0),r2(y0),r2(Math.max(...xs)+.6-x0),r2(Math.max(...ys)+.6-y0)],label:''};
+ if(P.some(p=>p.smd))def.smd=P.map(p=>p.smd?[r2(p.sx),r2(p.sy)]:null);return def}
 function addCustom(key,def){def.hd=0;DEFS[key]=def;CUSTOM[key]=def;let og=$('#partsel').querySelector('optgroup[data-imp]');if(!og){og=document.createElement('optgroup');og.label='Imported (KiCad)';og.dataset.imp='1';$('#partsel').appendChild(og)}
  const ex=[...og.children].find(o=>o.value===key);if(ex)ex.textContent=def.n;else og.appendChild(new Option(def.n,key))}
 $('#bkicad').onclick=()=>$('#kfile').click();
-$('#kfile').onchange=async e=>{const files=[...e.target.files];e.target.value='';const added=[],bad=[];let skip=0,np=0;
+$('#kfile').onchange=async e=>{const files=[...e.target.files];e.target.value='';const added=[],bad=[];let skip=0,np=0,smd=0;
  for(const f of files){let txt;try{txt=await f.text()}catch(_){continue}const base=f.name.replace(/\.[^.]*$/,'');
   const fps=txt.includes('$MODULE')?kicadLegacy(txt):/\((footprint|module)\b/.test(txt)?kicadSexp(txt,base):[];
   if(!fps.length)bad.push(f.name);
-  for(const fp of fps.slice(0,60)){skip+=fp.skip;np+=fp.np;if(!fp.pads.length||fp.pads.length>200){bad.push(fp.name);continue}let key=slug(fp.name.split(':').pop()||base);if(DEFS[key]&&!DEFS[key].custom)key='k_'+key;addCustom(key,makeDef(fp));added.push(key)}}
- if(added.length){$('#partsel').value=added[0];ptype=added[0];if(!pend)setTool('part')}
- $('#kmsg').textContent=(added.length?`Added ${added.length} part${added.length>1?'s':''}: ${added.join(', ')}. Use that name as the part type in Auto-generate.`:'No through-hole pads were found.')+(skip?` Skipped ${skip} surface-mount pad${skip>1?'s':''}.`:'')+(np?` Ignored ${np} mounting hole${np>1?'s':''}.`:'')+(bad.length?` Nothing usable in: ${bad.slice(0,4).join(', ')}.`:'')};
+  for(const fp of fps.slice(0,60)){skip+=fp.skip;np+=fp.np;smd+=fp.pads.filter(p=>p.smd).length;if(!fp.pads.length||fp.pads.length>200){bad.push(fp.name);continue}let key=slug(fp.name.split(':').pop()||base);if(DEFS[key]&&!DEFS[key].custom)key='k_'+key;addCustom(key,makeDef(fp));added.push(key)}}
+ if(added.length){ptype=added[0];selVal();if(!pend)setTool('part')}
+ $('#kmsg').textContent=(added.length?`Added ${added.length} part${added.length>1?'s':''}: ${added.join(', ')}. Use that name as the part type in Auto-generate.`:'No usable pads were found.')+(smd?` Includes ${smd} surface-mount pad${smd>1?'s':''}.`:'')+(skip?` Skipped ${skip} pad${skip>1?'s':''} of other kinds.`:'')+(np?` Ignored ${np} mounting hole${np>1?'s':''}.`:'')+(bad.length?` Nothing usable in: ${bad.slice(0,4).join(', ')}.`:'')};
 const EX={a:'J1 h2\nR1 res\nD1 led\nVCC: J1.1 R1.1\nN1: R1.2 D1.1\nGND: D1.2 J1.2',b:'J1 h2\nR1 res\nR2 res\nD1 led\nD2 led\nVCC: J1.1 R1.1 R2.1\nA: R1.2 D1.1\nB: R2.2 D2.1\nGND: D1.2 D2.2 J1.2',c:'J1 h2\nU1 dip8\nR1 res\nD1 led\nVCC: J1.1 U1.8\nGND: J1.2 U1.4 D1.2\nOUT: U1.3 R1.1\nN1: R1.2 D1.1'};
 EX.d='# ESP32 with a rotary encoder, powered from a battery through a TP4056\nU1 esp32\nS1 enc\nT1 tp4056\nJ1 h2\nBAT+: J1.1 T1.B+\nBAT-: J1.2 T1.B-\nVCC: T1.OUT+ U1.5V\nGND: T1.OUT- U1.GND1 S1.C S1.S2\nA: U1.D32 S1.A\nB: U1.D33 S1.B\nBTN: U1.D25 S1.S1';
 $('#ex').onchange=e=>{if(EX[e.target.value])$('#spec').value=EX[e.target.value]};
 $('#zi').onclick=()=>{zm=Math.min(8,zm*1.25);draw()};$('#zo').onclick=()=>{zm=Math.max(.5,zm/1.25);draw()};$('#zf').onclick=()=>{zm=1;pan={x:0,y:0};draw()};
 function fitted(){
  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const ex=(x,y,r)=>{x0=Math.min(x0,x-r);y0=Math.min(y0,y-r);x1=Math.max(x1,x+r);y1=Math.max(y1,y+r)};
- S.parts.forEach(pt=>padsOf(pt).forEach(p=>ex(p.x,p.y,pdOf(pt)/2)));S.traces.forEach(t=>t.pts.forEach(p=>ex(p.x,p.y,t.w/2)));S.holes.forEach(o=>ex(o.x,o.y,o.d/2));
+ S.parts.forEach(pt=>padsFull(pt).forEach(p=>ex(p.x,p.y,p.R)));S.traces.forEach(t=>t.pts.forEach(p=>ex(p.x,p.y,t.w/2)));S.holes.forEach(o=>ex(o.x,o.y,o.d/2));
+ S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>ex(q.x,q.y,padD/2)));S.texts.forEach(t=>{const b=textBox(t);ex(b.x0,b.y0,0);ex(b.x1,b.y1,0)});S.edges.forEach(e=>e.pts.forEach(p=>ex(p.x,p.y,0)));
  if(x0>1e8)return null;
- const mg=MG(),sx=Math.floor((x0-mg)/grid+1e-6)*grid,sy=Math.floor((y0-mg)/grid+1e-6)*grid,f=v=>+v.toFixed(3);
+ const mg=MG(),sx=Math.floor((x0-mg)/grid+1e-6)*grid,sy=Math.floor((y0-mg)/grid+1e-6)*grid,f=v=>+v.toFixed(3),mv=p=>({x:f(p.x-sx),y:f(p.y-sy)});
  return{W:Math.max(15,+(Math.ceil((x1+mg-sx)/grid-1e-6)*grid).toFixed(2)),H:Math.max(15,+(Math.ceil((y1+mg-sy)/grid-1e-6)*grid).toFixed(2)),
-  parts:S.parts.map(p=>({...p,x:f(p.x-sx),y:f(p.y-sy)})),traces:S.traces.map(t=>({...t,pts:t.pts.map(p=>({x:f(p.x-sx),y:f(p.y-sy)}))})),holes:S.holes.map(o=>({...o,x:f(o.x-sx),y:f(o.y-sy)}))}}
+  parts:S.parts.map(p=>({...p,...mv(p)})),traces:S.traces.map(t=>({...t,pts:t.pts.map(mv)})),holes:S.holes.map(o=>({...o,...mv(o)})),
+  jumpers:S.jumpers.map(j=>({a:mv(j.a),b:mv(j.b)})),texts:S.texts.map(t=>({...t,...mv(t)})),edges:S.edges.map(e=>({...e,pts:e.pts.map(mv)})),nets:S.nets}}
 const MG=()=>Math.max(.6,+$('#mg').value||0);
 function keepPoints(){const P=[],st=Math.min(.5,Math.max(.2,(+$('#mg').value||0)/2)),add=(x,y,r)=>P.push({x,y,r});
- S.parts.forEach(pt=>{const a=padsOf(pt);a.forEach(p=>add(p.x,p.y,pdOf(pt)/2));const xs=a.map(p=>p.x),ys=a.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+ S.parts.forEach(pt=>{const a=padsFull(pt);a.forEach(p=>add(p.x,p.y,p.R));const xs=a.map(p=>p.x),ys=a.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   for(let x=x0;x<=x1+1e-6;x+=1)for(let y=y0;y<=y1+1e-6;y+=1)add(x,y,.5)});
- S.holes.forEach(o=>add(o.x,o.y,o.d/2));
+ S.holes.forEach(o=>add(o.x,o.y,o.d/2));S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>add(q.x,q.y,padD/2)));
  S.traces.forEach(t=>t.pts.forEach((p,i)=>{add(p.x,p.y,t.w/2);if(i){const a=t.pts[i-1],n=Math.ceil(Math.hypot(p.x-a.x,p.y-a.y)/st);for(let k=1;k<n;k++)add(a.x+(p.x-a.x)*k/n,a.y+(p.y-a.y)*k/n,t.w/2)}}));
  return P}
 function bridge(P,m){const par=P.map((_,i)=>i),fd=i=>par[i]===i?i:(par[i]=fd(par[i])),d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r;
@@ -567,12 +898,290 @@ function outlineLoops(P,m,W,H){const rr=.2,o=-1,nx=Math.ceil((W+2)/rr)+1,ny=Math
   for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const v=Math.hypot(o+i*rr-x,o+j*rr-y)-R;if(v<F[j*nx+i])F[j*nx+i]=v}}
  return msq(F,nx,ny,o,rr).map(l=>simp(l,.004))}
 const outlineSvg=()=>'<path fill="#fff" fill-rule="evenodd" stroke="#000" stroke-width=".2" d="'+outlineLoops(S.keep,MG(),S.W,S.H).map(l=>'M'+l.map(p=>p[0].toFixed(3)+','+(S.H-p[1]).toFixed(3)).join('L')+'Z').join('')+'"/>';
-const trimmed=fn=>{const sv=S,md=$('#oline').value;if(md!=='full'){const f=fitted();if(f){S=f;if(md==='tight')S.keep=bridge(keepPoints(),MG())}}try{return fn()}finally{S=sv}};
+const trimmed=fn=>{const sv=S,md=$('#oline').value;if(md!=='full'&&!S.edges.some(e=>!e.cut)){const f=fitted();if(f){S=f;if(md==='tight')S.keep=bridge(keepPoints(),MG())}}try{return fn()}finally{S=sv}};
 $('#bfit').onclick=()=>{if(busy())return;const f=fitted();if(!f){alert('Place something on the board first.');return}pushHist();S=f;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw()};
-$('#bundo').onclick=()=>pend?cancelPend():undo();$('#cok').onclick=()=>confirmPend(false);$('#cext').onclick=()=>confirmPend(true);$('#crot').onclick=rotateCur;$('#brot').onclick=rotateCur;$('#cno').onclick=cancelPend;
-$('#bclear').onclick=()=>{if(confirm('Remove everything from the board?')){pend=null;showBar();pushHist();S.parts=[];S.traces=[];S.holes=[];cur=null;draw()}};
+$('#bundo').onclick=()=>pend?cancelPend():undo();$('#bredo').onclick=()=>{if(!busy())redo()};$('#cok').onclick=()=>confirmPend(false);$('#cext').onclick=()=>confirmPend(true);$('#crot').onclick=rotateCur;$('#brot').onclick=rotateCur;$('#cflip').onclick=flipCur;$('#bflip').onclick=flipCur;$('#cno').onclick=cancelPend;
+$('#bclear').onclick=()=>{if(confirm('Remove everything from the board?')){pend=null;showBar();pushHist();S=norm({W:S.W,H:S.H});cur=null;draw()}};
+/* ---- 3D preview of the exported plate ---- */
+function preview(){const M=trimmed(mesh),box=$('#pv');box.classList.add('open');const c=$('#pvc'),gl=c.getContext('webgl',{antialias:true});
+ if(!gl){$('#pvmsg').textContent='3D preview needs WebGL, which this browser does not offer. The STL export still works.';return}
+ $('#pvmsg').textContent=`${(M.tri.length/3).toLocaleString()} triangles. Drag to turn, scroll or use − + to zoom.`;
+ const n=M.tri.length,pos=new Float32Array(n*3),nor=new Float32Array(n*3);
+ for(let k=0;k<n;k+=3){const a=M.tri[k],b=M.tri[k+1],d=M.tri[k+2],ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=d[0]-a[0],vy=d[1]-a[1],vz=d[2]-a[2];let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;const l=Math.hypot(nx,ny,nz)||1;nx/=l;ny/=l;nz/=l;
+  [a,b,d].forEach((v,i)=>{pos.set(v,(k+i)*3);nor.set([nx,ny,nz],(k+i)*3)})}
+ const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o},pr=gl.createProgram();
+ gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec3 p;attribute vec3 n;uniform mat4 M;uniform mat4 R;varying vec3 vn;varying float vz;varying float nz;void main(){vn=(R*vec4(n,0.)).xyz;vz=p.z;nz=n.z;gl_Position=M*vec4(p,1.);}'));
+ gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,'precision mediump float;varying vec3 vn;varying float vz;varying float nz;uniform vec4 L;uniform float tz;void main(){vec3 N=normalize(vn);float d=max(dot(N,normalize(vec3(.35,.45,.85))),0.)*.75+.28;vec3 c=vec3(.16,.5,.41);bool cop=L.w>.5?vz>L.x+.001:(abs(vz-L.z)<.001&&nz>.5);if(cop)c=vec3(.88,.57,.31);else if(abs(vz-tz)<.001&&nz>.5)c=vec3(.08,.27,.22);gl_FragColor=vec4(c*d,1.);}'));
+ gl.linkProgram(pr);gl.useProgram(pr);
+ const buf=(data,name)=>{const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);const l=gl.getAttribLocation(pr,name);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,3,gl.FLOAT,false,0,0)};
+ buf(pos,'p');buf(nor,'n');
+ gl.uniform4f(gl.getUniformLocation(pr,'L'),M.t,M.z1,M.gz,M.up?1:0);gl.uniform1f(gl.getUniformLocation(pr,'tz'),M.tz);
+ const mul=(a,b)=>{const r=new Float32Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+j]*b[i*4+k];r[i*4+j]=s}return r},
+  I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]),tr=(x,y,z)=>{const r=I();r[12]=x;r[13]=y;r[14]=z;return r},
+  rx=t=>new Float32Array([1,0,0,0,0,Math.cos(t),Math.sin(t),0,0,-Math.sin(t),Math.cos(t),0,0,0,0,1]),rz=t=>new Float32Array([Math.cos(t),Math.sin(t),0,0,-Math.sin(t),Math.cos(t),0,0,0,0,1,0,0,0,0,1]),
+  per=(fv,a,nr,fr)=>{const f=1/Math.tan(fv/2);return new Float32Array([f/a,0,0,0,0,f,0,0,0,0,(fr+nr)/(nr-fr),-1,0,0,2*fr*nr/(nr-fr),0])};
+ const V=preview.v||(preview.v={ax:-.95,az:.35,k:1});const span=Math.max(M.W,M.H);
+ const render=()=>{const d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*d)||c.height!==Math.round(h*d)){c.width=Math.round(w*d);c.height=Math.round(h*d)}
+  gl.viewport(0,0,c.width,c.height);gl.clearColor(.17,.19,.21,1);gl.enable(gl.DEPTH_TEST);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  const R=mul(rx(V.ax),rz(V.az)),dist=span*1.5*V.k,Mv=mul(per(.8,w/Math.max(1,h),span*.05,span*10),mul(tr(0,0,-dist),mul(R,tr(-M.W/2,-M.H/2,-M.t/2))));
+  gl.uniformMatrix4fv(gl.getUniformLocation(pr,'M'),false,Mv);gl.uniformMatrix4fv(gl.getUniformLocation(pr,'R'),false,R);gl.drawArrays(gl.TRIANGLES,0,n)};
+ preview.render=render;let dg=null;
+ c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);dg={x:e.clientX,y:e.clientY}};c.onpointerup=()=>dg=null;
+ c.onpointermove=e=>{if(!dg)return;V.az+=(e.clientX-dg.x)*.01;V.ax=Math.max(-3.1,Math.min(0,V.ax+(e.clientY-dg.y)*.01));dg={x:e.clientX,y:e.clientY};render()};
+ c.onwheel=e=>{e.preventDefault();V.k=Math.max(.2,Math.min(4,V.k*(e.deltaY<0?.9:1.1)));render()};
+ $('#pvi').onclick=()=>{V.k=Math.max(.2,V.k*.8);render()};$('#pvo').onclick=()=>{V.k=Math.min(4,V.k*1.25);render()};
+ requestAnimationFrame(render)}
+$('#pvx').onclick=()=>$('#pv').classList.remove('open');addEventListener('resize',()=>{if($('#pv').classList.contains('open')&&preview.render)preview.render()});
 const helpEl=$('#help'),closeHelp=()=>helpEl.classList.remove('open');
 $('#bhelp').onclick=()=>helpEl.classList.add('open');$('#hx').onclick=closeHelp;helpEl.onclick=e=>{if(e.target===helpEl)closeHelp()};
-addEventListener('keydown',e=>{if(helpEl.classList.contains('open')){if(e.key==='Escape')closeHelp();e.stopImmediatePropagation()}},true);
+addEventListener('keydown',e=>{if(helpEl.classList.contains('open')){if(e.key==='Escape')closeHelp();e.stopImmediatePropagation()}
+ else if($('#dlg').classList.contains('open')){if(e.key==='Escape')closeDlg();e.stopImmediatePropagation()}
+ else if($('#pv').classList.contains('open')){if(e.key==='Escape')$('#pv').classList.remove('open');e.stopImmediatePropagation()}},true);
 addEventListener('resize',draw);setTool('trace');
+
+/* ---- Schematic editor: draw a circuit, then Generate PCB feeds the auto-router ---- */
+(function(){
+let SC={parts:[],wires:[]};try{SC=JSON.parse(localStorage.getItem('tb_sch'))||SC}catch(e){}
+if(!SC||!Array.isArray(SC.parts))SC={parts:[],wires:[]};if(!Array.isArray(SC.wires))SC.wires=[];
+let UND=[],RED=[],sel=null,vb=null;
+const snap=()=>JSON.stringify(SC);
+const hist=()=>{UND.push(snap());if(UND.length>80)UND.shift();RED=[]};
+const hesc=a=>String(a).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const sv=()=>{try{localStorage.setItem('tb_sch',JSON.stringify(SC))}catch(e){}},c=$('#scv'),g=c.getContext('2d'),U=20;
+let tl='place',v={x:60,y:60,k:1},wp=null,ms={x:0,y:0},dg=null,css=getComputedStyle(document.documentElement);
+const col=n=>css.getPropertyValue(n).trim();
+/* schematic symbols -> the PCB footprint type each one is built with */
+const SYMS={res:{n:'Resistor',t:'res',r:'R'},cap:{n:'Capacitor',t:'leg508',r:'C'},ecap:{n:'Capacitor (electrolytic)',t:'leg254',r:'C',names:['+','−']},
+ led:{n:'LED',t:'led',r:'D',names:['A','K']},dio:{n:'Diode',t:'res',r:'D',names:['A','K']},bat:{n:'Battery',t:'h2',r:'BT',names:['+','−']},
+ ind:{n:'Inductor',t:'res',r:'L'},buz:{n:'Buzzer',t:'h2',r:'BZ',names:['+','−']},sw:{n:'Switch',t:'h2',r:'SW'},btn:{n:'Push button',t:'h2',r:'SW'},pot:{n:'Potentiometer',t:'h3',r:'RV',names:['1','W','2']},
+ npn:{n:'NPN transistor',t:'h3',r:'Q',names:['B','C','E']},pnp:{n:'PNP transistor',t:'h3',r:'Q',names:['B','C','E']},nmos:{n:'N-MOSFET',t:'h3',r:'Q',names:['G','D','S']},
+ jmp:{n:'Jumper wire',t:'jmp1016',r:'JP'},gnd:{n:'Ground',t:'pad',r:'GND',pw:'GND'},vcc:{n:'Power (VCC)',t:'pad',r:'VCC',pw:'VCC'}};
+const PAL=[['Basic',['res','cap','ecap','ind','led','dio','bat','sw','btn','buz','pot','jmp']],['Transistors',['npn','pnp','nmos']],['Power symbols',['gnd','vcc']],['Connectors',['F:fhdr']],['ICs and modules',['F:fdip','esp32','enc','tp4056']],['Other',['pad']]];
+const symOf=p=>SYMS[p.sym||p.type],isPw=p=>{const q=symOf(p);return !!(q&&q.pw)};
+const pre=t=>/^h\d/.test(t)?'J':t==='pad'?'TP':t==='enc'?'SW':'U',rp=k=>SYMS[k]?SYMS[k].r:pre(k);
+const HT={place:'Tap the grid to place the chosen part.',wire:'Tap one pin, then another pin, to connect them.',move:'Tap a part to edit it. Drag a part to move it. Drag empty space to pan.',del:'Tap a part or a wire to remove it.'};
+const nref=k=>{const p=rp(k);let n=1;while(SC.parts.some(a=>a.ref===p+n))n++;return p+n};
+const qt=p=>((((p.rot|0)%4)+4)%4);
+const tf=p=>{const r=qt(p),f=p.flip?-1:1;
+ return (dx,dy)=>{let x=dx*f,y=dy;for(let i=0;i<r;i++){const t=x;x=-y;y=t}return{x:p.x+x,y:p.y+y}}};
+function geo0(p){const D=DEFS[p.type],S0=symOf(p),n=D.p.length,nm=i=>S0&&S0.names&&S0.names[i]||D.names&&D.names[i]||String(i+1);
+ if(n===1){const pw=!!(S0&&S0.pw),up=pw&&S0.pw==='VCC';
+  return{w:0,h:0,sym:1,bb:{x0:-12,y0:up?-26:-10,x1:12,y1:pw&&!up?24:10},pins:[{dx:0,dy:0,l:'',i:1}]}}
+ if(n===2){const kk=p.sym||p.type,nm2=i=>(S0&&S0.names&&S0.names[i])||(D.names&&D.names[i])||'';
+  return{w:80,h:0,sym:2,bb:{x0:-6,y0:kk==='led'?-30:-18,x1:86,y1:18},pins:[0,1].map(i=>({dx:i*80,dy:0,l:nm2(i),i:i+1}))}}
+ const k0=p.sym||p.type,Q=(x,y,i)=>({dx:x,dy:y,l:nm(i-1),i});
+ if(n===3&&['npn','pnp','nmos'].includes(k0))return{w:40,h:40,sym:'q',bb:{x0:-8,y0:-8,x1:48,y1:48},pins:[Q(0,20,1),Q(40,0,2),Q(40,40,3)]};
+ if(n===3&&k0==='pot')return{w:80,h:40,sym:'pot',bb:{x0:-6,y0:-14,x1:86,y1:48},pins:[Q(0,0,1),Q(40,40,2),Q(80,0,3)]};
+ const sp=n>3||D.dip,L=sp?Math.ceil(n/2):n,pins=[];
+ for(let i=0;i<L;i++)pins.push({dx:0,dy:i*U,l:nm(i),i:i+1,s:0});
+ if(sp)for(let j=0;j<n-L;j++){const i=D.dip?n-1-j:L+j;pins.push({dx:120,dy:j*U,l:nm(i),i:i+1,s:1})}
+ const w=sp?120:70;return{w,h:(L-1)*U,sym:0,bb:{x0:-5,y0:-17,x1:w+5,y1:(L-1)*U+17},pins}}
+function geo(p){const G=geo0(p),t=tf(p);
+ return{w:G.w,h:G.h,sym:G.sym,pins:G.pins.map(q=>{const a=t(q.dx,q.dy);return{x:a.x,y:a.y,l:q.l,i:q.i,s:q.s}})}}
+function bbx(p){const B=geo0(p).bb,t=tf(p),c=[[B.x0,B.y0],[B.x1,B.y0],[B.x1,B.y1],[B.x0,B.y1]].map(a=>t(a[0],a[1])),
+ xs=c.map(a=>a.x),ys=c.map(a=>a.y);
+ return{x0:Math.min.apply(null,xs),y0:Math.min.apply(null,ys),x1:Math.max.apply(null,xs),y1:Math.max.apply(null,ys)}}
+const pinXY=k=>{const[r,i]=k.split('.'),p=SC.parts.find(a=>a.ref===r);return p&&geo(p).pins.find(q=>q.i==i)};
+const wpts=w=>{const a=pinXY(w.a),b=pinXY(w.b);if(!a||!b)return[];return a.y===b.y||a.x===b.x?[a,b]:[a,{x:b.x,y:a.y},b]};
+function pinAt(x,y){for(const p of SC.parts)for(const q of geo(p).pins)if(Math.hypot(q.x-x,q.y-y)<10+6/v.k)return{key:p.ref+'.'+q.i,q}}
+function partAt(x,y){for(let i=SC.parts.length-1;i>=0;i--){const p=SC.parts[i],B=bbx(p);if(x>=B.x0&&x<=B.x1&&y>=B.y0&&y<=B.y1)return p}}
+/* nets: wires join pins; all Ground symbols are one net, all Power symbols are one net */
+function uf(){const par={},f=a=>{if(par[a]===undefined)par[a]=a;return par[a]===a?a:(par[a]=f(par[a]))};
+ SC.wires.forEach(w=>{par[f(w.a)]=f(w.b)});
+ SC.parts.forEach(p=>{if(DEFS[p.type]&&DEFS[p.type].jmp&&SC.wires.some(w=>w.a.split('.')[0]===p.ref||w.b.split('.')[0]===p.ref))par[f(p.ref+'.1')]=f(p.ref+'.2')});
+ ['GND','VCC'].forEach(L=>{const ks=SC.parts.filter(p=>isPw(p)&&symOf(p).pw===L).map(p=>p.ref+'.1');ks.forEach(k=>{par[f(k)]=f(ks[0])})});
+ const m={};Object.keys(par).forEach(k=>(m[f(k)]=m[f(k)]||[]).push(k));return Object.values(m)}
+function nets(){let n=0;const out=[];
+ uf().forEach(a=>{const pw=a.map(k=>SC.parts.find(p=>p.ref===k.split('.')[0])).filter(p=>p&&isPw(p)),pins=a.filter(k=>{const p=SC.parts.find(q=>q.ref===k.split('.')[0]);return p&&!isPw(p)});
+  if(pins.length>1)out.push({name:pw.length?symOf(pw[0]).pw:'N'+(++n),pins})});return out}
+function size(){const d=devicePixelRatio||1;c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw()}
+function sym2(k,x,y){g.moveTo(x,y);
+ if(k==='res'){g.lineTo(x+20,y);[[25,-8],[35,8],[45,-8],[55,8],[60,0]].forEach(q=>g.lineTo(x+q[0],y+q[1]));g.lineTo(x+80,y)}
+ else if(k==='ecap'){g.lineTo(x+36,y);g.moveTo(x+36,y-12);g.lineTo(x+36,y+12);g.moveTo(x+44,y-12);g.quadraticCurveTo(x+54,y,x+44,y+12);g.moveTo(x+46,y);g.lineTo(x+80,y)}
+ else if(k==='jmp'){g.lineTo(x+20,y);g.arc(x+40,y,20,Math.PI,0);g.lineTo(x+80,y)}
+ else if(k==='ind'){g.lineTo(x+16,y);for(let i=0;i<4;i++)g.arc(x+22+12*i,y,6,Math.PI,0);g.lineTo(x+80,y)}
+ else if(k==='buz'){g.lineTo(x+28,y);g.moveTo(x+52,y);g.arc(x+40,y,12,0,7);g.moveTo(x+52,y);g.lineTo(x+80,y)}
+ else if(k==='cap'){g.lineTo(x+36,y);g.moveTo(x+36,y-12);g.lineTo(x+36,y+12);g.moveTo(x+44,y-12);g.lineTo(x+44,y+12);g.moveTo(x+44,y);g.lineTo(x+80,y)}
+ else if(k==='led'||k==='dio'){g.lineTo(x+30,y);g.moveTo(x+30,y-10);g.lineTo(x+30,y+10);g.lineTo(x+50,y);g.closePath();g.moveTo(x+50,y-10);g.lineTo(x+50,y+10);g.moveTo(x+50,y);g.lineTo(x+80,y);
+  if(k==='led'){g.moveTo(x+36,y-14);g.lineTo(x+46,y-24);g.moveTo(x+46,y-14);g.lineTo(x+56,y-24)}}
+ else if(k==='bat'){g.lineTo(x+34,y);g.moveTo(x+34,y-13);g.lineTo(x+34,y+13);g.moveTo(x+44,y-7);g.lineTo(x+44,y+7);g.moveTo(x+44,y);g.lineTo(x+80,y)}
+ else if(k==='sw'){g.lineTo(x+20,y);g.moveTo(x+60,y);g.lineTo(x+80,y);g.moveTo(x+20,y);g.lineTo(x+58,y-16)}
+ else if(k==='btn'){g.lineTo(x+22,y);g.moveTo(x+58,y);g.lineTo(x+80,y);g.moveTo(x+16,y-10);g.lineTo(x+64,y-10);g.moveTo(x+40,y-10);g.lineTo(x+40,y-20)}
+ else{g.lineTo(x+20,y);g.rect(x+20,y-10,40,20);g.moveTo(x+60,y);g.lineTo(x+80,y)}}
+function draw(){const d=devicePixelRatio||1,ac=col('--ac'),cu=col('--cu'),tx=col('--tx'),mu='#cfd8de';
+ g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,c.width,c.height);g.setTransform(d*v.k,0,0,d*v.k,d*v.x,d*v.y);
+ g.fillStyle='#5d666f';const x0=Math.floor(-v.x/v.k/U)*U,y0=Math.floor(-v.y/v.k/U)*U;
+ for(let x=x0;x<x0+c.clientWidth/v.k+U;x+=U)for(let y=y0;y<y0+c.clientHeight/v.k+U;y+=U)g.fillRect(x-.7,y-.7,1.4,1.4);
+ g.lineJoin='round';g.lineCap='round';g.lineWidth=2;g.strokeStyle=cu;
+ SC.wires.forEach(w=>{const P=wpts(w);g.beginPath();P.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.stroke()});
+ if(wp){const a=pinXY(wp);if(a){g.strokeStyle=ac;g.setLineDash([5,4]);g.beginPath();g.moveTo(a.x,a.y);g.lineTo(ms.x,ms.y);g.stroke();g.setLineDash([])}}
+ g.font='11px system-ui,sans-serif';g.textBaseline='middle';
+ SC.parts.forEach(p=>{const G=geo(p),D=DEFS[p.type],S0=symOf(p),k=p.sym||p.type,
+   nmz=(S0?S0.n:(D.label||D.n.split(',')[0])).split(' (')[0],B=bbx(p),cx=(B.x0+B.x1)/2,cy=(B.y0+B.y1)/2;
+  /* the symbol itself is drawn turned; the words stay level so they always read */
+  g.save();g.translate(p.x,p.y);g.rotate(qt(p)*Math.PI/2);if(p.flip)g.scale(-1,1);
+  g.strokeStyle=tx;g.fillStyle=tx;g.lineWidth=1.6;g.beginPath();
+  if(G.sym===2)sym2(k,0,0);
+  else if(G.sym==='q'||G.sym==='pot'){const ln=(a,b,c2,d2)=>{g.moveTo(a,b);g.lineTo(c2,d2)};
+   if(G.sym==='pot'){ln(0,0,20,0);[[25,-8],[35,8],[45,-8],[55,8],[60,0]].forEach(q=>g.lineTo(q[0],q[1]));g.lineTo(80,0);ln(40,40,40,11);ln(40,11,36,18);ln(40,11,44,18)}
+   else if(k==='nmos'){ln(0,20,12,20);ln(12,8,12,32);ln(18,8,18,14);ln(18,17,18,23);ln(18,26,18,32);ln(18,10,40,10);ln(40,10,40,0);ln(18,30,40,30);ln(40,30,40,40);ln(18,20,32,20);ln(32,20,32,30);g.moveTo(18,20);g.lineTo(25,16);g.lineTo(25,24);g.closePath()}
+   else{ln(0,20,18,20);ln(18,8,18,32);ln(18,14,40,4);ln(40,4,40,0);ln(18,26,40,36);ln(40,36,40,40);if(k==='npn'){g.moveTo(36,34);g.lineTo(28,34);g.lineTo(31,28);g.closePath()}else{g.moveTo(24,23);g.lineTo(32,23);g.lineTo(29,29);g.closePath()}}}
+  else if(G.sym===0)g.rect(0,-12,G.w,G.h+24);
+  else if(isPw(p)){if(S0.pw==='GND'){g.moveTo(0,0);g.lineTo(0,10);[[8,10],[5,14],[2,18]].forEach(q=>{g.moveTo(-q[0],q[1]);g.lineTo(q[0],q[1])})}
+   else{g.moveTo(0,0);g.lineTo(0,-10);g.moveTo(-8,-10);g.lineTo(8,-10)}}
+  g.stroke();g.restore();
+  /* name, part type and value */
+  g.textAlign='center';g.fillStyle=ac;
+  if(isPw(p))g.fillText(S0.pw,cx,S0.pw==='GND'?B.y1+6:B.y0+6);
+  else if(G.sym===1){g.textAlign='left';g.fillText(p.ref,p.x+8,p.y-8);g.textAlign='center'}
+  else{g.fillText(p.ref,cx,B.y0-12);g.fillStyle=mu;g.fillText(nmz.slice(0,24),cx,B.y1+13);
+   if((p.val||'').trim()){g.fillStyle=cu;g.fillText(p.val.trim().slice(0,18),cx,B.y1+26)}}
+  /* pin names: inside the body for chips, alongside the lead for everything else */
+  if(G.sym!==1){g.fillStyle=mu;
+   G.pins.forEach(q=>{if(!q.l)return;let dx=cx-q.x,dy=cy-q.y;const L=Math.hypot(dx,dy)||1;dx/=L;dy/=L;
+    if(G.sym===0){if(Math.abs(dx)>=Math.abs(dy)){g.textAlign=dx>0?'left':'right';g.fillText(q.l,q.x+dx*8,q.y)}
+     else{g.textAlign='center';g.fillText(q.l,q.x+dy*0,q.y+dy*11)}}
+    else{g.textAlign='center';g.fillText(q.l,q.x+dy*11,q.y-dx*11)}})}
+  if(sel===p.ref){g.save();g.strokeStyle=ac;g.lineWidth=1.3;g.setLineDash([5,4]);g.strokeRect(B.x0-4,B.y0-4,B.x1-B.x0+8,B.y1-B.y0+8);g.restore()}
+  G.pins.forEach(q=>{g.beginPath();g.arc(q.x,q.y,wp===p.ref+'.'+q.i?6:3.5,0,7);g.fillStyle=wp===p.ref+'.'+q.i?ac:cu;g.fill()})});
+ $('#sundo').disabled=!UND.length;$('#sredo').disabled=!RED.length;
+ $('#shint').textContent=HT[tl]+'  ·  '+SC.parts.filter(p=>!isPw(p)).length+' parts, '+nets().length+' connections'}
+const pos=e=>({x:(e.offsetX-v.x)/v.k,y:(e.offsetY-v.y)/v.k}),sn=a=>Math.round(a/U)*U;
+/* two-finger pinch: zoom around the midpoint and pan with it */
+const pts=new Map();let pn=null;
+const pdist=()=>{const a=[...pts.values()];return{d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,mx:(a[0].x+a[1].x)/2,my:(a[0].y+a[1].y)/2}};
+const endp=e=>{pts.delete(e.pointerId);if(pts.size<2)pn=null};
+c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  if(pts.size===2){if(dg&&dg.mv&&dg.pt)sv();dg=null;const q=pdist();pn={d:q.d,k:v.k,mx:q.mx,my:q.my,vx:v.x,vy:v.y};return}
+  if(pts.size>2)return;
+  const p=pos(e);ms=p;dg={sx:e.offsetX,sy:e.offsetY,vx:v.x,vy:v.y,mv:false,pt:tl==='move'?partAt(p.x,p.y):null};if(dg.pt){dg.ox=dg.pt.x-p.x;dg.oy=dg.pt.y-p.y;dg.was=snap()}};
+c.onpointermove=e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,{x:e.offsetX,y:e.offsetY});
+  if(pn&&pts.size>=2){const q=pdist(),k=Math.min(3,Math.max(.3,pn.k*q.d/pn.d)),wx=(pn.mx-pn.vx)/pn.k,wy=(pn.my-pn.vy)/pn.k;v.k=k;v.x=q.mx-wx*k;v.y=q.my-wy*k;draw();return}
+  const p=pos(e);ms=p;if(dg){if(Math.hypot(e.offsetX-dg.sx,e.offsetY-dg.sy)>5)dg.mv=true;
+  if(dg.mv){if(dg.pt){dg.pt.x=sn(p.x+dg.ox);dg.pt.y=sn(p.y+dg.oy)}else{v.x=dg.vx+e.offsetX-dg.sx;v.y=dg.vy+e.offsetY-dg.sy}}}draw()};
+c.onpointercancel=e=>{endp(e);dg=null;draw()};
+c.onpointerup=e=>{endp(e);const p=pos(e);if(dg&&!dg.mv)tap(p);else if(dg&&dg.pt&&dg.mv){UND.push(dg.was);if(UND.length>80)UND.shift();RED=[];sv()}dg=null;draw()};
+c.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?1.1:.9,e.offsetX,e.offsetY)};
+function zoom(f,cx0=c.clientWidth/2,cy0=c.clientHeight/2){const k=Math.min(3,Math.max(.3,v.k*f));v.x=cx0-(cx0-v.x)*k/v.k;v.y=cy0-(cy0-v.y)*k/v.k;v.k=k;draw()}
+$('#szi').onclick=()=>zoom(1.25);$('#szo').onclick=()=>zoom(.8);
+let pick={k:'res'};
+const pickVal=()=>pick.t&&SYMS[pick.k]?pick.k:famOf(pick.k)?'F:'+famOf(pick.k):pick.k;
+function tap(p){
+ if(tl==='place'){const k=pick.k,S0=SYMS[k];if(!k)return;hist();const r=nref(k);
+  SC.parts.push({ref:r,type:pick.t||(S0?S0.t:k),sym:S0?k:undefined,x:sn(p.x),y:sn(p.y),rot:0,flip:false,val:''});sel=r;sv();prop()}
+ else if(tl==='wire'){const h=pinAt(p.x,p.y);if(!h)wp=null;else if(!wp)wp=h.key;else{if(wp!==h.key&&!SC.wires.some(w=>(w.a===wp&&w.b===h.key)||(w.b===wp&&w.a===h.key))){hist();SC.wires.push({a:wp,b:h.key});sv()}wp=null}}
+ else if(tl==='move'){const pt=partAt(p.x,p.y);sel=pt?pt.ref:null;prop()}
+ else if(tl==='del'){const pt=partAt(p.x,p.y);if(pt){hist();SC.parts=SC.parts.filter(a=>a!==pt);SC.wires=SC.wires.filter(w=>w.a.split('.')[0]!==pt.ref&&w.b.split('.')[0]!==pt.ref);if(sel===pt.ref){sel=null;prop()}sv()}
+  else{const w=SC.wires.find(w=>{const P=wpts(w);return P.some((a,i)=>i&&dseg(p.x,p.y,P[i-1].x,P[i-1].y,a.x,a.y)<6)});if(w){hist();SC.wires.splice(SC.wires.indexOf(w),1);sv()}}}}
+const selP=()=>SC.parts.find(a=>a.ref===sel);
+function prop(){const p=selP(),el=$('#sprop');
+ const on=!(!p||(tl!=='move'&&tl!=='place'));$('#sch').classList.toggle('editing',on);
+ if(!on){el.hidden=true;return}
+ const S0=symOf(p),D=DEFS[p.type];el.hidden=false;
+ $('#spref').textContent=p.ref+' · '+(S0?S0.n:(D.label||D.n.split(',')[0])).split(' (')[0];
+ const iv=$('#spval');if(document.activeElement!==iv)iv.value=p.val||'';
+ iv.disabled=!!isPw(p);iv.placeholder=isPw(p)?'—':'Value e.g. 10k';
+ const fs=$('#spfp'),n0=DEFS[p.type].p.length;fs.hidden=!!isPw(p);fs.innerHTML='';
+ Object.keys(DEFS).filter(k=>DEFS[k].p.length===n0&&k!=='pad').forEach(k=>fs.appendChild(new Option('Footprint: '+DEFS[k].n,k)));fs.value=p.type}
+function rotSel(){const p=selP();if(!p)return;hist();p.rot=(qt(p)+1)%4;sv();draw()}
+function flipSel(){const p=selP();if(!p)return;hist();p.flip=!p.flip;sv();draw()}
+function delSel(){const p=selP();if(!p)return;hist();SC.parts=SC.parts.filter(a=>a!==p);
+ SC.wires=SC.wires.filter(w=>w.a.split('.')[0]!==p.ref&&w.b.split('.')[0]!==p.ref);sel=null;sv();prop();draw()}
+function undo(){if(!UND.length)return;RED.push(snap());SC=JSON.parse(UND.pop());if(!selP())sel=null;wp=null;sv();prop();draw()}
+function redo(){if(!RED.length)return;UND.push(snap());SC=JSON.parse(RED.pop());if(!selP())sel=null;wp=null;sv();prop();draw()}
+function setTl(t){if(!t)return;tl=t;wp=null;if(t!=='move'&&t!=='place')sel=null;document.querySelectorAll('#stools button').forEach(x=>x.classList.toggle('on',x.dataset.s===t));prop();draw()}
+document.querySelectorAll('#stools button').forEach(b=>b.onclick=()=>setTl(b.dataset.s));
+$('#sundo').onclick=undo;$('#sredo').onclick=redo;
+$('#sprot').onclick=rotSel;$('#spflip').onclick=flipSel;$('#spdel').onclick=delSel;
+$('#spfp').onchange=e=>{const p=selP();if(!p||!DEFS[e.target.value])return;hist();p.type=e.target.value;sv();prop();draw()};
+$('#spdone').onclick=()=>{sel=null;prop();draw()};
+$('#spval').oninput=e=>{const p=selP();if(!p)return;if(vb===null)vb=snap();p.val=e.target.value;draw()};
+const vcommit=()=>{if(vb!==null){UND.push(vb);if(UND.length>80)UND.shift();RED=[];vb=null;sv();draw()}};
+$('#spval').onchange=vcommit;$('#spval').onblur=vcommit;
+function open(){const sl=$('#spart'),cur=sl.value;sl.innerHTML='';
+ PAL.forEach(([gn,ks])=>{const og=document.createElement('optgroup');og.label=gn;ks.forEach(k=>og.appendChild(new Option(k.startsWith('F:')?FAMS[k.slice(2)].n:k==='pad'?'Test point / single pad':SYMS[k]?SYMS[k].n:/^h\d$/.test(k)?'Connector, '+k.slice(1)+'-pin':/^dip\d+$/.test(k)?'IC, '+k.slice(3)+'-pin (DIP-'+k.slice(3)+')':DEFS[k].n,k)));sl.appendChild(og)});
+ const imp=$('#partsel').querySelector('optgroup[data-imp]');if(imp)sl.appendChild(imp.cloneNode(true));
+ sl.value=[...sl.options].some(o=>o.value===pickVal())?pickVal():'res';if(sl.value==='res'&&pickVal()!=='res')pick={k:'res'};
+ closePanel();sel=null;prop();$('#sch').classList.add('open');size()}
+const close=()=>$('#sch').classList.remove('open');
+$('#spart').onchange=e=>{const v=e.target.value,back=()=>{e.target.value=pickVal()};setTl('place');
+ if(v.startsWith('F:'))askSize(v.slice(2),k=>{pick={k};back()},back);
+ else if(v==='jmp')askSize('fjmp',t=>{pick={k:'jmp',t};back()},back);
+ else pick={k:v}};
+$('#bsch').onclick=open;$('#scl').onclick=close;addEventListener('resize',()=>$('#sch').classList.contains('open')&&size());
+$('#sclr').onclick=()=>{if(confirm('Clear the whole schematic?')){hist();SC={parts:[],wires:[]};sel=null;wp=null;sv();prop();draw()}};
+const NEEDV=['res','cap','ecap','ind','pot'];
+/* ---- panels: parts list and the check before building ---- */
+function panel(html,btns){$('#spanelc').innerHTML=html;const b=$('#spanelb');b.innerHTML='';
+ btns.forEach(a=>{const x=document.createElement('button');x.textContent=a[0];if(a[2])x.className=a[2];x.onclick=a[1];b.appendChild(x)});
+ $('#spanelc').scrollTop=0;$('#spanel').hidden=false}
+function closePanel(){$('#spanel').hidden=true}
+/* ---- parts list: one row per part type and value ---- */
+function bom(){const rows={},order=[];
+ SC.parts.filter(p=>!isPw(p)).forEach(p=>{const S0=symOf(p),D=DEFS[p.type],
+  nm=(S0?S0.n:(D.label||D.n)),val=(p.val||'').trim(),key=nm+'\u0000'+val;
+  if(!rows[key]){rows[key]={nm:nm,val:val,need:NEEDV.indexOf(p.sym||p.type)>=0,refs:[]};order.push(key)}
+  rows[key].refs.push(p.ref)});
+ return order.map(k=>rows[k])}
+function bomText(R){return R.map(r=>r.refs.length+' x '+r.nm+(r.val?'  ['+r.val+']':'')+'  -  '+r.refs.join(', ')).join('\n')}
+function showBom(){const R=bom();let h='<h4>Parts list</h4>';
+ if(!R.length)h+='<p class="mu">No parts yet. Place some parts first.</p>';
+ else{h+='<table><tr><th>Qty</th><th>Part</th><th>Value</th><th>Names</th></tr>';
+  R.forEach(r=>{h+='<tr><td>'+r.refs.length+'</td><td>'+hesc(r.nm)+'</td><td>'+(r.val?hesc(r.val):'<span class="'+(r.need?'wrn':'mu')+'">'+(r.need?'not set':'\u2014')+'</span>')+'</td><td>'+hesc(r.refs.join(', '))+'</td></tr>'});
+  h+='</table><p class="mu">To set a value, choose the <b>Edit</b> tool and tap a part.</p>'}
+ const btns=[];
+ if(R.length)btns.push(['Copy',function(){const t=bomText(R);
+   try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{this.textContent='Copied'},()=>fbcopy(t,this));return}}catch(e){}
+   fbcopy(t,this)}]);
+ btns.push(['Close',closePanel,'accent']);panel(h,btns)}
+function fbcopy(t,btn){try{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';
+ document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();btn.textContent='Copied'}catch(e){btn.textContent='Press and hold to copy'}}
+/* ---- checks run before the board is built ---- */
+function checks(){const out=[],P=SC.parts.filter(p=>!isPw(p)),N=nets();
+ const seen={},dup=[];SC.parts.forEach(p=>{if(seen[p.ref]&&dup.indexOf(p.ref)<0)dup.push(p.ref);seen[p.ref]=1});
+ if(dup.length)out.push(['err','Two or more parts share the name '+dup.join(', ')+'. Give one of them a different name.']);
+ let shorted=false;
+ uf().forEach(a=>{const w=a.map(k=>SC.parts.find(q=>q.ref===k.split('.')[0])).filter(q=>q&&isPw(q)).map(q=>symOf(q).pw);
+  if(w.indexOf('GND')>=0&&w.indexOf('VCC')>=0)shorted=true});
+ if(shorted)out.push(['err','Ground and Power are joined to each other. On a real board that is a short circuit.']);
+ const wired={};N.forEach(n=>n.pins.forEach(k=>wired[k.split('.')[0]]=1));
+ const lone=P.filter(p=>!wired[p.ref]).map(p=>p.ref);
+ if(lone.length)out.push(['wrn','Not wired to anything yet: '+lone.join(', ')+'.']);
+ const inNet={};N.forEach(n=>n.pins.forEach(k=>inNet[k]=1));
+ let openp=0;P.forEach(p=>geo(p).pins.forEach(q=>{if(!inNet[p.ref+'.'+q.i])openp++}));
+ if(openp)out.push(['wrn',openp+(openp===1?' pin is':' pins are')+' left unconnected. That is fine if you meant it.']);
+ const nov=P.filter(p=>NEEDV.indexOf(p.sym||p.type)>=0&&!(p.val||'').trim()).map(p=>p.ref);
+ if(nov.length)out.push(['wrn','No value set for '+nov.join(', ')+'. The board still builds, but the parts list will not say what to buy.']);
+ return out}
+function writeSpec(){const P=SC.parts.filter(p=>!isPw(p)),N=nets(),vals=P.filter(p=>(p.val||'').trim()).map(p=>'# '+p.ref+' = '+p.val.trim());
+ $('#spec').value=P.map(p=>p.ref+' '+p.type).concat(N.map(n=>n.name+': '+n.pins.join(' '))).concat(vals).join('\n')}
+function gen(){if(!nets().length&&!confirm('No connections yet, so the PCB will have no tape. Continue?'))return;writeSpec();close();autogen()}
+function upd(){writeSpec();close();syncSpec()}
+window.TBSCH={get:()=>SC,set:d=>{if(d&&Array.isArray(d.parts)){SC={parts:d.parts,wires:Array.isArray(d.wires)?d.wires:[]};UND=[];RED=[];sel=null;wp=null;sv()}}};
+$('#sbom').onclick=showBom;
+$('#sgo').onclick=()=>runChecks(gen);$('#supd').onclick=()=>runChecks(upd);
+function runChecks(go){const P=SC.parts.filter(p=>!isPw(p));
+ if(!P.length){$('#shint').textContent='Place some parts and wire them first.';return}
+ const C=checks(),bad=C.filter(a=>a[0]==='err');
+ if(!C.length)return go();
+ let h='<h4>A quick check before building</h4><ul>';
+ C.forEach(a=>{h+='<li class="'+(a[0]==='err'?'err':'wrn')+'"><b>'+(a[0]==='err'?'Problem':'Worth a look')+':</b> '+hesc(a[1])+'</li>'});
+ h+='</ul><p class="'+(bad.length?'err':'mu')+'">'+(bad.length?'Fix the problems above, then try again.':'These are only warnings. The board will still build.')+'</p>';
+ const btns=[['Back to drawing',closePanel]];
+ if(!bad.length)btns.push(['Build the board \u25b8',()=>{closePanel();go()},'accent']);
+ panel(h,btns)}
+/* ---- keys, while the drawing area is open ---- */
+addEventListener('keydown',e=>{if(!$('#sch').classList.contains('open'))return;
+ const k=(e.key||'').toLowerCase(),inp=/INPUT|SELECT|TEXTAREA/.test(e.target.tagName);
+ if(!$('#spanel').hidden){if(k==='escape'){e.preventDefault();closePanel()}e.stopImmediatePropagation();return}
+ if((e.ctrlKey||e.metaKey)&&k==='z'){e.preventDefault();e.shiftKey?redo():undo();e.stopImmediatePropagation();return}
+ if((e.ctrlKey||e.metaKey)&&k==='y'){e.preventDefault();redo();e.stopImmediatePropagation();return}
+ if(inp){if(k==='escape'||k==='enter')e.target.blur();e.stopImmediatePropagation();return}
+ if(k==='escape'){e.preventDefault();if(sel){sel=null;prop();draw()}else close()}
+ else if(k==='r')rotSel();
+ else if(k==='f')flipSel();
+ else if(k==='delete'||k==='backspace'){e.preventDefault();delSel()}
+ else{const M={p:'place',w:'wire',e:'move',d:'del'};if(M[k])setTl(M[k])}
+ e.stopImmediatePropagation()},true);
+})();
 </script></body></html>
