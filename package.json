@@ -1,10 +1,10 @@
 {
   "name": "tape-board",
   "productName": "Tape Board",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copper tape circuit designer for 3D printed boards",
   "author": "R. Heller",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "private": true,
   "main": "electron/main.js",
   "scripts": {
@@ -28,15 +28,27 @@
   "build": {
     "appId": "com.rheller.tapeboard",
     "productName": "Tape Board",
-    "files": ["electron/**", "www/**", "package.json"],
-    "directories": { "output": "dist" },
+    "files": [
+      "electron/**",
+      "www/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
     "win": {
-      "target": ["nsis", "portable"],
-      "artifactName": "Tape-Board-${version}-${arch}.${ext}"
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Tape-Board-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Tape-Board-Portable-${version}-${arch}.${ext}"
     }
   }
 }
