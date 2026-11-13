@@ -1,7 +1,7 @@
 {
   "name": "tape-board",
   "productName": "Tape Board",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Copper tape circuit designer for 3D printed boards",
   "author": "R. Heller",
   "license": "UNLICENSED",
