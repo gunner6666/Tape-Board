@@ -15,6 +15,8 @@ header{grid-column:1/-1;display:flex;align-items:center;gap:18px;padding:0 14px;
 kbd{font:600 10px ui-monospace,Menlo,monospace;padding:1px 5px;border-radius:4px;background:rgba(255,255,255,.08);color:inherit;opacity:.75}
 .seg button.on kbd{background:rgba(0,0,0,.15)}
 .acts{margin-left:auto;display:flex;gap:8px}
+@media(max-width:1640px) and (min-width:901px){.seg kbd{display:none}.seg button{padding:6px 9px}.brand{min-width:0;white-space:nowrap}}
+@media(max-width:1440px) and (min-width:901px){.brand b,.brand span{display:none}header{gap:10px}.seg button{padding:6px 7px;gap:5px}}
 aside{background:var(--panel);overflow:auto;padding:6px 14px 18px;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
 aside:first-of-type{border-right:1px solid var(--bd)}aside:last-of-type{border-left:1px solid var(--bd)}
 section{padding:14px 0;border-bottom:1px solid var(--bd);display:flex;flex-direction:column;gap:9px}section:last-child{border-bottom:0}
@@ -96,11 +98,12 @@ input[type=text]{width:112px;padding:5px 8px;border:1px solid var(--bd);border-r
   <button data-t="move" title="Move part (V)"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>Move <kbd>V</kbd></button>
   <button data-t="select" title="Select a part (S)"><svg viewBox="0 0 24 24"><path d="M6 3l12 9-5.5 1.3L9.5 19z"/></svg>Select <kbd>S</kbd></button>
   <button data-t="rotate" title="Rotate a part: click it"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4h-4"/></svg>Rotate</button>
-  <button data-t="hole" title="Mounting hole (H)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg>Hole <kbd>H</kbd></button>
+  <button data-t="hole" title="Mounting hole (H)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/></svg>Hole <kbd>H</kbd></button><button data-t="peg" title="Snap peg for the cover piece (G)"><svg viewBox="0 0 24 24"><path d="M9 21V10l-2-2 3-4h4l3 4-2 2v11M12 6v15"/></svg>Peg <kbd>G</kbd></button>
   <button data-t="text" title="Engraved text (L)"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>Text <kbd>L</kbd></button>
   <button data-t="edge" title="Board outline or cutout (O)"><svg viewBox="0 0 24 24"><path d="M4 7l6-3 10 4-2 12H6z"/></svg>Outline <kbd>O</kbd></button>
   <button data-t="erase" title="Erase (X)"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>Erase <kbd>X</kbd></button>
  </div>
+ <div class="seg" id="sideseg" style="display:none"><button data-side="t" class="on" title="Draw and edit tape on the top side (B switches sides)">Top</button><button data-side="b" title="Draw and edit tape on the bottom side (B switches sides)">Bottom</button><button data-t="swap" title="Move a tape run to the other side">Swap side</button></div>
  <div class="acts"><button id="bhelp" class="ghost" title="How to use Tape Board">? Help</button><label class="chk" title="Ask to confirm every change before it is kept"><input type="checkbox" id="req" checked> Confirm changes</label><button id="bundo" class="ghost" title="Undo (Ctrl+Z)">Undo</button><button id="bredo" class="ghost" title="Redo (Ctrl+Y)">Redo</button><button id="bclear" class="ghost">Clear</button></div>
 </header>
 <aside>
@@ -148,8 +151,16 @@ GND: D1.2 J1.2</textarea>
 <aside>
  <section><h3>Print settings</h3>
   <label>Plate thickness (mm) <input id="th" type="number" step=".2" min="1" value="2"></label>
-  <label>Traces <select id="tm"><option value="up" selected>Raised</option><option value="down">Lowered</option></select></label>
-  <label>Trace height (mm) <input id="gd" type="number" step=".05" min="0" max="1" value="0.4"></label>
+  <label>Traces <select id="tm"><option value="up" selected>Raised</option><option value="down">Lowered</option><option value="cover">Raised + cover piece</option><option value="double">Double-sided (two pieces)</option><option value="strips">Double-sided (strips, traces can cross)</option></select></label>
+  <label>Trace height (mm) <input id="gd" type="number" step=".05" min="0" max="3" value="0.4"></label>
+  <div id="covset" style="display:none"><label title="How far the copper sits below the top of the cover">Cover recess (mm) <input id="covr" type="number" step=".05" min="0" max="3" value="0.3"></label>
+  <label title="Gap left around every trace and pad so the cover drops over the taped traces">Cover clearance (mm) <input id="covc" type="number" step=".05" min="0" max="1" value="0.2"></label>
+  <label title="Any strip of cover narrower than this between two openings is removed, joining the openings, so the cover has no slivers too thin to print. About two nozzle widths">Min cover strip (mm) <input id="covmin" type="number" step=".1" min="0" max="3" value="1"></label>
+  <label title="Round pegs printed on the base (or on the lower piece of a double-sided board) push into round holes in the other piece and hold it by a snug fit">Snap pegs <select id="snpeg"><option value="peg" selected>Round pegs</option><option value="off">Off</option></select></label>
+  <label class="chk" id="earset" style="display:none" title="Small ears on each strip with a hole that a peg on the other cover goes through, so the strips cannot slide while you put the board together. Untick to print plain strips"><input type="checkbox" id="earon" checked> Pegs for the strips</label>
+  <label title="Gap left on each side between a peg and its hole. 0 is a tight press fit; raise it if the pegs will not go in, lower it if they are loose">Peg fit (mm) <input id="pegc" type="number" step=".05" min="0" max=".5" value="0.1"></label>
+  <div id="clipset"><label class="chk" title="Springy clips on the base edge that click over the cover"><input type="checkbox" id="snclip" checked> Snap clips on the edge</label>
+  <label title="How far each clip's lip reaches over the cover">Clip catch (mm) <input id="clipc" type="number" step=".05" min=".1" max="1" value="0.4"></label></div></div>
   <label>Pin hole ⌀ (mm) <input id="hd" type="number" step=".1" min=".6" value="1"></label>
   <label class="chk"><input type="checkbox" id="padon"> Larger solder pads (set size below)</label>
   <label>Pad ⌀ (mm) <input id="pd" type="number" step=".1" min="1.5" value="3" disabled></label>
@@ -163,10 +174,12 @@ GND: D1.2 J1.2</textarea>
   <label>Min tape width (mm) <input id="dmin" type="number" step=".1" min="0" value="0.8"></label></section>
  <section><h3>Files</h3>
   <button class="primary w" id="bstl">Export STL</button>
+  <button class="primary w" id="bcov" style="display:none">Export cover STL</button>
+  <button class="primary w" id="bstr" style="display:none">Export strips STL</button>
   <button id="bsvg">Download SVG template (1:1)</button>
   <div class="g2"><button id="bsave">Save design</button><button id="bload">Open design</button></div>
   <input id="file" type="file" accept=".json" hidden>
-  <p class="s">The STL has raised lines where tape goes (or grooves if you switch Traces to Lowered), plus through-holes for pins.</p></section>
+  <p class="s" id="stlnote">The STL has raised lines where tape goes (or grooves if you switch Traces to Lowered), plus through-holes for pins.</p></section>
 </aside>
 <div id="help" role="dialog" aria-modal="true" aria-label="How to use Tape Board"><div id="hcard">
 <button id="hx" class="ghost" aria-label="Close help">✕ Close</button><a class="sup" href="https://buymeacoffee.com/Rheller82" target="_blank" rel="noopener noreferrer">☕ Support</a>
@@ -186,7 +199,7 @@ GND: D1.2 J1.2</textarea>
 <h4>Which side do parts go on? (Flip)</h4>
 <p>Footprints are drawn as seen from the tape side. If you push a part's legs in from the <b>plain side</b> and solder on the tape side, chips, modules and connectors end up mirrored. Press <b>⇋ Flip</b> (or <b>F</b>) for those parts so their pins match. Flipped parts have a dashed outline and a ⇋ after their name. Two-leg parts such as resistors don't need it. Pin 1 of every multi-pin part has a <b>square pad</b> so you can line chips up. The square grows to match the tape that runs onto it, so the tape never looks narrower than the pad.</p>
 <h4>Moving around</h4>
-<p>Scroll to zoom, hold the middle mouse button and drag to pan, and use <b>Fit</b> to reset. <b>Ctrl+Z</b> undoes. Everything snaps to the grid; change it under <b>Board</b>. Choose a preset from 5.08 mm down to 0.1 mm, or pick <b>Custom…</b> and type any size from 0.1 mm. Very fine grids hide their thin lines until you zoom in, but snapping still works.</p>
+<p>Scroll to zoom, hold the middle mouse button and drag to pan, and use <b>Fit</b> to reset. On a touch screen, pinch with two fingers to zoom and drag two fingers to move the view; one finger still uses the current tool. The 3D preview works the same way: one finger turns the model, two fingers pinch and move it. <b>Ctrl+Z</b> undoes. Everything snaps to the grid; change it under <b>Board</b>. Choose a preset from 5.08 mm down to 0.1 mm, or pick <b>Custom…</b> and type any size from 0.1 mm. Very fine grids hide their thin lines until you zoom in, but snapping still works.</p>
 <h4>Drawing a schematic (the easy way)</h4>
 <p>Instead of typing a list, you can draw your circuit and let the app build the board from it. Click <b>⚡ Draw schematic</b> in the <b>Auto-generate</b> section (left panel). A full-screen drawing area opens.</p>
 <ol><li><b>Place</b>: pick a part from the list at the top, then tap the grid to put it down. Connectors, DIP chips and jumper wires ask which size you need when you pick them. Each part gets a name such as R1 or D1 automatically. The list uses normal schematic parts: resistor, capacitor (plain and polarised), inductor, LED, diode, battery, switch, push button, buzzer, potentiometer, NPN and PNP transistors, N-MOSFET, ground and power symbols, 2 to 8-pin connectors, chips (8, 14 and 16 pin), ESP32, rotary encoder, TP4056 module and a single pad or test point. Imported KiCad parts are listed at the end.</li>
@@ -288,26 +301,37 @@ GND: D1.2 J1.2</pre>
 <p>The pad is always kept at least 0.4 mm wider than the hole so some copper ring is left. This also applies to imported KiCad parts, whose holes otherwise follow the Pin hole setting. Auto-generate routes tape with the global pad size, so set per-part sizes after generating, and check clearances if you make a pad much bigger. Per-part sizes are saved with the design.</p>
 <h4>Print settings (right)</h4>
 <ul><li><b>Traces: Raised</b> prints tape lines standing above the plate (Lowered makes grooves). <b>Trace height</b> sets how much.</li>
+<li><b>Traces: Double-sided (two pieces)</b> puts tape on both sides of the board. You print two pieces that are each other's cover. The <b>top piece</b> has raised lines for the top tape and openings for the bottom tape; the <b>bottom piece</b> has raised lines for the bottom tape and openings for the top tape. Tape both pieces flat on the bench, flip the bottom piece over and press it onto the top piece: each piece's tape comes through the other's openings, so copper shows on both faces, set <b>Cover recess</b> below the surface. The board is two plates thick, the traces are plate thickness minus Cover recess tall, and part names are engraved into the top face. Round pegs (see Snap pegs) on the top piece push into holes through the bottom piece and hold them together.
+<br>Use the <b>Top / Bottom</b> switch in the toolbar (or press <b>B</b>) to choose which side you are drawing on. <b>Bottom</b> shows the board turned over, mirrored left to right, exactly as the bottom face will look, so its outline and parts are reversed. Engraved text is on the top face, so it shows faded and back to front there. The side you are working on is drawn solid and the other side shows as a faint ghost, so you can line them up; top tape is copper coloured and bottom tape is blue. Only tape on the side you are working on can be moved or erased. <b>Swap side</b> moves a tape run to the other side.
+<br>A spot can only have tape on one side, because the other piece needs an opening there, so tape cannot cross from one side to the other (use <b>Double-sided (strips)</b> for that); Check design flags any top and bottom tape that overlap. The two sides connect through parts: a pad reached by tape from both sides is split in half, one half per side, and the leg pushed through it is soldered on both. Bring the two tapes in from opposite sides of the pad. To join the sides where there is no part, place a <b>Single pad</b> (from the parts list) there, bring one tape to it from each side, and push a cut-off resistor leg through it. The tape cut list shows which side each run goes on.</li>
+<li><b>Traces: Double-sided (strips, traces can cross)</b> puts tape on both sides of the board, and top and bottom tape can cross. Each tape run is printed as its own flat <b>strip</b> (the tape's shape, 0.3 mm wider on each side, with holes at the pads), held between a <b>bottom cover</b> and a <b>top cover</b>. Each cover has windows as wide as the tape, so the copper shows, set <b>Cover recess</b> below the surface, and behind each window a slot the strip sits in, so a thin lip holds it in.
+<br>To build it: print the two covers face down and the strips copper side up (<b>Export strips STL</b> puts the top strips on the left and the bottom strips, already turned over, on the right). Tape every strip on the bench. Lay the bottom cover face down, drop the bottom strips into it copper side down, lay the top strips on top copper side up over the pegs that come through their ears (where they cross a bottom strip they simply rest on it), and press the top cover down over the round pegs. Part names are engraved into the top face.
+<br>Drawing works the same as in the two-piece mode (Top / Bottom switch, ghost of the other side, Swap side).<br>Each strip also has one or two small round <b>ears</b> beside the tape, with a hole in each. A peg on the other cover comes up through the hole, so the strip stays put while you put the board together: the top strips drop over pegs on the bottom cover, and the bottom strips are held by pegs on the top cover. Tape Board places the ears automatically, shows them on the board, and Check design says if a strip has no room for one. Untick <b>Pegs for the strips</b> (under Snap pegs) to print plain strips with no ears; turning Snap pegs off removes them too. The covers are held together by round pegs on the bottom cover that push into holes through the top cover.
+<br>The two sides connect at pads: when tape from both sides reaches a pad, both strips have a full pad there, one above the other, and the leg pushed through is soldered on both faces, like the plated holes on a factory board. To join the sides where there is no part, place a <b>Single pad</b> (from the parts list), bring a tape to it from each side and push a cut-off resistor leg through it. Runs on the same side need at least 0.8 mm between them so their strips do not overlap; Check design warns if they are closer. The tape cut list shows which side each run goes on.</li>
+<li><b>Traces: Raised + cover piece</b> gives you two parts to print. The <b>base</b> has raised lines, so the tape is easy to press on and trim. The <b>cover</b> is a thin plate with openings shaped like your traces and pads; it drops over the taped base so the copper ends up sitting below the surface, like a lowered board. <b>Cover recess</b> is how far the copper sits below the cover's top (the cover is Trace height + Cover recess thick). <b>Cover clearance</b> is the gap left around every trace and pad so it fits over the tape; raise it if the cover is tight. Where two openings come so close that the cover between them would be thinner than <b>Min cover strip</b> (1 mm, about two nozzle widths), the gap is cut away too and they become one opening, so the cover never has slivers too thin to print. The base is not changed by this. Part names and the LED + are engraved into the cover, where they can be seen. Mounting holes go through both parts.</li>
+<li><b>Snap pegs</b> and <b>Snap clips on the edge</b> hold the cover on without glue, and you can use either or both.</li>
+<li><b>Round pegs</b> are solid 3.6 mm posts printed as part of the base (or the lower piece of a double-sided board). They push into round holes through the cover, level with its top, and hold it by a snug fit. <b>Peg fit</b> is the gap left around each peg: 0.1 mm is a firm push fit; set 0 for a tighter press fit, or raise it if the pegs will not go in. To take the cover off, push the pegs back out from the top.</li>
+<li><b>Choosing where pegs go:</b> pick the <b>Peg (G)</b> tool and click the board. Move and Erase work on pegs the same way they do on holes, and pegs are saved with your design. If you place any pegs yourself, only yours are used; place none and Tape Board picks clear spots for you. Check design warns if a peg is too close to tape, a hole or text. Clips sit on straight stretches of the board edge: each is a springy strip cut into the base with a hooked post that clicks over the cover's edge, and the cover gets a notch to match. <b>Clip catch</b> sets how far the hook reaches over. Tape Board finds clear spots for them automatically, away from tape, text and holes, and <b>Check design</b> tells you if they do not fit. Both parts print flat with no supports. To release a clip, push it outward with a fingernail.</li>
 <li><b>Pin hole</b> is the leg hole size. Pads are raised to the tape height so tape and solder have something to sit on. Tick <b>Larger solder pads</b> to set a bigger pad size.</li>
 <li><b>Hole compensation</b> is added to every hole in the STL, because printers make holes a little small. 0.2 mm suits most printers; measure a test print and adjust. The SVG template keeps the true size.</li>
 <li>Very thin tape lines are hard to print. Use at least 0.8 mm for a 0.4 mm nozzle.</li></ul>
 <h4>Files</h4>
-<ul><li><b>Export STL</b>: the printable plate. <b>Download SVG template</b>: a 1:1 drawing you can print on paper to check fit or cut tape against.</li>
+<ul><li><b>Export STL</b>: the printable plate. With <b>Raised + cover piece</b> this becomes <b>Export base STL</b> and <b>Export cover STL</b>, one file for each part. In 3D preview, <b>Show apart</b> and <b>Show assembled</b> switch between seeing the parts side by side and fitted together. <b>Download SVG template</b>: a 1:1 drawing you can print on paper to check fit or cut tape against.</li>
 <li><b>Save design / Open design</b>: keep your work as a file and come back to it later. The file holds the board, its connections, imported parts and your schematic drawing.</li></ul>
 <h4>Building it</h4>
-<ol><li>Print the plate. A first small test board is a good idea.</li><li>Press copper tape along the raised lines, running it onto each pad. Trim neatly.</li><li>Push component legs through the holes and solder them to the tape at each pad.</li></ol>
+<ol><li>Print the plate. A first small test board is a good idea.</li><li>Press copper tape along the raised lines, running it onto each pad. Trim neatly.</li><li>Using a cover piece? Drop it over the taped base now, before soldering.</li><li>Push component legs through the holes and solder them to the tape at each pad.</li></ol>
 <h4>About</h4>
 <p>Tape Board was created by <b>R. Heller</b>. If it helps you build something, you can support its development with the <b>☕ Support</b> button at the top of this window.</p>
 </div></div>
 <div id="dlg" class="modal" role="dialog" aria-modal="true"><div class="mcard"><div id="dlgc"></div><div id="dlgb"></div></div></div>
-<div id="pv" class="modal" role="dialog" aria-label="3D preview"><div class="mcard pvcard"><div class="pvbar"><b>3D preview</b><span id="pvmsg"></span><button id="pvo" title="Zoom out">−</button><button id="pvi" title="Zoom in">+</button><button id="pvx">✕ Close</button></div><canvas id="pvc"></canvas></div></div>
+<div id="pv" class="modal" role="dialog" aria-label="3D preview"><div class="mcard pvcard"><div class="pvbar"><b>3D preview</b><span id="pvmsg"></span><button id="pvsep" style="display:none">Show apart</button><button id="pvo" title="Zoom out">−</button><button id="pvi" title="Zoom in">+</button><button id="pvx">✕ Close</button></div><canvas id="pvc"></canvas></div></div>
 <div id="sch" role="dialog" aria-label="Schematic editor"><div id="sbar"><b>Schematic</b><div class="seg" id="stools"><button data-s="place" class="on">Place</button><button data-s="wire">Wire</button><button data-s="move">Edit</button><button data-s="del">Delete</button></div><span class="hrow"><button id="sundo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button id="sredo" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button></span><select id="spart" aria-label="Part to place"></select><button id="szo" title="Zoom out">−</button><button id="szi" title="Zoom in">+</button><span class="acts"><button id="sbom" class="ghost">Parts list</button><button id="sclr" class="ghost">Clear</button><button id="supd" title="Update the board from this drawing and keep your layout">Update PCB ▸</button><button id="sgo" class="accent" title="Build a new board with automatic placement and routing">Generate PCB ▸</button><button id="scl" title="Close">✕</button></span></div><canvas id="scv"></canvas><div id="sprop" hidden><b id="spref"></b><input id="spval" placeholder="Value e.g. 10k" maxlength="18" aria-label="Part value"><select id="spfp" aria-label="Board footprint" title="Board footprint" style="max-width:170px"></select><button id="sprot" title="Rotate (R)">⟳ Rotate</button><button id="spflip" title="Flip (F)">⇄ Flip</button><button id="spdel" class="ghost" title="Delete">Delete</button><button id="spdone">Done</button></div><div id="spanel" hidden><div id="spanelc"></div><div id="spanelb"></div></div><div id="shint"></div></div>
 <script>
 const $=s=>document.querySelector(s),cv=$('#cv'),cx=cv.getContext('2d');
 let S={W:60,H:40,parts:[],traces:[],holes:[],jumpers:[],texts:[],edges:[],nets:[]};
 let tool='trace',ptype='res',rot=0,flp=false,grid=2.54,tw=2,ang='45',padD=2,holeD=1,thick=2,gdep=.4;
 let cur=null,curJ=null,curE=null,m={x:0,y:0,rx:0,ry:0},sc=10,ox=0,oy=0,drag=null,hist=[],fut=[],zm=1,pan={x:0,y:0},pn=null,drcMarks=[],drcSig='';
-const norm=s=>{['parts','traces','holes','jumpers','texts','edges','nets'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});return s};
+const norm=s=>{['parts','traces','holes','pegs','jumpers','texts','edges','nets'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});return s};
 const DEFS={pad:{n:'Single pad',p:[[0,0]]},res:{n:'Resistor, 10.16 mm',p:[[0,0],[10.16,0]]},led:{n:'LED, 2.54 mm legs',p:[[0,0],[2.54,0]]}};
 for(const n of[2,3,4,6,8])DEFS['h'+n]={n:'Header 1×'+n,p:Array.from({length:n},(_,i)=>[i*2.54,0])};
 for(const n of[8,14,16]){const k=n/2;DEFS['dip'+n]={n:'DIP-'+n+' chip',dip:k,p:[...Array.from({length:k},(_,i)=>[0,i*2.54]),...Array.from({length:k},(_,i)=>[7.62,(k-1-i)*2.54])]}}
@@ -334,7 +358,7 @@ const selVal=()=>{const f=famOf(ptype);$('#partsel').value=f?'F:'+f:ptype;const 
 const usePart=k=>{ptype=k;selVal();setTool('part')};
 selVal();$('#partsel').onchange=e=>{const v=e.target.value;if(v.startsWith('F:'))askSize(v.slice(2),usePart,selVal);else usePart(v)};
 $('#bsize').onclick=()=>{const f=famOf(ptype);if(f)askSize(f,usePart)};
-const HINTS={rotate:'Rotate: click a part or a text label to turn it 90°.',trace:'Draw tape: click the start, then click where the piece ends. Confirm keeps it. Extend keeps it and carries on from that end. Esc ends the run.',part:'Add part: click the board to place the selected part. R rotates, F flips it first.',move:'Move: drag a part, tape, hole, jumper or text. Tape attached to a part follows it. Hover a part and press R to rotate or F to flip.',select:'Select: click a part to rename it, flip it, or give it its own pin hole and pad size.',hole:'Mounting hole: click to add a 3.2 mm screw hole.',erase:'Erase: click a part, hole, tape run, jumper, text or outline to remove it.',text:'Text: click where the label goes, then type it. It is engraved into the plate.',edge:'Outline: click corners of the board shape (or a cutout). Click the first corner, press Enter or double-click to close it.'};
+const HINTS={rotate:'Rotate: click a part or a text label to turn it 90°.',trace:'Draw tape: click the start, then click where the piece ends. Confirm keeps it. Extend keeps it and carries on from that end. Esc ends the run.',part:'Add part: click the board to place the selected part. R rotates, F flips it first.',move:'Move: drag a part, tape, hole, jumper or text. Tape attached to a part follows it. Hover a part and press R to rotate or F to flip.',select:'Select: click a part to rename it, flip it, or give it its own pin hole and pad size.',hole:'Mounting hole: click to add a 3.2 mm screw hole.',peg:'Snap peg: click to place a peg that holds the cover piece on (Traces: Raised + cover piece). Place none and Tape Board picks spots for you.',swap:'Swap side: click a tape run to move it to the other side of the board.',erase:'Erase: click a part, hole, peg, tape run, jumper, text or outline to remove it.',text:'Text: click where the label goes, then type it. It is engraved into the plate.',edge:'Outline: click corners of the board shape (or a cutout). Click the first corner, press Enter or double-click to close it.'};
 const REFP=t=>/^jmp/.test(t)?'JP':({res:'R',smd1206:'R',smd0805:'R',led:'D',pad:'TP',enc:'SW',sot23:'Q'})[t]||(/^h\d/.test(t)?'J':/^leg/.test(t)?'C':'U');
 const nextRef=t=>{const p=REFP(t);let n=1;while(S.parts.some(a=>a.ref===p+n))n++;return p+n};
 const rotp=(p,r)=>[[p[0],p[1]],[-p[1],p[0]],[-p[0],-p[1]],[p[1],-p[0]]][r];
@@ -380,7 +404,7 @@ const hitText=p=>{for(let i=S.texts.length-1;i>=0;i--){const b=textBox(S.texts[i
 const hitJump=p=>S.jumpers.find(j=>dseg(p.x,p.y,j.a.x,j.a.y,j.b.x,j.b.y)<padD/2+.6);
 /* part names and LED + marks, engraved when "Engrave part names" is ticked */
 /* copper and mounting holes as capsules, bucketed on a 4 mm grid so label placement can test spots quickly */
-function copperIndex(){const C=conn(),L=C.els.map(e=>({ax:e.ax,ay:e.ay,bx:e.bx,by:e.by,r:e.r})).concat(S.holes.map(h=>({ax:h.x,ay:h.y,bx:h.x,by:h.y,r:h.d/2}))),G=new Map(),Z=4;
+function copperIndex(){const C=conn(),L=C.els.map(e=>({ax:e.ax,ay:e.ay,bx:e.bx,by:e.by,r:e.r})).concat(S.holes.map(h=>({ax:h.x,ay:h.y,bx:h.x,by:h.y,r:h.d/2}))).concat(S.pegs.map(h=>({ax:h.x,ay:h.y,bx:h.x,by:h.y,r:pegRing()}))),G=new Map(),Z=4;
  L.forEach((e,i)=>{for(let x=Math.floor((Math.min(e.ax,e.bx)-e.r)/Z);x<=Math.floor((Math.max(e.ax,e.bx)+e.r)/Z);x++)for(let y=Math.floor((Math.min(e.ay,e.by)-e.r)/Z);y<=Math.floor((Math.max(e.ay,e.by)+e.r)/Z);y++){const k=x*7919+y;let l=G.get(k);if(!l)G.set(k,l=[]);l.push(i)}});
  return{hits(b,g){const bb={x0:b.x0-g,y0:b.y0-g,x1:b.x1+g,y1:b.y1+g},inR=(x,y)=>x>=bb.x0&&x<=bb.x1&&y>=bb.y0&&y<=bb.y1,seen=new Set(),
    sides=[[bb.x0,bb.y0,bb.x1,bb.y0],[bb.x1,bb.y0,bb.x1,bb.y1],[bb.x1,bb.y1,bb.x0,bb.y1],[bb.x0,bb.y1,bb.x0,bb.y0]];
@@ -392,7 +416,7 @@ const boxHitsCopper=(b,g)=>copperIndex().hits(b,g);
    nearest first (above, below, sides, sideways, smaller), and takes the first one clear of copper, holes, other labels and the board edge.
    A label with no clear spot nearby is left off, and Check design says so. */
 let ALc=null,ALmiss=[];
-function autoLabels(){if(!$('#lbl').checked){ALmiss=[];return[]}const key=conn().sig+JSON.stringify([S.texts,S.holes,S.edges,S.W,S.H]);if(ALc&&ALc.key===key){ALmiss=ALc.miss;return ALc.out}
+function autoLabels(){if(!$('#lbl').checked){ALmiss=[];return[]}const key=conn().sig+JSON.stringify([S.texts,S.holes,S.pegs,pegRing(),S.edges,S.W,S.H]);if(ALc&&ALc.key===key){ALmiss=ALc.miss;return ALc.out}
  const out=[],miss=[],taken=S.texts.map(textBox),G=.35,CI=copperIndex(),
   free=b=>{if([[b.x0,b.y0],[b.x1,b.y0],[b.x1,b.y1],[b.x0,b.y1]].some(([x,y])=>inBoard(x,y)))return false;if(taken.some(t=>!(t.x1<b.x0-G||t.x0>b.x1+G||t.y1<b.y0-G||t.y0>b.y1+G)))return false;return!CI.hits(b,G)},
   put=(s,cands,who)=>{cands.sort((p,q)=>p[4]-q[4]);for(const c of cands){const t={x:+c[0].toFixed(3),y:+c[1].toFixed(3),s,size:c[3],rot:c[2]},b=textBox(t);if(free(b)){taken.push(b);out.push(t);return}}miss.push({who,x:cands[0][0],y:cands[0][1]})};
@@ -426,7 +450,7 @@ const moveP=(pt,fn)=>{const o=padsOf(pt);fn();follow(pt,o)};
 function rotateCur(){if(pend&&(pend.type==='part'||pend.type==='move')){const it=pend.item;moveP(it,()=>it.rot=(it.rot+1)%4)}else if(!pend)rot=(rot+1)%4;draw()}
 function flipCur(){if(pend&&(pend.type==='part'||pend.type==='move')){const it=pend.item;moveP(it,()=>it.flip=!it.flip)}else if(!pend&&sel&&tool!=='part'){pushHist();moveP(sel,()=>sel.flip=!sel.flip);setPend(sel,'move');setSel(sel)}else if(!pend)flp=!flp;draw()}
 const reqOn=()=>$('#req').checked;
-const MSG={part:'Drag the part into place. R rotates, F flips.',trace:'Drag the tape to move it or a corner dot to reshape it. Confirm keeps it. Extend keeps it and continues from its end.',hole:'Drag the hole into place.',move:'Adjust the part. Rotate, flip or drag it, then confirm.',erase:'Highlighted item will be deleted.',batch:'Review the change.',jump:'Drag the jumper into place.',text:'Drag the text into place.'};
+const MSG={part:'Drag the part into place. R rotates, F flips.',trace:'Drag the tape to move it or a corner dot to reshape it. Confirm keeps it. Extend keeps it and continues from its end.',hole:'Drag the hole into place.',peg:'Drag the peg into place.',move:'Adjust the part. Rotate, flip or drag it, then confirm.',erase:'Highlighted item will be deleted.',batch:'Review the change.',jump:'Drag the jumper into place.',text:'Drag the text into place.'};
 function showBar(){const pm=pend&&(pend.type==='part'||pend.type==='move');$('#cbar').hidden=!pend;$('#crot').hidden=!pm;$('#cflip').hidden=!pm;$('#cext').hidden=!(pend&&pend.type==='trace'&&!pend.old);if(pend)$('#cmsg').textContent=pend.old?'Drag to move it'+(pend.type==='trace'?', or drag a corner dot to reshape it':'')+'. Confirm to keep.':MSG[pend.type];
  if(!barDraw){barDraw=true;try{draw()}finally{barDraw=false}}}
 let barDraw=false,barH=0;
@@ -437,21 +461,22 @@ function cancelPend(){if(!pend)return;if(pend.type!=='erase'){undo();fut.pop()}i
 function pendDown(p){if(!pend||pend.type==='batch'||pend.type==='erase')return;const it=pend.item;
  if(pend.type==='part'||pend.type==='move'){const a=padsFull(it),xs=a.map(q=>q.x),ys=a.map(q=>q.y),g=a[0].R+1.2;
   if(p.x>Math.min(...xs)-g&&p.x<Math.max(...xs)+g&&p.y>Math.min(...ys)-g&&p.y<Math.max(...ys)+g)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y,old:padsOf(it)}}
- else if(pend.type==='hole'){if(Math.hypot(p.x-it.x,p.y-it.y)<it.d/2+1.2)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
+ else if(pend.type==='hole'||pend.type==='peg'){if(Math.hypot(p.x-it.x,p.y-it.y)<it.d/2+1.2)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
  else if(pend.type==='text'){const b=textBox(it);if(p.x>b.x0-1&&p.x<b.x1+1&&p.y>b.y0-1&&p.y<b.y1+1)pd0={k:'o',dx:p.x-it.x,dy:p.y-it.y}}
  else if(pend.type==='jump'){if(dseg(p.x,p.y,it.a.x,it.a.y,it.b.x,it.b.y)<padD/2+1.2)pd0={k:'j',sx:snap(p.x),sy:snap(p.y),a:{...it.a},b:{...it.b}}}
  else if(pend.type==='trace'){const vi=it.pts.findIndex(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6);
   if(vi>=0)pd0={k:'v',i:vi};else if(it.pts.some((a,i)=>i&&dseg(p.x,p.y,it.pts[i-1].x,it.pts[i-1].y,a.x,a.y)<it.w/2+1.2))pd0={k:'t',sx:snap(p.x),sy:snap(p.y),orig:it.pts.map(q=>({...q}))}}}
 function erase(p){let it=hit(p),arr=S.parts;
  if(!it){arr=S.holes;it=S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+.6)}
+ if(!it){arr=S.pegs;it=S.pegs.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+.6)}
  if(!it){arr=S.jumpers;it=hitJump(p)}
  if(!it){arr=S.texts;it=hitText(p)}
- if(!it){arr=S.traces;it=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.6))}
+ if(!it){arr=S.traces;it=S.traces.find(t=>onSide(t)&&t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.6))}
  if(!it){arr=S.edges;it=S.edges.find(e=>e.pts.some((a,i)=>{const b=e.pts[(i+1)%e.pts.length];return dseg(p.x,p.y,a.x,a.y,b.x,b.y)<.8}))}
  if(!it)return;pend={item:it,type:'erase',arr};if(reqOn())showBar();else confirmPend()}
 function closeEdge(){const e=curE;curE=null;if(!e||e.pts.length<3)return;pushHist();if(!e.cut)S.edges=S.edges.filter(x=>x.cut);S.edges.push(e);setPend(null,'batch')}
 function finish(){chain=null;curJ=null;if(curE)closeEdge();if(cur){cur.pts=cur.pts.filter((a,i,r)=>!i||a.x!==r[i-1].x||a.y!==r[i-1].y);if(cur.pts.length>1){pushHist();S.traces.push(cur);setPend(cur,'trace')}cur=null}draw()}
-function mp(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left-ox)/sc,y:(e.clientY-r.top-oy)/sc}}
+function mp(e){const r=cv.getBoundingClientRect(),x=(e.clientX-r.left-ox)/sc;return{x:mirV()?S.W-x:x,y:(e.clientY-r.top-oy)/sc}}
 cv.onpointermove=e=>{if(pn){pan.x=pn.px+e.clientX-pn.x;pan.y=pn.py+e.clientY-pn.y;draw();return}const p=mp(e);m={x:snap(p.x),y:snap(p.y),rx:p.x,ry:p.y};
  const anchor=cur?cur.pts.at(-1):curE?curE.pts.at(-1):null;if(anchor){const c=con(anchor,m);m.cx=snap(c.x);m.cy=snap(c.y)}
  if(drag){const pt=drag.part;moveP(pt,()=>{pt.x=snap(p.x-drag.dx);pt.y=snap(p.y-drag.dy)})}
@@ -464,35 +489,73 @@ cv.onpointerdown=e=>{if(e.button===1){e.preventDefault();pn={x:e.clientX,y:e.cli
  if(pend){pendDown(p);if(!pd0)busy();draw();return}
  if(tool==='part'){pushHist();const o={ref:nextRef(ptype),type:ptype,x:q.x,y:q.y,rot};if(flp)o.flip=true;S.parts.push(o);setPend(o,'part')}
  else if(tool==='hole'){pushHist();const o={x:q.x,y:q.y,d:3.2};S.holes.push(o);setPend(o,'hole')}
- else if(tool==='text'){const s=prompt('Text to engrave into the plate (letters, numbers and + - . / : ( ) #):','');if(s&&s.trim()){pushHist();const o={x:q.x,y:q.y,s:s.trim().slice(0,40),size:Math.max(1.5,+$('#tsz').value||3),rot:0};S.texts.push(o);setPend(o,'text')}}
+ else if(tool==='peg'){pushHist();const o={x:q.x,y:q.y,d:3};S.pegs.push(o);setPend(o,'peg')}
+ else if(tool==='text'){/* the app's own dialog, not prompt(): the desktop app and embedded previews do not support prompt(), so the tool silently did nothing there */
+  const tx=q.x,ty=q.y,add=()=>{const s=$('#txtin').value;closeDlg();if(s&&s.trim()){pushHist();const o={x:tx,y:ty,s:s.trim().slice(0,40),size:Math.max(1.5,+$('#tsz').value||3),rot:0};S.texts.push(o);setPend(o,'text')}};
+  showDlg('<h3 class="dt">Engrave text</h3><p>Letters, numbers and + - . / : ( ) #, up to 40 characters.</p><form id="txtf"><input id="txtin" type="text" maxlength="40" autocomplete="off" style="width:100%;font-size:15px;padding:8px 10px"></form>',[['Cancel',closeDlg,'ghost'],['Add text',add,'accent']]);
+  $('#txtf').onsubmit=e=>{e.preventDefault();add()};setTimeout(()=>$('#txtin').focus(),30)}
  else if(tool==='edge'){if(!curE)curE={pts:[q],cut:$('#ekind').value==='cut'};else{const a=curE.pts.at(-1),c=con(a,q),e2={x:snap(c.x),y:snap(c.y)},f=curE.pts[0];
   if(curE.pts.length>=3&&(Math.hypot(q.x-f.x,q.y-f.y)<Math.max(grid*.6,.8)||Math.hypot(e2.x-f.x,e2.y-f.y)<1e-6))closeEdge();else if(e2.x!==a.x||e2.y!==a.y)curE.pts.push(e2)}}
- else if(tool==='trace'){if(!cur){cur={pts:[q],w:tw};chain=null}else{const a=cur.pts.at(-1),c=con(a,q),e={x:snap(c.x),y:snap(c.y)};
+ else if(tool==='trace'){if(!cur){cur={pts:[q],w:tw};if(dbl()&&side==='b')cur.side='b';chain=null}else{const a=cur.pts.at(-1),c=con(a,q),e={x:snap(c.x),y:snap(c.y)};
   if(reqOn()){if(e.x!==a.x||e.y!==a.y){pushHist();
    /* carrying on from Extend adds a corner to the same run, so the joint is mitered, not two butted ends */
-   const ch=chain&&S.traces.indexOf(chain)>=0&&chain.w===cur.w&&chain.pts.at(-1).x===a.x&&chain.pts.at(-1).y===a.y?chain:null;
-   let t;if(ch){ch.pts.push(e);t=ch}else{t={pts:[{x:a.x,y:a.y},e],w:cur.w};S.traces.push(t)}
+   const ch=chain&&S.traces.indexOf(chain)>=0&&chain.w===cur.w&&tsd(chain)===tsd(cur)&&chain.pts.at(-1).x===a.x&&chain.pts.at(-1).y===a.y?chain:null;
+   let t;if(ch){ch.pts.push(e);t=ch}else{t={pts:[{x:a.x,y:a.y},e],w:cur.w};if(cur.side)t.side=cur.side;S.traces.push(t)}
    cur.pts=[e];setPend(t,'trace');if(pend)pend.from={x:a.x,y:a.y}}}
   else cur.pts.push(e)}}
  else if(tool==='select')setSel(hitBox(p));
+ else if(tool==='swap'){const hitT=t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8),tr=S.traces.find(t=>onSide(t)&&hitT(t))||S.traces.find(hitT);
+  if(tr){pushHist();if(tsd(tr)==='b')delete tr.side;else tr.side='b';setPend(null,'batch')}}
  else if(tool==='erase')erase(p);
  else if(tool==='rotate'){const pt=hit(p);if(pt){pushHist();moveP(pt,()=>pt.rot=(pt.rot+1)%4);setPend(pt,'move')}else{const t=hitText(p);if(t){pushHist();t.rot=((t.rot||0)+1)%4;setPend(t,'text')}}}
  else if(tool==='move'){const pt=hit(p);if(pt){setSel(pt);pushHist();drag={part:pt,dx:p.x-pt.x,dy:p.y-pt.y}}
-  else{const tr=S.traces.find(t=>t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8)||t.pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6)),
-   ho=tr?null:S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1),jm=tr||ho?null:hitJump(p),tx=tr||ho||jm?null:hitText(p),
-   it=tr||ho||jm||tx,ty=tr?'trace':ho?'hole':jm?'jump':'text';
+  else{const tr=S.traces.find(t=>onSide(t)&&t.pts.some((a,i)=>i&&dseg(p.x,p.y,t.pts[i-1].x,t.pts[i-1].y,a.x,a.y)<t.w/2+.8)||t.pts.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<1.6)),
+   ho=tr?null:S.holes.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1),pg=tr||ho?null:S.pegs.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<h.d/2+1),jm=tr||ho||pg?null:hitJump(p),tx=tr||ho||pg||jm?null:hitText(p),
+   it=tr||ho||pg||jm||tx,ty=tr?'trace':ho?'hole':pg?'peg':jm?'jump':'text';
    if(it){pushHist();pend={item:it,type:ty,old:true};if(reqOn())showBar();pendDown(p)}}}
  draw()};
 cv.onpointerup=()=>{if(drag){const pt=drag.part;drag=null;setPend(pt,'move')}pd0=null;pn=null;if(pend&&pend.old&&!reqOn()){pend=null;showBar()}};cv.onwheel=e=>{e.preventDefault();const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,bx=(px-ox)/sc,by=(py-oy)/sc,f=sc/zm;zm=Math.max(.5,Math.min(8,zm*(e.deltaY<0?1.15:1/1.15)));const k=f*zm;pan.x=px-bx*k-(cv.clientWidth-S.W*k)/2;pan.y=py-by*k-(cv.clientHeight-S.H*k)/2-18;draw()};cv.ondblclick=finish;cv.oncontextmenu=e=>{e.preventDefault();finish()};
+/* touch: one finger uses the current tool as before; two fingers pinch to zoom and drag to move the view.
+   The first finger's press is held back until it moves or lifts, so starting a pinch never places or draws anything. */
+{const od=cv.onpointerdown,om=cv.onpointermove,ou=cv.onpointerup,TP=new Map();let held=null,live=null,gest=null;
+ const two=()=>{const a=[...TP.values()],r=cv.getBoundingClientRect();return{d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,mx:(a[0].x+a[1].x)/2-r.left,my:(a[0].y+a[1].y)/2-r.top}};
+ cv.onpointerdown=e=>{if(e.pointerType!=='touch')return od(e);cv.setPointerCapture(e.pointerId);TP.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(TP.size===2&&live===null){held=null;const q=two();gest={...q,zm,sc,ox,oy,px:pan.x,py:pan.y,bx:(q.mx-ox)/sc,by:(q.my-oy)/sc};return}
+  if(TP.size===1&&!gest)held={e,x:e.clientX,y:e.clientY}};
+ cv.onpointermove=e=>{if(e.pointerType!=='touch')return om(e);if(!TP.has(e.pointerId))return;TP.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(gest){if(TP.size<2)return;const q=two(),g=gest,z=Math.max(.5,Math.min(8,g.zm*q.d/g.d)),s2=g.sc*z/g.zm;
+   zm=z;pan.x=(q.mx-g.bx*s2)-(g.ox-g.px-S.W*(s2-g.sc)/2);pan.y=(q.my-g.by*s2)-(g.oy-g.py-S.H*(s2-g.sc)/2);draw();return}
+  if(held&&held.e.pointerId===e.pointerId){if(Math.hypot(e.clientX-held.x,e.clientY-held.y)<8)return;const h=held;held=null;live=e.pointerId;od(h.e)}
+  if(live===e.pointerId)om(e)};
+ const lift=(e,cancel)=>{if(e.pointerType!=='touch')return ou(e);TP.delete(e.pointerId);
+  if(held&&held.e.pointerId===e.pointerId){const h=held;held=null;if(!cancel){od(h.e);ou(e)}}
+  else if(live===e.pointerId){live=null;ou(e)}
+  if(!TP.size)gest=null};
+ cv.onpointerup=e=>lift(e,false);cv.onpointercancel=e=>lift(e,true)}
 addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();
  if((e.ctrlKey||e.metaKey)&&(k==='y'||(k==='z'&&e.shiftKey))){e.preventDefault();if(!pend)redo();return}
  if((e.ctrlKey||e.metaKey)&&k==='z'){e.preventDefault();return pend?cancelPend():undo()}
  if(pend){if(k==='enter'){e.preventDefault();confirmPend()}else if(k==='escape')cancelPend();else if(k==='e'&&pend.type==='trace'&&!pend.old)confirmPend(true);else if(k==='r'&&(pend.type==='part'||pend.type==='move'))rotateCur();else if(k==='f'&&(pend.type==='part'||pend.type==='move'))flipCur();return}
- const T={t:'trace',p:'part',v:'move',s:'select',h:'hole',x:'erase',l:'text',o:'edge'};if(T[k])setTool(T[k]);
+ const T={t:'trace',p:'part',v:'move',s:'select',h:'hole',g:'peg',x:'erase',l:'text',o:'edge'};if(T[k])setTool(T[k]);if(k==='b'&&dbl())setSide(side==='t'?'b':'t');
  if(k==='r'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();moveP(pt,()=>pt.rot=(pt.rot+1)%4)}}else rot=(rot+1)%4}
  if(k==='f'){if(tool==='move'){const pt=hit({x:m.rx,y:m.ry});if(pt){pushHist();moveP(pt,()=>pt.flip=!pt.flip)}}else flp=!flp}
  if(k==='enter')finish();if(k==='escape'){cur=null;chain=null;curJ=null;curE=null}draw()});
-function setTool(t){if(busy())return;finish();tool=t;$('#hint').textContent=HINTS[t];document.querySelectorAll('#tools button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));draw()}
+function setTool(t){if(busy())return;finish();tool=t;$('#hint').textContent=HINTS[t];document.querySelectorAll('#tools button,#sideseg [data-t]').forEach(b=>b.classList.toggle('on',b.dataset.t===t));draw()}
+/* double-sided boards: every tape run is on the top or the bottom; the side being edited is drawn solid and the other side as a faint ghost */
+let side='t';const mirV=()=>dbl()&&side==='b',dbl=()=>['double','strips'].includes($('#tm').value),STR=()=>$('#tm').value==='strips',tsd=t=>t.side==='b'?'b':'t',onSide=t=>!dbl()||tsd(t)===side;
+function setSide(v){finish();side=v;document.querySelectorAll('#sideseg [data-side]').forEach(b=>b.classList.toggle('on',b.dataset.side===v));draw()}
+document.querySelectorAll('#sideseg [data-side]').forEach(b=>b.onclick=()=>setSide(b.dataset.side));
+document.querySelectorAll('#sideseg [data-t]').forEach(b=>b.onclick=()=>setTool(b.dataset.t));
+/* which side each pad belongs to: the side of the tape that reaches it; a pad reached from both sides is split in half, one half per side */
+let PIc=null;const pkey=(x,y)=>(+x).toFixed(3)+','+(+y).toFixed(3);
+function padInfo(){const cc=Math.max(0,+$('#covc').value||0),sig=JSON.stringify([S.parts,S.traces,S.jumpers,cc,padD,STR()]);if(PIc&&PIc.sig===sig)return PIc.m;
+ const m=new Map(),pads=[];S.parts.forEach(pt=>padsFull(pt).forEach(q=>pads.push({x:q.x,y:q.y,R:q.R})));S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>pads.push({x:q.x,y:q.y,R:padD/2})));
+ pads.forEach(p=>{const acc={t:[0,0,0],b:[0,0,0]};
+  S.traces.forEach(tr=>{const sd=tsd(tr);for(let i=1;i<tr.pts.length;i++){const a=tr.pts[i-1],b=tr.pts[i];if(dseg(p.x,p.y,a.x,a.y,b.x,b.y)<p.R+tr.w/2-.01)[a,b].forEach(e=>{const dx=e.x-p.x,dy=e.y-p.y,L=Math.hypot(dx,dy);if(L>p.R*.5){acc[sd][0]+=dx/L;acc[sd][1]+=dy/L;acc[sd][2]++}})}});
+  const has=k=>acc[k][2]>0,sd=has('t')&&has('b')?'s':has('b')?'b':has('t')||!STR()?'t':'n';let n=null,bad=false;
+  if(sd==='s'){const u=k=>{const L=Math.hypot(acc[k][0],acc[k][1])||1;return[acc[k][0]/L,acc[k][1]/L]},ut=u('t'),ub=u('b');let nx=ut[0]-ub[0],ny=ut[1]-ub[1],L=Math.hypot(nx,ny);if(L<.6){bad=true;nx=-ut[1];ny=ut[0];L=1}n=[nx/L,ny/L]}
+  m.set(pkey(p.x,p.y),{x:p.x,y:p.y,sd,n,bad,g:2*cc+.4})});
+ PIc={sig,m};return m}
 document.querySelectorAll('#tools button').forEach(b=>b.onclick=()=>setTool(b.dataset.t));
 const bind=(id,f)=>$(id).onchange=$(id).oninput=()=>{f($(id).value);draw()};
 bind('#tw',v=>tw=+v);bind('#ang',v=>ang=v);bind('#cr',()=>{});bind('#lbl',()=>{});bind('#dclr',()=>{});
@@ -502,19 +565,22 @@ $('#bnoe').onclick=()=>{if(busy()||!S.edges.length)return;pushHist();S.edges=[];
 
 /* ---- connectivity: which copper touches which, the netlist, ratsnest and shorts ---- */
 let CN=null;
-function conn(){const clr=Math.max(0,+$('#dclr').value||.3),sig=JSON.stringify([S.parts,S.traces,S.jumpers,S.nets,padD,holeD,clr]);if(CN&&CN.sig===sig)return CN;
+function conn(){const clr=Math.max(0,+$('#dclr').value||.3),DB=dbl(),cc=Math.max(0,+$('#covc').value||0),sig=JSON.stringify([S.parts,S.traces,S.jumpers,S.nets,padD,holeD,clr,DB,DB?cc:0,STR()]);if(CN&&CN.sig===sig)return CN;
  const els=[];S.parts.forEach((pt,pi)=>padsFull(pt).forEach(p=>els.push({...p.cap,k:'pad',key:pt.ref?pt.ref+'.'+(p.i+1):null,ref:pt.ref,pin:p.i+1,x:p.x,y:p.y,jg:DEFS[pt.type].jmp?pi:undefined})));
  S.traces.forEach((t,ti)=>{if(t.pts.length===1)els.push({ax:t.pts[0].x,ay:t.pts[0].y,bx:t.pts[0].x,by:t.pts[0].y,r:t.w/2,k:'tr',ti});for(let i=1;i<t.pts.length;i++){const a=t.pts[i-1],b=t.pts[i];els.push({ax:a.x,ay:a.y,bx:b.x,by:b.y,r:t.w/2,k:'tr',ti})}});
  S.jumpers.forEach((j,ji)=>[j.a,j.b].forEach(q=>els.push({ax:q.x,ay:q.y,bx:q.x,by:q.y,r:padD/2,k:'jp',ji,x:q.x,y:q.y})));
+ els.forEach(e=>e.sd=e.k==='tr'?(DB?tsd(S.traces[e.ti]):'t'):'x');
  const n=els.length,par=els.map((_,i)=>i),fd=i=>{while(par[i]!==i){par[i]=par[par[i]];i=par[i]}return i},U=(a,b)=>{par[fd(a)]=fd(b)};
  els.forEach(e=>{e.x0=Math.min(e.ax,e.bx)-e.r;e.x1=Math.max(e.ax,e.bx)+e.r;e.y0=Math.min(e.ay,e.by)-e.r;e.y1=Math.max(e.ay,e.by)+e.r});
- const near=[],ord=els.map((_,i)=>i).sort((a,b)=>els[a].x0-els[b].x0);
- for(let u=0;u<n;u++){const A=els[ord[u]];for(let v=u+1;v<n;v++){const B=els[ord[v]];if(B.x0>A.x1+clr)break;if(B.y0>A.y1+clr||B.y1<A.y0-clr)continue;
+ const SX=DB&&STR(),near=[],ovl=[],tight0=[],SG=SX?2*STRIP_LIP+.2:0,srch=Math.max(clr,SG),gapTB=cc+.1,inPad=(x,y)=>els.some(P=>P.sd==='x'&&Math.hypot(x-P.x,y-P.y)<P.r+cc+.05),ord=els.map((_,i)=>i).sort((a,b)=>els[a].x0-els[b].x0);
+ for(let u=0;u<n;u++){const A=els[ord[u]];for(let v=u+1;v<n;v++){const B=els[ord[v]];if(B.x0>A.x1+srch)break;if(B.y0>A.y1+srch||B.y1<A.y0-srch)continue;
   if(A.k==='pad'&&B.k==='pad'&&A.ref&&A.ref===B.ref&&A.pin===B.pin)continue;
   const q=segSeg(A.ax,A.ay,A.bx,A.by,B.ax,B.ay,B.bx,B.by),d=q.d-A.r-B.r;
-  if(d<.005)U(ord[u],ord[v]);else if(d<clr)near.push({i:ord[u],j:ord[v],d,x:q.x,y:q.y})}}
+   /* top and bottom tape never join. Strips: they may cross freely. Two pieces: too close and the pieces cannot both have copper there */
+   if(A.sd!=='x'&&B.sd!=='x'&&A.sd!==B.sd){if(!SX&&d<gapTB&&!inPad(q.x,q.y))ovl.push({x:q.x,y:q.y,d});continue}
+   if(d<.005)U(ord[u],ord[v]);else{if(d<clr)near.push({i:ord[u],j:ord[v],d,x:q.x,y:q.y});if(d<SG&&A.sd===B.sd&&A.sd!=='x')tight0.push({i:ord[u],j:ord[v],d,x:q.x,y:q.y})}}}
  for(let i=0;i+1<n;i++)if((els[i].k==='jp'&&els[i+1].k==='jp'&&els[i+1].ji===els[i].ji)||(els[i].jg!==undefined&&els[i+1].jg===els[i].jg)){U(i,i+1);i++}
- const R=els.map((_,i)=>fd(i)),pinNet={},keyEl={};S.nets.forEach((nt,k)=>nt.pins.forEach(p=>pinNet[p]=k));
+  const R=els.map((_,i)=>fd(i)),pinNet={},keyEl={},tight=tight0.filter(o=>R[o.i]!==R[o.j]);S.nets.forEach((nt,k)=>nt.pins.forEach(p=>pinNet[p]=k));
  els.forEach((e,i)=>{if(e.key&&keyEl[e.key]===undefined)keyEl[e.key]=i});
  const rootNets=new Map();els.forEach((e,i)=>{if(e.key&&pinNet[e.key]!==undefined){let s=rootNets.get(R[i]);if(!s)rootNets.set(R[i],s=new Set());s.add(pinNet[e.key])}});
  const shorts=[];rootNets.forEach((s,r)=>{if(s.size>1){const i=R.indexOf(r),e=els[i];shorts.push({names:[...s].map(k=>S.nets[k].name),x:(e.ax+e.bx)/2,y:(e.ay+e.by)/2})}});
@@ -523,7 +589,7 @@ function conn(){const clr=Math.max(0,+$('#dclr').value||.3),sig=JSON.stringify([
   const G=[...groups.values()];if(G.length<2)return;const inT=[G[0]],rest=G.slice(1);
   while(rest.length){let best=null;rest.forEach((g,gi)=>inT.forEach(h=>g.forEach(a=>h.forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(!best||d<best.d)best={d,gi,a,b}}))));
    rats.push({a:best.a,b:best.b,k});unrouted++;inT.push(rest.splice(best.gi,1)[0])}});
- return CN={sig,els,R,near,rats,unrouted,shorts,pinNet,rootNets,clr}}
+ return CN={sig,els,R,near,ovl,tight,rats,unrouted,shorts,pinNet,rootNets,clr}}
 const netNamesOfRoot=(C,r)=>{const s=C.rootNets.get(r);return s?[...s].map(k=>S.nets[k].name):[]};
 function inBoard(x,y){const pip=(P,x,y)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a.y>y)!==(b.y>y)&&x<(b.x-a.x)*(y-a.y)/(b.y-a.y)+a.x)c=!c}return c};
  const o=S.edges.find(e=>!e.cut);if(o?!pip(o.pts,x,y):(x<0||y<0||x>S.W||y>S.H))return'off';return S.edges.some(e=>e.cut&&pip(e.pts,x,y))?'cut':''}
@@ -535,12 +601,25 @@ function bodyBox(pt){const D=DEFS[pt.type],P=[];padsFull(pt).forEach(p=>{P.push(
 function runDRC(){const C=conn(),out=[],minW=+$('#dmin').value||.8,clr=C.clr,nm=e=>e.k==='pad'?(e.ref?e.ref+' pin '+e.pin:'a pad'):e.k==='jp'?'a jumper pad':'tape',
   add=(e,mm,x,y)=>{if(!out.some(o=>o.mm===mm&&Math.hypot(o.x-x,o.y-y)<1.5))out.push({e,mm,x,y})};
  C.shorts.forEach(s=>add(1,'Short circuit: '+s.names.join(' and ')+' are joined by copper.',s.x,s.y));
+ if(dbl()&&!STR()){C.ovl.forEach(o=>add(1,'Top and bottom tape overlap or come too close here. In two-piece mode a spot can only have tape on one side, because the other piece needs an opening there. Use the strips mode if the tape needs to cross.',o.x,o.y));
+  padInfo().forEach(i=>{if(i.bad)add(0,'Tape from the top and the bottom reach this pad from the same direction. Bring them in from opposite sides so the pad can be split between them.',i.x,i.y)})}
+ if(dbl()&&STR())stripEars().none.forEach(ti=>{const p=S.traces[ti].pts[0];add(0,'There is no room beside this tape run for the small ear that pegs its strip in place, so the strip can slide until the top cover is on. Leave about 4 mm clear on one side of the run, away from other tape, pads, holes and text.',p.x,p.y)});
+ if(dbl()){if(STR())C.tight.forEach(o=>add(1,`Two tape runs on the same side are only ${o.d.toFixed(2)} mm apart. Each run is printed as a strip ${STRIP_LIP} mm wider than its tape on each side, so runs need at least ${(2*STRIP_LIP+.2).toFixed(1)} mm between them or their strips would overlap.`,o.x,o.y));
+  if(thick-Math.max(0,+$('#covr').value||0)<=0)add(1,'Cover recess must be smaller than the plate thickness, or the traces have no height.',S.W/2,S.H/2)}
+ else if(S.traces.some(t=>t.side==='b'))add(0,'Some tape is on the bottom side, but Traces is not set to Double-sided, so it will all be printed on one side.',S.W/2,S.H/2);
  C.near.forEach(q=>{if(C.R[q.i]!==C.R[q.j])add(0,`Only ${q.d.toFixed(2)} mm between ${nm(C.els[q.i])} and ${nm(C.els[q.j])} (minimum ${clr} mm). Tape this close can bridge when soldering.`,q.x,q.y)});
  S.traces.forEach(t=>{if(t.w<minW-1e-9)add(0,`Tape ${t.w} mm wide is narrower than ${minW} mm and is hard to print and lay.`,t.pts[0].x,t.pts[0].y)});
  S.traces.forEach((t,ti)=>[t.pts[0],t.pts.at(-1)].forEach(p=>{const touch=C.els.some(e=>e.ti!==ti&&ptSeg(p.x,p.y,e.ax,e.ay,e.bx,e.by).d-e.r-t.w/2<.005);if(!touch)add(0,'This tape ends without reaching a pad or other tape.',p.x,p.y)}));
  const byNet={};C.rats.forEach(r=>{(byNet[r.k]=byNet[r.k]||[]).push(r)});Object.entries(byNet).forEach(([k,L])=>add(0,`${S.nets[k].name}: ${L.length} connection${L.length>1?'s':''} not routed yet (dashed line${L.length>1?'s':''}).`,(L[0].a.x+L[0].b.x)/2,(L[0].a.y+L[0].b.y)/2));
  const refs=new Set(S.parts.map(p=>p.ref));S.nets.forEach(nt=>{const miss=[...new Set(nt.pins.map(p=>p.split('.')[0]).filter(r=>!refs.has(r)))];if(miss.length)add(0,`${nt.name} needs ${miss.join(', ')}, which ${miss.length>1?'are':'is'} not on the board.`,S.W/2,S.H/2)});
  C.els.forEach(e=>{const w=inBoard(e.ax,e.ay)||inBoard(e.bx,e.by);if(w)add(1,`${nm(e)[0].toUpperCase()+nm(e).slice(1)} is ${w==='off'?'off the board':'inside a cutout'}.`,e.ax,e.ay)});
+ S.pegs.forEach(o=>{const r=pegRing(),e=C.els.find(e=>ptSeg(o.x,o.y,e.ax,e.ay,e.bx,e.by).d-e.r-r<.4),h=S.holes.find(h=>Math.hypot(h.x-o.x,h.y-o.y)-h.d/2-r<.6),t=allTexts().find(t=>{const b=textBox(t);return o.x>b.x0-r-.3&&o.x<b.x1+r+.3&&o.y>b.y0-r-.3&&o.y<b.y1+r+.3});
+  if(inBoard(o.x,o.y))add(1,'A snap peg is off the board.',o.x,o.y);else if(e)add(1,`A snap peg is too close to ${nm(e)}. Its hole in the other piece needs about ${(r+.4).toFixed(1)} mm of clear space all round.`,o.x,o.y);else if(h)add(0,'A snap peg is very close to a mounting hole.',o.x,o.y);else if(t)add(0,'A snap peg sits on engraved text, which would be cut away by the peg hole.',o.x,o.y)});
+ if(S.pegs.length&&!($('#tm').value==='cover'||dbl()))add(0,'Snap pegs are only printed when Traces is set to Raised + cover piece or one of the Double-sided modes.',S.pegs[0].x,S.pegs[0].y);
+ if((($('#tm').value==='cover'&&gdep>0)||dbl())&&($('#snpeg').value!=='off'||($('#snclip').checked&&!dbl()))){const sn=trimmed(()=>mesh('base')).snap;
+  if(sn.wantC&&!sn.clips)add(0,'No straight stretch of board edge has room for a snap clip. Each needs about 13 mm of edge with no tape within 4 mm of it. Move tape away from an edge, or rely on the snap pegs.',S.W/2,S.H/2);
+  else if(sn.wantC&&sn.clips<2)add(0,'Only one snap clip fits, so the far side of the cover may lift. Snap pegs or more clear edge will help.',S.W/2,S.H/2);
+  if(sn.wantP&&sn.pegs<2&&!S.pegs.length)add(0,sn.pegs?'Room for only one snap peg. Each needs a clear spot about 8 mm across, away from tape, text and holes.':'No room for snap pegs. Each needs a clear spot about 8 mm across, away from tape, text and holes.',S.W/2,S.H/2)}
  S.holes.forEach(h=>{if(inBoard(h.x,h.y))add(1,'A mounting hole is off the board.',h.x,h.y);const e=C.els.find(e=>ptSeg(h.x,h.y,e.ax,e.ay,e.bx,e.by).d-e.r-h.d/2<.5);if(e)add(1,`A mounting hole cuts into ${nm(e)}.`,h.x,h.y)});
  autoLabels();ALmiss.forEach(m=>add(0,`No clear spot to engrave ${m.who} next to the part, so it was left off. Move nearby tape or the part to make room.`,m.x,m.y));
  S.texts.forEach(t=>{if(boxHitsCopper(textBox(t),0))add(0,`The text "${t.s}" runs under tape or a pad, so copper will cover part of it. Move it with the Move tool.`,t.x,t.y)});
@@ -550,7 +629,7 @@ function runDRC(){const C=conn(),out=[],minW=+$('#dmin').value||.8,clr=C.clr,nm=
  const errs=out.filter(o=>o.e).length;let h=`<h3 class="dt">Design check</h3><p class="${errs?'err':'mu'}">${out.length?`${errs} problem${errs===1?'':'s'} and ${out.length-errs} warning${out.length-errs===1?'':'s'}. They are circled on the board. Tap one to zoom to it.`:'No problems found. Every connection is routed and nothing touches that should not.'}</p>`;
  if(out.length){h+='<ul class="drc">';out.sort((a,b)=>b.e-a.e).forEach((o,i)=>h+=`<li data-i="${i}" class="${o.e?'err':'wrn'}"><b>${o.e?'Problem':'Warning'}:</b> ${hesc(o.mm)}</li>`);h+='</ul>'}
  showDlg(h,[['Close',closeDlg,'accent']]);document.querySelectorAll('#dlgc li[data-i]').forEach(li=>li.onclick=()=>{const o=out[+li.dataset.i];closeDlg();focusAt(o.x,o.y)})}
-function focusAt(x,y){const w=cv.clientWidth,h=cv.clientHeight,bh=(barH||48)+26;zm=3;sc=Math.min((w-60)/S.W,(h-90-bh)/S.H)*zm;pan.x=w/2-x*sc-(w-S.W*sc)/2;pan.y=(h-bh)/2-y*sc-(h-bh-S.H*sc)/2-18;draw()}
+function focusAt(x,y){const w=cv.clientWidth,h=cv.clientHeight,bh=(barH||48)+26;zm=3;sc=Math.min((w-60)/S.W,(h-90-bh)/S.H)*zm;pan.x=w/2-(mirV()?S.W-x:x)*sc-(w-S.W*sc)/2;pan.y=(h-bh)/2-y*sc-(h-bh-S.H*sc)/2-18;draw()}
 const hesc=a=>String(a).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function showDlg(html,btns){$('#dlgc').innerHTML=html;const b=$('#dlgb');b.innerHTML='';btns.forEach(a=>{const x=document.createElement('button');x.textContent=a[0];if(a[2])x.className=a[2];x.onclick=a[1];b.appendChild(x)});$('#dlg').classList.add('open')}
 const closeDlg=()=>$('#dlg').classList.remove('open');
@@ -560,12 +639,12 @@ function copyText(t,btn){const done=()=>{btn.textContent='Copied'},
  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);return}}catch(e){}
  fb()}
 $('#dlg').onclick=e=>{if(e.target.id==='dlg')closeDlg()};
-function cutList(){const C=conn(),rows=S.traces.map((t,i)=>{let L=0;for(let k=1;k<t.pts.length;k++)L+=Math.hypot(t.pts[k].x-t.pts[k-1].x,t.pts[k].y-t.pts[k-1].y);const ei=C.els.findIndex(e=>e.k==='tr'&&e.ti===i);return{n:i+1,net:ei>=0?netNamesOfRoot(C,C.R[ei]).join(' + ')||'—':'—',w:t.w,L,b:t.pts.length-2}}),
+function cutList(){const C=conn(),rows=S.traces.map((t,i)=>{let L=0;for(let k=1;k<t.pts.length;k++)L+=Math.hypot(t.pts[k].x-t.pts[k-1].x,t.pts[k].y-t.pts[k-1].y);const ei=C.els.findIndex(e=>e.k==='tr'&&e.ti===i);return{n:i+1,net:ei>=0?netNamesOfRoot(C,C.R[ei]).join(' + ')||'—':'—',w:t.w,L,b:t.pts.length-2,sd:dbl()?(tsd(t)==='b'?'Bottom':'Top'):''}}),
   J=S.jumpers.map((j,i)=>({n:i+1,L:Math.hypot(j.a.x-j.b.x,j.a.y-j.b.y)})).concat(S.parts.filter(p=>DEFS[p.type].jmp).map(p=>({n:p.ref,L:DEFS[p.type].p[1][0]}))),tot={};rows.forEach(r=>tot[r.w]=(tot[r.w]||0)+r.L);
  let h='<h3 class="dt">Tape cut list</h3>';if(!rows.length&&!J.length)h+='<p class="mu">No tape on the board yet.</p>';
- if(rows.length){h+='<table><tr><th>Run</th><th>Connection</th><th>Width</th><th>Length</th><th>Bends</th></tr>'+rows.map(r=>`<tr><td>${r.n}</td><td>${hesc(r.net)}</td><td>${r.w} mm</td><td>${r.L.toFixed(1)} mm</td><td>${r.b}</td></tr>`).join('')+'</table><p>'+Object.entries(tot).map(([w,L])=>`<b>${w} mm tape:</b> ${Math.ceil(L)} mm in all (cut about ${Math.ceil(L*1.1+rows.length*2)} mm to allow for overlap onto pads)`).join('<br>')+'</p>'}
+ if(rows.length){h+='<table><tr><th>Run</th>'+(dbl()?'<th>Side</th>':'')+'<th>Connection</th><th>Width</th><th>Length</th><th>Bends</th></tr>'+rows.map(r=>`<tr><td>${r.n}</td>${r.sd?`<td>${r.sd}</td>`:''}<td>${hesc(r.net)}</td><td>${r.w} mm</td><td>${r.L.toFixed(1)} mm</td><td>${r.b}</td></tr>`).join('')+'</table><p>'+Object.entries(tot).map(([w,L])=>`<b>${w} mm tape:</b> ${Math.ceil(L)} mm in all (cut about ${Math.ceil(L*1.1+rows.length*2)} mm to allow for overlap onto pads)`).join('<br>')+'</p>'}
  if(J.length)h+='<p><b>Jumper wires:</b> '+J.map(j=>`${typeof j.n==='number'?'#'+j.n:j.n} ${Math.ceil(j.L+4)} mm`).join(', ')+' (lengths include 2 mm each end to go through the holes)</p>';
- const txt=rows.map(r=>`Run ${r.n}  ${r.net}  ${r.w} mm x ${r.L.toFixed(1)} mm  (${r.b} bends)`).concat(J.map(j=>`Jumper ${j.n}  ${Math.ceil(j.L+4)} mm wire`)).join('\n');
+ const txt=rows.map(r=>`Run ${r.n}  ${r.sd?r.sd+'  ':''}${r.net}  ${r.w} mm x ${r.L.toFixed(1)} mm  (${r.b} bends)`).concat(J.map(j=>`Jumper ${j.n}  ${Math.ceil(j.L+4)} mm wire`)).join('\n');
  showDlg(h,[...(txt?[['Copy',function(){copyText(txt,this)}]]:[]),['Close',closeDlg,'accent']])}
 
 function draw(){norm(S);
@@ -576,6 +655,8 @@ function draw(){norm(S);
  const cb=$('#cbar');if(!cb.hidden)barH=cb.offsetHeight;const bh=(barH||48)+26;
  sc=Math.min((w-60)/S.W,(h-90-bh)/S.H)*zm;ox=(w-S.W*sc)/2+pan.x;oy=(h-bh-S.H*sc)/2+pan.y+18;
  cx.save();cx.translate(ox,oy);cx.scale(sc,sc);
+ /* bottom side of a double-sided board: draw the board turned over (mirrored), but keep every label readable */
+ const MIR=mirV(),ft0=cx.fillText;if(MIR){cx.translate(S.W,0);cx.scale(-1,1);cx.fillText=function(t,x,y){this.save();this.translate(x,y);this.scale(-1,1);const a=this.textAlign;this.textAlign=a==='left'||a==='start'?'right':a==='right'||a==='end'?'left':a;ft0.call(this,t,0,0);this.restore()}}
  const outl=S.edges.find(e=>!e.cut),cr=Math.max(0,Math.min(+$('#cr').value||0,S.W/2,S.H/2)),poly=P=>{cx.beginPath();P.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.closePath()};
  if(outl){cx.fillStyle='rgba(196,201,203,.18)';cx.fillRect(0,0,S.W,S.H);cx.fillStyle='#c4c9cb';poly(outl.pts);cx.fill()}else{cx.fillStyle='#c4c9cb';cx.beginPath();cx.roundRect(0,0,S.W,S.H,cr);cx.fill()}
  cx.save();cx.beginPath();cx.rect(0,0,S.W,S.H);cx.clip();
@@ -586,24 +667,32 @@ function draw(){norm(S);
  cx.fillStyle='#9fb3ad';cx.font=`${11/sc}px system-ui`;cx.textAlign='center';for(let k=0;k<=S.W;k+=10)cx.fillText(k,k,-6/sc);
  cx.textAlign='right';for(let k=0;k<=S.H;k+=10)cx.fillText(k,-6/sc,k+4/sc);cx.textAlign='left';cx.fillText('mm',S.W+6/sc,-6/sc);
  const line=(pts,w,c)=>{cx.beginPath();pts.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y));cx.lineWidth=w;cx.strokeStyle=c;cx.lineJoin='miter';cx.lineCap='butt';cx.stroke()};
- const strokeText=(t,col)=>{cx.strokeStyle=col;cx.lineWidth=sw(t.size);cx.lineCap='round';cx.lineJoin='round';strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>{cx.beginPath();pl.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));if(pl.length===1)cx.lineTo(pl[0].x+.01,pl[0].y);cx.stroke()});cx.lineCap='butt'};
+ const strokeText=(t,col)=>{if(MIR)cx.globalAlpha=.3;cx.strokeStyle=col;cx.lineWidth=sw(t.size);cx.lineCap='round';cx.lineJoin='round';strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>{cx.beginPath();pl.forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));if(pl.length===1)cx.lineTo(pl[0].x+.01,pl[0].y);cx.stroke()});cx.lineCap='butt';cx.globalAlpha=1};
  S.texts.forEach(t=>strokeText(t,'#56625f'));
- S.traces.forEach(t=>{line(t.pts,t.w+.3,'#7a4318');line(t.pts,t.w,'#c9793a');line(t.pts,t.w*.2,'#e6a56d')});
+ const DB=dbl(),TC={t:['#7a4318','#c9793a','#e6a56d'],b:['#1d4a72','#3d8fd1','#8cc4ef']},drawTr=t=>{const c=TC[DB?tsd(t):'t'];line(t.pts,t.w+.3,c[0]);line(t.pts,t.w,c[1]);line(t.pts,t.w*.2,c[2])};
+ if(DB){cx.globalAlpha=.3;S.traces.filter(t=>!onSide(t)).forEach(drawTr);cx.globalAlpha=1;S.traces.filter(onSide).forEach(drawTr)}else S.traces.forEach(drawTr);
+ const PI=DB?padInfo():null,padFill=(q,shape)=>{if(!DB){cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';shape();cx.fill();cx.stroke();return}
+  const inf0=PI.get(pkey(q.x,q.y))||{sd:STR()?'n':'t'},inf={...inf0,sd:STR()&&(inf0.sd==='n'||inf0.sd==='s')?side:inf0.sd},paint=(k,clip)=>{cx.save();if(clip){const n=inf.n,o=(k==='t'?1:-1)*inf.g/2,big=50,ux=-n[1],uy=n[0],sx=k==='t'?1:-1,bx=q.x+n[0]*o,by=q.y+n[1]*o;cx.beginPath();cx.moveTo(bx+ux*big,by+uy*big);cx.lineTo(bx-ux*big,by-uy*big);cx.lineTo(bx-ux*big+n[0]*sx*big,by-uy*big+n[1]*sx*big);cx.lineTo(bx+ux*big+n[0]*sx*big,by+uy*big+n[1]*sx*big);cx.closePath();cx.clip()}
+   cx.globalAlpha=k===side?1:.3;cx.fillStyle=TC[k][1];cx.strokeStyle=TC[k][0];shape();cx.fill();cx.stroke();cx.restore()};
+  if(inf.sd==='s'){paint('t',true);paint('b',true)}else paint(inf.sd,false)};
  const padShape=(q,grow)=>{cx.beginPath();if(q.smd||q.sq)cx.rect(q.x-q.w/2-grow,q.y-q.h/2-grow,q.w+2*grow,q.h+2*grow);else cx.arc(q.x,q.y,q.w/2+grow,0,7)};
  S.parts.forEach(pt=>{const D=DEFS[pt.type],P=padsFull(pt);
   cx.save();cx.translate(pt.x,pt.y);cx.rotate(pt.rot*Math.PI/2);if(pt.flip)cx.scale(-1,1);cx.strokeStyle=pt.flip?'rgba(24,33,31,.45)':'rgba(24,33,31,.6)';cx.lineWidth=.25;if(pt.flip)cx.setLineDash([.6,.4]);
   if(D.dip){const cxL=(D.w||7.62)/2,bw=D.bw||4.6,bm=D.bm||1.2;cx.strokeRect(cxL-bw/2,-bm,bw,(D.dip-1)*2.54+2*bm);if(D.ant||D.usbb){if(D.ant)cx.strokeRect(cxL-D.ant[0]/2,-bm-D.ant[1],D.ant[0],D.ant[1]);if(D.usbb){const bot=(D.dip-1)*2.54+bm;cx.strokeRect(cxL-D.usbb[0]/2,bot-1,D.usbb[0],D.usbb[1])}}else{cx.beginPath();cx.arc(cxL,-bm,.8,0,Math.PI);cx.stroke()}}
   if(D.box){cx.strokeRect(D.box[0],D.box[1],D.box[2],D.box[3]);cx.fillStyle='rgba(24,33,31,.55)';cx.font='bold 1.6px system-ui';cx.textAlign='center';cx.fillText(D.label||'',D.box[0]+D.box[2]/2,D.box[1]+D.box[3]/2+.6);(D.extra||[]).forEach(e=>cx.strokeRect(e[0],e[1],e[2],e[3]));(D.circ||[]).forEach(c=>{cx.beginPath();cx.arc(c[0],c[1],c[2],0,7);cx.stroke()});(D.slots||[]).forEach(sl=>{cx.fillStyle='#17201f';cx.fillRect(sl[0]-sl[2]/2,sl[1]-sl[3]/2,sl[2],sl[3])})}
   cx.restore();
-  P.forEach(q=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;padShape(q,0);cx.fill();cx.stroke();
+  P.forEach(q=>{cx.lineWidth=.25;padFill(q,()=>padShape(q,0));
    if(q.hole){cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,q.hole/2,0,7);cx.fill()}
    if(D.names&&D.names[q.i]){const mx=P.reduce((u,v)=>u+v.x,0)/P.length,my=P.reduce((u,v)=>u+v.y,0)/P.length,vx=mx-q.x,vy=my-q.y;cx.fillStyle='rgba(24,33,31,.85)';cx.font='1.25px system-ui';
     if(Math.abs(vx)>=Math.abs(vy)){cx.textAlign=vx>=0?'left':'right';cx.fillText(D.names[q.i],q.x+(vx>=0?1:-1)*(q.R+.4),q.y+.45)}else{cx.textAlign='center';cx.fillText(D.names[q.i],q.x,q.y+(vy>=0?1:-1)*(q.R+1.3))}}
    else if(P.length>1&&!D.smd&&!D.jmp){cx.fillStyle='rgba(24,33,31,.8)';cx.font='1.3px system-ui';cx.textAlign='center';cx.fillText(pt.type==='led'?(q.i?'−':'+'):q.i+1,q.x,q.y-q.R-.4)}})});
  if($('#lbl').checked)autoLabels().forEach(t=>strokeText(t,'#2f3a37'));else S.parts.forEach(pt=>{if(!pt.ref)return;const a=padsFull(pt),x=a.reduce((s,p)=>s+p.x,0)/a.length,y=Math.min(...a.map(p=>p.y-p.R))-1.8;cx.fillStyle='#17201f';cx.font='bold 1.8px system-ui';cx.textAlign='center';cx.fillText(pt.ref+(pt.flip?' ⇋':''),x,y)});
  S.holes.forEach(o=>{cx.fillStyle='#17201f';cx.beginPath();cx.arc(o.x,o.y,o.d/2,0,7);cx.fill()});
+ S.pegs.forEach(o=>{cx.fillStyle='#4f8a7a';cx.strokeStyle='#17201f';cx.lineWidth=.2;cx.beginPath();cx.arc(o.x,o.y,o.d/2,0,7);cx.fill();cx.stroke();cx.fillStyle='#17201f';cx.beginPath();cx.arc(o.x,o.y,.35,0,7);cx.fill()});
+ if(dbl()&&STR())stripEars().ears.forEach(e=>{const on=e.sd===side;cx.globalAlpha=on?1:.3;cx.fillStyle=e.sd==='b'?'#4a90d9':'#d4843e';cx.strokeStyle=e.sd==='b'?'#1d4f86':'#7a3e12';cx.lineWidth=.2;
+  cx.beginPath();cx.arc(e.x,e.y,e.ER,0,7);cx.fill();cx.stroke();cx.fillStyle='#17201f';cx.beginPath();cx.arc(e.x,e.y,e.hr,0,7);cx.fill();cx.globalAlpha=1});
  S.parts.forEach(pt=>{if(!DEFS[pt.type].jmp)return;const a=padsOf(pt);cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.lineCap='round';cx.beginPath();cx.moveTo(a[0].x,a[0].y);cx.lineTo(a[1].x,a[1].y);cx.stroke();cx.lineCap='butt'});
- S.jumpers.forEach(j=>{[j.a,j.b].forEach(q=>{cx.fillStyle='#c9793a';cx.strokeStyle='#7a4318';cx.lineWidth=.25;cx.beginPath();cx.arc(q.x,q.y,padD/2,0,7);cx.fill();cx.stroke();cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,holeD/2,0,7);cx.fill()});
+ S.jumpers.forEach(j=>{[j.a,j.b].forEach(q=>{cx.lineWidth=.25;padFill(q,()=>{cx.beginPath();cx.arc(q.x,q.y,padD/2,0,7)});cx.fillStyle='#17201f';cx.beginPath();cx.arc(q.x,q.y,holeD/2,0,7);cx.fill()});
   cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.lineCap='round';cx.beginPath();cx.moveTo(j.a.x,j.a.y);cx.lineTo(j.b.x,j.b.y);cx.stroke();cx.lineCap='butt'});
  if(C.rats.length){cx.strokeStyle='#ffe066';cx.lineWidth=1.3/sc;cx.setLineDash([5/sc,4/sc]);cx.beginPath();C.rats.forEach(r=>{cx.moveTo(r.a.x,r.a.y);cx.lineTo(r.b.x,r.b.y)});cx.stroke();cx.setLineDash([])}
  if(drcMarks.length&&drcSig!==C.sig)drcMarks=[];
@@ -612,7 +701,7 @@ function draw(){norm(S);
  if(tool==='hole'&&!pend){cx.strokeStyle='#17201f';cx.lineWidth=.2;cx.beginPath();cx.arc(m.x,m.y,1.6,0,7);cx.stroke()}
  if(curJ){cx.strokeStyle='rgba(70,120,220,.85)';cx.lineWidth=.7;cx.setLineDash([1,.6]);cx.beginPath();cx.moveTo(curJ.a.x,curJ.a.y);cx.lineTo(m.x,m.y);cx.stroke();cx.setLineDash([])}
  if(curE){const e={x:m.cx??m.x,y:m.cy??m.y};cx.strokeStyle=curE.cut?'#ff7a59':'#2dd4a8';cx.lineWidth=2/sc;cx.beginPath();[...curE.pts,e].forEach((q,i)=>i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y));cx.stroke();cx.fillStyle=cx.strokeStyle;curE.pts.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,3/sc,0,7);cx.fill()})}
- if(cur&&!pend){const e={x:m.cx??m.x,y:m.cy??m.y};line([...cur.pts,e],cur.w,'rgba(201,121,58,.75)');const a=cur.pts.at(-1);
+ if(cur&&!pend){const e={x:m.cx??m.x,y:m.cy??m.y};line([...cur.pts,e],cur.w,cur.side==='b'?'rgba(61,143,209,.75)':'rgba(201,121,58,.75)');const a=cur.pts.at(-1);
   cx.fillStyle='#fff';cx.font='1.6px system-ui';cx.textAlign='left';cx.fillText(Math.hypot(e.x-a.x,e.y-a.y).toFixed(1)+' mm',e.x+1,e.y-1)}
  else if(tool==='trace'&&!pend){cx.strokeStyle='#0b5a4d';cx.lineWidth=1.5/sc;cx.beginPath();cx.arc(m.x,m.y,.9,0,7);cx.moveTo(m.x-1.8,m.y);cx.lineTo(m.x+1.8,m.y);cx.moveTo(m.x,m.y-1.8);cx.lineTo(m.x,m.y+1.8);cx.stroke()}
  if(pend&&pend.item){const it=pend.item,col=pend.type==='erase'?'#ff5a5a':'#2dd4a8';cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=2/sc;
@@ -623,7 +712,7 @@ function draw(){norm(S);
   else if(it.pts){poly(it.pts);cx.lineWidth=3/sc;cx.stroke()}
   else{cx.setLineDash([6/sc,4/sc]);if(it.d){cx.beginPath();cx.arc(it.x,it.y,it.d/2+.8,0,7);cx.stroke()}else padsFull(it).forEach(q=>{padShape(q,.9);cx.stroke()});cx.setLineDash([])}}
  if(sel&&!(pend&&pend.item===sel)){const a=padsFull(sel),r=a[0].R+.9,xs=a.map(q=>q.x),ys=a.map(q=>q.y);cx.strokeStyle='#ffd166';cx.lineWidth=2/sc;cx.setLineDash([6/sc,4/sc]);a.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,q.R+.9,0,7);cx.stroke()});if(a.length>1)cx.strokeRect(Math.min(...xs)-r,Math.min(...ys)-r,Math.max(...xs)-Math.min(...xs)+2*r,Math.max(...ys)-Math.min(...ys)+2*r);cx.setLineDash([])}
- cx.restore();stats(C)}
+ cx.restore();if(MIR)delete cx.fillText;stats(C)}
 function stats(C){const t={};S.traces.forEach(r=>{let L=0;for(let i=1;i<r.pts.length;i++)L+=Math.hypot(r.pts[i].x-r.pts[i-1].x,r.pts[i].y-r.pts[i-1].y);t[r.w]=(t[r.w]||0)+L});
  const pads=S.parts.reduce((n,p)=>n+DEFS[p.type].p.length,0);
  $('#stats').innerHTML=`<b>${pads}</b> pads, <b>${S.traces.length}</b> tape runs${S.jumpers.length?`, <b>${S.jumpers.length}</b> jumper${S.jumpers.length>1?'s':''}`:''}<br>`+(Object.keys(t).length?Object.entries(t).map(([w,L])=>`${w} mm tape: <b>${Math.ceil(L)} mm</b>`).join('<br>'):'No tape placed yet')+
@@ -649,39 +738,116 @@ const allTexts=()=>S.texts.concat(autoLabels());
 function svg(){const outl=S.edges.find(e=>!e.cut),pth=P=>'M'+P.map(p=>p.x+','+p.y).join('L')+'Z';
  let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${S.W}mm" height="${S.H}mm" viewBox="0 0 ${S.W} ${S.H}">`+(outl?`<path d="${pth(outl.pts)}" fill="#fff" stroke="#000" stroke-width=".2"/>`:S.keep?outlineSvg():`<rect width="${S.W}" height="${S.H}" rx="${crOf()}" fill="#fff" stroke="#000" stroke-width=".2"/>`);
  S.edges.filter(e=>e.cut).forEach(e=>s+=`<path d="${pth(e.pts)}" fill="#ddd" stroke="#000" stroke-width=".2"/>`);
- S.traces.forEach(t=>s+=`<polyline points="${t.pts.map(p=>p.x+','+p.y).join(' ')}" fill="none" stroke="#c9793a" stroke-width="${t.w}"/>`);
+ S.traces.forEach(t=>s+=`<polyline points="${t.pts.map(p=>p.x+','+p.y).join(' ')}" fill="none" stroke="${dbl()&&tsd(t)==='b'?'#3d8fd1':'#c9793a'}" stroke-width="${t.w}"/>`);
  S.parts.forEach(pt=>{const D=DEFS[pt.type];padsFull(pt).forEach(p=>{s+=p.smd||p.sq?`<rect x="${(p.x-p.w/2).toFixed(3)}" y="${(p.y-p.h/2).toFixed(3)}" width="${p.w.toFixed(3)}" height="${p.h.toFixed(3)}" fill="#c9793a"/>`:`<circle cx="${p.x}" cy="${p.y}" r="${p.w/2}" fill="#c9793a"/>`;if(p.hole)s+=`<circle cx="${p.x}" cy="${p.y}" r="${p.hole/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`});
   (D.slots||[]).forEach(sl=>{const c=xf(pt,[sl[0],sl[1]]),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3];s+=`<rect x="${(pt.x+c[0]-w/2).toFixed(3)}" y="${(pt.y+c[1]-h/2).toFixed(3)}" width="${w}" height="${h}" fill="#fff" stroke="#000" stroke-width=".1"/>`})});
  S.jumpers.forEach(j=>{[j.a,j.b].forEach(q=>s+=`<circle cx="${q.x}" cy="${q.y}" r="${padD/2}" fill="#c9793a"/><circle cx="${q.x}" cy="${q.y}" r="${holeD/2}" fill="#fff" stroke="#000" stroke-width=".1"/>`);s+=`<line x1="${j.a.x}" y1="${j.a.y}" x2="${j.b.x}" y2="${j.b.y}" stroke="#4678dc" stroke-width=".6" stroke-dasharray="1 .6"/>`});
  allTexts().forEach(t=>strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>s+=`<polyline points="${pl.map(p=>p.x.toFixed(3)+','+p.y.toFixed(3)).join(' ')}" fill="none" stroke="#555" stroke-width="${sw(t.size)}" stroke-linecap="round" stroke-linejoin="round"/>`));
  S.holes.forEach(o=>s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.d/2}" fill="#fff" stroke="#000" stroke-width=".2"/>`);
  return s+'</svg>'}
-function stl(){const M=mesh(),tri=M.tri;const buf=new ArrayBuffer(84+tri.length/3*50),dv=new DataView(buf);let o=84,cnt=0;
+function stl(which){const M=which==='strips'?stripsMesh():mesh(which),tri=M.tri;const buf=new ArrayBuffer(84+tri.length/3*50),dv=new DataView(buf);let o=84,cnt=0;
  for(let k=0;k<tri.length;k+=3){const a=tri[k],b=tri[k+1],c=tri[k+2],ux1=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2];
   const nx=uy*vz-uz*vy,ny=uz*vx-ux1*vz,nz=ux1*vy-uy*vx,l=Math.hypot(nx,ny,nz);if(l<1e-12)continue;
   [nx/l,ny/l,nz/l,...a,...b,...c].forEach(v=>{dv.setFloat32(o,v,true);o+=4});o+=2;cnt++}
  dv.setUint32(80,cnt,true);return new Blob([buf.slice(0,84+cnt*50)],{type:'model/stl'})}
 /* builds the plate as triangles: plate (tag 0), copper (tag 1) and engraved text (tag 2), merged by a sweep */
-function mesh(){
- const W=S.W,H=S.H,t=thick,z1=t+Math.max(0,gdep),gz=Math.max(.2,t-gdep),tz=Math.max(.2,t-.3),up=$('#tm').value==='up',hc=+$('#hcomp').value||0,Y=y=>H-y,tri=[],QN=v=>Math.round(v*1e4)/1e4,T=(a,b,c)=>tri.push(a,b,c);
+function mesh(which){
+ const mode=$('#tm').value,sx=mode==='strips',dbl=mode==='double'||sx,isS=sx&&/^strips/.test(which),stripSd=which==='strips-b'?'b':'t',pB=dbl&&which===(sx?'top':'bottom'),rec=Math.max(0,+$('#covr').value||0),LIP=STRIP_LIP,hT=dbl?Math.max(0,thick-Math.max(0,+$('#covr').value||0)):0,gd=dbl?hT:gdep,cov=mode==='cover'&&which==='cover',clr=cov?Math.max(0,+$('#covc').value||0):0,cz=Math.max(0,gdep)+Math.max(0,+$('#covr').value||0),ctz=cz-Math.min(.3,cz/2);
+ const W=S.W,H=S.H,t=thick,z1=t+Math.max(0,gd),gz=Math.max(.2,t-gdep),tz=Math.max(.2,t-.3),up=mode!=='down',hc=+$('#hcomp').value||0,Y=y=>H-y,tri=[],QN=v=>Math.round(v*1e4)/1e4,T=(a,b,c)=>tri.push(a,b,c);
  const nN=r=>Math.max(48,Math.ceil(r*40/4)*4),circ=(x,y,r,n)=>Array.from({length:n},(_,k)=>{const a=k*2*Math.PI/n;return[x+r*Math.cos(a),y+r*Math.sin(a)]});
  const outl=S.edges.find(e=>!e.cut),yl=P=>P.map(p=>[p.x,Y(p.y)]);
- const plate=outl?[orient(yl(outl.pts),true)]:S.keep?outlineLoops(S.keep,Math.max(0,+$('#mg').value||0),W,H):[roundRect(W,H,crOf())],raised=[],engr=[];
- S.edges.filter(e=>e.cut).forEach(e=>plate.push(orient(yl(e.pts),false)));
- const addHole=(x,y,d)=>{const r=d/2;if(x-r<-1||x+r>W+1||y-r<-1||y+r>H+1)return;plate.push(circ(x,Y(y),r,nN(r)).reverse())};
+ const plate=isS?[[[-2,-2],[W+2,-2],[W+2,H+2],[-2,H+2]]]:outl?[orient(yl(outl.pts),true)]:S.keep?outlineLoops(S.keep,Math.max(0,+$('#mg').value||0),W,H):[roundRect(W,H,crOf())],raised=[],engr=[],cu0=[],txt=[],pinH=[],posts=[],wells=[],unders=[],barbs=[],wedges=[],snapOn=(mode==='cover'&&gdep>0)||(dbl&&hT>0&&!isS),capLike=cov||pB,stk=dbl?2*t:t+cz;
+ if(!isS)S.edges.filter(e=>e.cut).forEach(e=>plate.push(orient(yl(e.pts),false)));
+ const addHole=(x,y,d,into=plate)=>{const r=d/2;if(x-r<-1||x+r>W+1||y-r<-1||y+r>H+1)return;into.push(circ(x,Y(y),r,nN(r)).reverse())},PH=snapOn?pinH:plate;
  const rectP=(x,y,w,h)=>[[x-w/2,y-h/2],[x+w/2,y-h/2],[x+w/2,y+h/2],[x-w/2,y+h/2]];
- S.parts.forEach(pt=>{const D=DEFS[pt.type];padsFull(pt).forEach(p=>{if(gdep>0)raised.push(p.smd||p.sq?rectP(p.x,Y(p.y),p.w,p.h):circ(p.x,Y(p.y),Math.max(p.w/2,p.hole/2+.3),nN(p.w/2)));if(p.hole)addHole(p.x,p.y,p.hole+hc)});
+  /* double-sided: each side's tape is on its own printed strips. A cover has a window as wide as the tape (so the copper shows),
+    and behind it a slot as big as the strip plus Cover clearance, leaving a lip Cover recess thick that holds the strip in */
+ const EARS=sx?stripEars():{ears:[]},mySd=sx?(pB?'t':'b'):(pB?'b':'t'),slotP=[],cc0=Math.max(0,+$('#covc').value||0),PIm=dbl?padInfo():null,opn=[];
+ const half=(P,c,n,keep,g)=>{const f=q=>((q[0]-c[0])*n[0]+(q[1]-c[1])*n[1])*keep-g/2,out=[];for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],fa=f(a),fb=f(b);if(fa>=0)out.push(a);if((fa>=0)!==(fb>=0)){const u=fa/(fa-fb);out.push([a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u])}}return out};
+  const dPad=(x,y,mk)=>{const inf=PIm.get(pkey(x,y))||{sd:sx?'n':'t'},sd=inf.sd,own=k=>sd===k||sd==='s';
+  if(isS){if(own(stripSd))raised.push(mk(LIP))}else if(sx){if(own(mySd)){opn.push(mk(0));slotP.push(mk(LIP+cc0))}}
+  else{/* two pieces: own copper raised, the other side's an opening; a pad reached from both sides is cut along its split line, one half per piece */
+   const n=inf.n?[inf.n[0],-inf.n[1]]:null,c=[x,Y(y)],k=mySd==='t'?1:-1;
+   const o1=sd===mySd?mk(0):sd==='s'?half(mk(0),c,n,k,inf.g):null,o2=sd===mySd?null:sd==='s'?half(mk(cc0),c,n,-k,inf.g-2*cc0):mk(cc0);
+   if(o1&&o1.length>2)raised.push(o1);if(o2&&o2.length>2)opn.push(o2)}};
+ const padP=(p,e)=>p.smd||p.sq?rectP(p.x,Y(p.y),p.w+2*e,p.h+2*e):circ(p.x,Y(p.y),Math.max(p.w/2,p.hole/2+.3)+e,nN(p.w/2+e));
+ S.parts.forEach(pt=>{const D=DEFS[pt.type];padsFull(pt).forEach(p=>{if(snapOn)cu0.push(padP(p,0));if(gd>0){if(dbl)dPad(p.x,p.y,e=>padP(p,e));else raised.push(padP(p,clr))}if(p.hole&&!cov)addHole(p.x,p.y,p.hole+hc,PH)});
   (D.slots||[]).forEach(sl=>{const c=xf(pt,[sl[0],sl[1]]),w=pt.rot%2?sl[3]:sl[2],h=pt.rot%2?sl[2]:sl[3],x0=pt.x+c[0],y0=Y(pt.y+c[1]);if(x0-w/2<0||x0+w/2>W||y0-h/2<0||y0+h/2>H)return;
    plate.push([[x0-w/2,y0-h/2],[x0-w/2,y0+h/2],[x0+w/2,y0+h/2],[x0+w/2,y0-h/2]])})});
- S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>{if(gdep>0)raised.push(circ(q.x,Y(q.y),padD/2,nN(padD/2)));addHole(q.x,q.y,holeD+hc)}));
+ S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>{if(snapOn)cu0.push(circ(q.x,Y(q.y),padD/2,nN(padD/2)));if(gd>0){if(dbl)dPad(q.x,q.y,e=>circ(q.x,Y(q.y),padD/2+e,nN(padD/2+e)));else raised.push(circ(q.x,Y(q.y),padD/2+clr,nN(padD/2+clr)))}if(!cov)addHole(q.x,q.y,holeD+hc,PH)}));
  S.holes.forEach(o=>addHole(o.x,o.y,o.d+hc));
- const capPoly=(pts,hw,into)=>{for(let k=1;k<pts.length;k++){const ax=pts[k-1].x,ay=Y(pts[k-1].y),bx=pts[k].x,by=Y(pts[k].y),L=Math.hypot(bx-ax,by-ay);if(L<1e-6)continue;
+ const capPoly=(pts,hw,into,nc,skip)=>{for(let k=1;k<pts.length;k++){const ax=pts[k-1].x,ay=Y(pts[k-1].y),bx=pts[k].x,by=Y(pts[k].y),L=Math.hypot(bx-ax,by-ay);if(L<1e-6)continue;
    const dx=(bx-ax)/L,dy=(by-ay)/L,nx=-dy*hw,ny=dx*hw;into.push([[ax-nx,ay-ny],[bx-nx,by-ny],[bx+nx,by+ny],[ax+nx,ay+ny]])}
-  pts.forEach(p=>into.push(circ(p.x,Y(p.y),hw,into===engr?16:32)))};
- if(gdep>0)S.traces.forEach(tr=>capPoly(tr.pts,tr.w/2+.01,raised));
- allTexts().forEach(tx=>strokes(tx.s,tx.x,tx.y,tx.size,tx.rot).forEach(pl=>capPoly(pl,sw(tx.size)/2,engr)));
+  pts.forEach(p=>{if(!skip||!skip(p))into.push(circ(p.x,Y(p.y),hw,nc||(into===engr||into===txt?16:32)))})};
+ if(gd>0)S.traces.forEach(tr=>{if(!dbl)capPoly(tr.pts,tr.w/2+.01+clr,raised);else if(isS){if(tsd(tr)===stripSd)capPoly(tr.pts,tr.w/2+.01+LIP,raised)}else if(sx){if(tsd(tr)===mySd){capPoly(tr.pts,tr.w/2+.01,opn);capPoly(tr.pts,tr.w/2+.01+LIP+cc0,slotP)}}else{/* tape ends squarely at the middle of a split pad, so it never reaches into the other side's half */const sq=q=>{const i=PIm.get(pkey(q.x,q.y));return!!i&&i.sd==='s'};if(tsd(tr)===mySd)capPoly(tr.pts,tr.w/2+.01,raised,0,sq);else capPoly(tr.pts,tr.w/2+.01+cc0,opn,0,sq)}});
+ /* cover only: where two openings would leave a strip of cover thinner than Min cover strip, fill the gap between them so they become one opening */
+ if((cov&&gdep>0)||(dbl&&hT>0&&!isS)){const mw=Math.max(0,+$('#covmin').value||0),E=[],FT=dbl?(sx?slotP:opn):raised,oc=dbl?(sx?LIP+cc0:cc0):clr,otherPad=(x,y)=>!dbl||(sx?['s',mySd].includes((PIm.get(pkey(x,y))||{sd:'n'}).sd):(PIm.get(pkey(x,y))||{sd:'t'}).sd===(mySd==='t'?'b':'t'));
+  if(mw>0){S.traces.forEach(tr=>{if(dbl&&(sx?tsd(tr)!==mySd:tsd(tr)===mySd))return;for(let i=1;i<tr.pts.length;i++){const a=tr.pts[i-1],b=tr.pts[i];E.push([a.x,Y(a.y),b.x,Y(b.y),tr.w/2+.01+oc])}});
+   S.parts.forEach(pt=>padsFull(pt).forEach(p=>otherPad(p.x,p.y)&&E.push([p.x,Y(p.y),p.x,Y(p.y),(p.smd||p.sq?Math.hypot(p.w,p.h)/2:Math.max(p.w/2,p.hole/2+.3))+oc])));
+   S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>otherPad(q.x,q.y)&&E.push([q.x,Y(q.y),q.x,Y(q.y),padD/2+oc])));
+   S.holes.forEach(o=>E.push([o.x,Y(o.y),o.x,Y(o.y),(o.d+hc)/2]));
+   const nst=(px,py,e)=>{const dx=e[2]-e[0],dy=e[3]-e[1],L=dx*dx+dy*dy;let u=L?((px-e[0])*dx+(py-e[1])*dy)/L:0;u=Math.max(0,Math.min(1,u));const qx=e[0]+u*dx,qy=e[1]+u*dy;return[qx,qy,Math.hypot(px-qx,py-qy)]};
+   const bx=E.map(e=>[Math.min(e[0],e[2])-e[4],Math.min(e[1],e[3])-e[4],Math.max(e[0],e[2])+e[4],Math.max(e[1],e[3])+e[4]]);
+   const quad=P=>{const Q=P.filter((p,i)=>i===0||Math.hypot(p[0]-P[i-1][0],p[1]-P[i-1][1])>1e-6);if(Q.length>2&&Math.hypot(Q[0][0]-Q.at(-1)[0],Q[0][1]-Q.at(-1)[1])<1e-6)Q.pop();if(Q.length>2&&Math.abs(area(Q))>1e-6)FT.push(orient(Q,true))};
+   /* walk along A; wherever B's opening is closer than the minimum strip, bridge across to B with thin quads */
+   const fill=(A,B)=>{const L=Math.hypot(A[2]-A[0],A[3]-A[1]);if(L<1e-9)return;const n=Math.ceil(L/.2);let prev=null;
+    for(let k=0;k<=n;k++){const u=k/n,px=A[0]+(A[2]-A[0])*u,py=A[1]+(A[3]-A[1])*u,q=nst(px,py,B),ok=q[2]<A[4]+B[4]+mw,cur=ok?[[px,py],[q[0],q[1]]]:null;
+     if(cur&&prev)quad([prev[0],cur[0],cur[1],prev[1]]);prev=cur}};
+   for(let i=0;i<E.length;i++)for(let j=i+1;j<E.length;j++){const a=bx[i],b=bx[j];if(a[0]>b[2]+mw||b[0]>a[2]+mw||a[1]>b[3]+mw||b[1]>a[3]+mw)continue;
+    const A=E[i],B=E[j];if(A[0]===A[2]&&A[1]===A[3]&&B[0]===B[2]&&B[1]===B[3]){const d=Math.hypot(B[0]-A[0],B[1]-A[1]);
+     if(d>1e-6&&d<A[4]+B[4]+mw){const w=Math.min(A[4],B[4])*.9,nx=-(B[1]-A[1])/d*w,ny=(B[0]-A[0])/d*w;quad([[A[0]+nx,A[1]+ny],[A[0]-nx,A[1]-ny],[B[0]-nx,B[1]-ny],[B[0]+nx,B[1]+ny]])}continue}
+    fill(A,B);fill(B,A)}}}
+ /* with a cover piece the labels go on the cover, where they can be seen */
+ if(dbl){if(pB)allTexts().forEach(tx=>strokes(tx.s,tx.x,tx.y,tx.size,tx.rot).forEach(pl=>{const L=[];capPoly(pl,sw(tx.size)/2,L,16);L.forEach(P=>unders.push({P:orient(P,true),l:.4}))}))}
+ else if(mode!=='cover'||cov)allTexts().forEach(tx=>strokes(tx.s,tx.x,tx.y,tx.size,tx.rot).forEach(pl=>capPoly(pl,sw(tx.size)/2,engr)));
+ /* ---- snap fit for the cover piece: pegs in clear spots, springy clips on straight stretches of edge.
+    Both parts run this same layout, so pegs meet their holes and clips meet their notches. ---- */
+ const wantP=snapOn&&$('#snpeg').value!=='off',wantC=snapOn&&!dbl&&$('#snclip').checked,pegs=[],clips=[],covc=Math.max(0,+$('#covc').value||0),clrC=Math.max(.2,covc);
+ const bw=1.2,slw=.8,Lb=10,pl=4,lh=.8,cat=Math.max(.1,+$('#clipc').value||.4),zc=t+cz+.05,dp=3,pr=dp/2,pgap=1.2,pth=Math.acos(pgap/dp),pfit=Math.max(0,+$('#pegc').value||0),ph=pegH(),cR=pegRing(),pzc=zc+ph,PD=3.6;
+ if(wantP||wantC){
+  S.traces.forEach(tr=>capPoly(tr.pts,tr.w/2+.01,cu0));if(sx)EARS.ears.forEach(e=>cu0.push(circ(e.x,Y(e.y),e.ER+.4,32)));allTexts().forEach(tx=>strokes(tx.s,tx.x,tx.y,tx.size,tx.rot).forEach(pl=>capPoly(pl,sw(tx.size)/2,txt)));
+  const bb=P=>{const a=[1e9,1e9,-1e9,-1e9];P.forEach(p=>{a[0]=Math.min(a[0],p[0]);a[1]=Math.min(a[1],p[1]);a[2]=Math.max(a[2],p[0]);a[3]=Math.max(a[3],p[1])});return a};
+  const sd=(px,py,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],L=dx*dx+dy*dy;let q=L?((px-a[0])*dx+(py-a[1])*dy)/L:0;q=Math.max(0,Math.min(1,q));return Math.hypot(px-a[0]-q*dx,py-a[1]-q*dy)};
+  const inP=(px,py,P)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a[1]>py)!==(b[1]>py)&&px<(b[0]-a[0])*(py-a[1])/(b[1]-a[1])+a[0])c=!c}return c};
+  const obs=L=>L.map(P=>({P,b:bb(P)})),OC=obs(cu0),OT=obs(txt),OP=obs(plate),own=S.pegs.map(o=>[o.x,Y(o.y)]),OM=obs(own.map(g=>circ(g[0],g[1],cR+1,24)));
+  const near=(px,py,R,O,inside=true,skip)=>O.some(o=>px>o.b[0]-R&&px<o.b[2]+R&&py>o.b[1]-R&&py<o.b[3]+R&&((inside&&inP(px,py,o.P))||o.P.some((a,i)=>!(skip&&skip[0]===o.P&&skip[1]===i)&&sd(px,py,a,o.P[(i+1)%o.P.length])<R)));
+  const inPlate=(px,py)=>{let w=0;plate.forEach(P=>{if(inP(px,py,P))w+=area(P)>0?1:-1});return w>0};
+  const outer=plate.filter(P=>area(P)>0),BB=bb(outer.flat()),big=Math.max(BB[2]-BB[0],BB[3]-BB[1]);
+  if(wantC){const cand=[];
+   outer.forEach(P=>P.forEach((a,i)=>{const b=P[(i+1)%P.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]),len=Lb+slw;if(L<len+2)return;
+    const d=[(b[0]-a[0])/L,(b[1]-a[1])/L],n=[-d[1],d[0]],at=(u,v)=>[a[0]+d[0]*v+n[0]*u,a[1]+d[1]*v+n[1]*u];
+    const ok=v0=>{for(let v=v0-.5;v<=v0+len+.5;v+=.5)for(let u=.3;u<=bw+slw+clrC+.8;u+=.4){const q=at(u,v);
+      if(!inPlate(q[0],q[1])||near(q[0],q[1],.6+clrC,OC)||near(q[0],q[1],.4,OT)||(wantP&&near(q[0],q[1],.2,OM))||near(q[0],q[1],.25,OP,false,[P,i]))return false}return true};
+    const span=L-len,mid=span/2;for(let k=0;k<=mid;k++)for(const v0 of k?[mid-k,mid+k]:[mid]){if(v0<1||v0>span-1)continue;if(ok(v0)){cand.push({at,n,v0,L,m:at(0,v0+len/2)});return}}}));
+   cand.sort((p,q)=>q.L-p.L);
+   if(cand.length){clips.push(cand[0]);const maxN=big>=50?4:2;
+    while(clips.length<maxN){let best=null,bs=-1;const opp=clips.length===1&&cand.some(c=>c.n[0]*cand[0].n[0]+c.n[1]*cand[0].n[1]<-.7);
+     cand.forEach(c=>{if(clips.includes(c))return;if(opp&&c.n[0]*cand[0].n[0]+c.n[1]*cand[0].n[1]>=-.7)return;const dm=Math.min(...clips.map(k=>Math.hypot(k.m[0]-c.m[0],k.m[1]-c.m[1])));if(dm>14&&dm>bs){bs=dm;best=c}});
+     if(!best)break;clips.push(best)}}}
+  const zone=clips.map(c=>obs([[c.at(-1,c.v0-1),c.at(-1,c.v0+Lb+slw+1),c.at(bw+slw+clrC+1,c.v0+Lb+slw+1),c.at(bw+slw+clrC+1,c.v0-1)]])[0]);
+  if(wantP&&own.length)pegs.push(...own);
+  else if(wantP){const cs=[];
+   for(let x=BB[0]+2;x<=BB[2]-2;x+=1)for(let y=BB[1]+2;y<=BB[3]-2;y+=1)if(inPlate(x,y)&&!near(x,y,Math.max(pr+1.5,cR+.6),OP,false)&&!near(x,y,Math.max(pr+clrC+.8,cR+clrC+.4),OC)&&!near(x,y,cR+.4,OT)&&!near(x,y,cR+.5,zone))cs.push([x,y]);
+   const N=(BB[2]-BB[0])*(BB[3]-BB[1])>=1500?3:2,cx0=(BB[0]+BB[2])/2,cy0=(BB[1]+BB[3])/2;
+   if(cs.length){pegs.push(cs.reduce((m,c)=>Math.hypot(c[0]-cx0,c[1]-cy0)>Math.hypot(m[0]-cx0,m[1]-cy0)?c:m));
+    while(pegs.length<N){let best=null,bd=10;cs.forEach(c=>{const dm=Math.min(...pegs.map(k=>Math.hypot(k[0]-c[0],k[1]-c[1])));if(dm>bd){bd=dm;best=c}});if(!best)break;pegs.push(best)}}}
+  const quad=(c,u0,u1,v0,v1,ccw)=>orient([c.at(u0,v0),c.at(u1,v0),c.at(u1,v1),c.at(u0,v1)],ccw);
+  /* round pegs: a solid post on the piece printed face down (the base, or the lower piece of a double-sided board), level with the top of the stack,
+     pushed into a round hole through the other piece and held by a snug fit */
+  if(capLike){pegs.forEach(g=>plate.push(circ(g[0],g[1],(PD+2*pfit+hc)/2,48).reverse()));
+   clips.forEach(c=>plate.push(quad(c,-1,bw+covc,c.v0-covc,c.v0+Lb+slw+covc,false)))}
+  else{pegs.forEach(g=>posts.push({P:circ(g[0],g[1],PD/2,48),h:stk}));
+   clips.forEach(c=>{plate.push(quad(c,bw,bw+slw,c.v0,c.v0+Lb+slw,false),quad(c,-1,bw+slw,c.v0+Lb,c.v0+Lb+slw,false));
+    posts.push({P:quad(c,0,bw,c.v0+Lb-pl,c.v0+Lb,true),h:zc+lh});wedges.push(c)})}}
+ if(sx){EARS.ears.forEach(e=>{const x=e.x,y=Y(e.y);
+   if(isS){if(e.sd===stripSd){raised.push(circ(x,y,e.ER,40));plate.push(circ(x,y,e.hr,40).reverse())}}
+   else if(e.sd===mySd)slotP.push(circ(x,y,e.ER+cc0,40));
+   else posts.push({P:circ(x,y,EAR_PEG/2,40),h:t+hT-.1})})}
+ slotP.forEach(P=>wells.push({P:orient(P,true),h:rec}));
+ opn.forEach(P=>plate.push(orient(P,false)));
+ plate.push(...pinH);
  const E=[],addPoly=(poly,tag)=>{const P=poly.map(p=>[QN(p[0]),QN(p[1])]),n=P.length;for(let k=0;k<n;k++){const p=P[k],q=P[(k+1)%n];if(p[0]===q[0])continue;const d=p[0]<q[0]?1:-1,a=d>0?p:q,b=d>0?q:p;E.push({x0:a[0],y0:a[1],x1:b[0],y1:b[1],tag,d,ts:[]})}};
- plate.forEach(p=>addPoly(p,0));raised.forEach(p=>addPoly(p,1));engr.forEach(p=>addPoly(p,2));
+ plate.forEach(p=>addPoly(p,0));raised.forEach(p=>addPoly(p,1));engr.forEach(p=>addPoly(p,2));posts.forEach((p,i)=>addPoly(p.P,3+i));wells.forEach((p,i)=>addPoly(p.P,3+posts.length+i));unders.forEach((p,i)=>addPoly(p.P,3+posts.length+wells.length+i));
  const cell=new Map();E.forEach((e,i)=>{const j0=Math.floor(Math.min(e.y0,e.y1)),j1=Math.floor(Math.max(e.y0,e.y1));for(let a=Math.floor(e.x0);a<=Math.floor(e.x1);a++)for(let b=j0;b<=j1;b++){const k=a*100003+b;let l=cell.get(k);if(!l)cell.set(k,l=[]);l.push(i)}});
  const done=new Set(),eps=1e-7;
  for(const L of cell.values())for(let u=0;u<L.length;u++)for(let v=u+1;v<L.length;v++){const i=L[u],j=L[v],key=i<j?i*1e6+j:j*1e6+i;if(done.has(key))continue;done.add(key);
@@ -696,9 +862,9 @@ function mesh(){
  const slabs=[];let act=[],ptr=0;
  for(let i=0;i+1<ux.length;i++){const xa=ux[i],xb=ux[i+1];while(ptr<F.length&&F[ptr].x0<=xa)act.push(F[ptr++]);act=act.filter(e=>e.x1>=xb);
   const xm=(xa+xb)/2,es=act.map(e=>{const sl=(e.y1-e.y0)/(e.x1-e.x0);return{m:e.y0+(xm-e.x0)*sl,a:QN(e.y0+(xa-e.x0)*sl),b:QN(e.y0+(xb-e.x0)*sl),tag:e.tag,d:e.d}});
-  es.sort((p,q)=>p.m-q.m||p.a-q.a||p.b-q.b);let par=0,wind=0,wt=0;const upd=e=>{if(e.tag===0)par+=e.d;else if(e.tag===1)wind+=e.d;else wt+=e.d},iv=[];
+  es.sort((p,q)=>p.m-q.m||p.a-q.a||p.b-q.b);let par=0,wind=0,wt=0;const pw=posts.map(()=>0),ww=wells.map(()=>0),uw=unders.map(()=>0),ulm=()=>{let m=0;for(let q=0;q<uw.length;q++)if(uw[q]>0&&unders[q].l>m)m=unders[q].l;return m},phm=()=>{let m=0;for(let q=0;q<pw.length;q++)if(pw[q]>0&&posts[q].h>m)m=posts[q].h;return m},whm=b=>{for(let q=0;q<ww.length;q++)if(ww[q]>0)return Math.min(b,wells[q].h);return b},upd=e=>{if(e.tag===0)par+=e.d;else if(e.tag===1)wind+=e.d;else if(e.tag===2)wt+=e.d;else if(e.tag-3<pw.length)pw[e.tag-3]+=e.d;else if(e.tag-3-pw.length<ww.length)ww[e.tag-3-pw.length]+=e.d;else uw[e.tag-3-pw.length-ww.length]+=e.d},iv=[];
   if(es.length)upd(es[0]);
-  for(let k=1;k<es.length;k++){const lo=es[k-1],hi=es[k];if(hi.a-lo.a>1e-9||hi.b-lo.b>1e-9)iv.push({la:lo.a,lb:lo.b,ha:hi.a,hb:hi.b,h:par>0?(wind>0?(up?z1:gz):wt>0?tz:t):0});upd(hi)}
+  for(let k=1;k<es.length;k++){const lo=es[k-1],hi=es[k];if(hi.a-lo.a>1e-9||hi.b-lo.b>1e-9){let h=isS?(par>0&&wind>0?hT:0):par>0?(phm()||whm(cov?(wind>0?0:wt>0?ctz:cz):wind>0?(up?z1:gz):wt>0?tz:t)):0,l=par>0&&h>0?ulm():0;if(l>=h){h=0;l=0}iv.push({la:lo.a,lb:lo.b,ha:hi.a,hb:hi.b,h,l})}upd(hi)}
   slabs.push({xa,xb,iv,ya:es.map(e=>e.a),yb:es.map(e=>e.b)})}
  const n=slabs.length,bx=[];
  for(let i=0;i<=n;i++){const set=new Set([...(i>0?slabs[i-1].yb:[]),...(i<n?slabs[i].ya:[])]);bx.push([...set].sort((a,b)=>a-b))}
@@ -706,24 +872,76 @@ function mesh(){
  const strip=(xa,xb,Lc,Rc,z,up)=>{let i=0,j=0;const Lp=y=>[xa,y,z],Rp=y=>[xb,y,z],sl=(Lc.at(-1)-Lc[0])||1,sr=(Rc.at(-1)-Rc[0])||1;
   while(i<Lc.length-1||j<Rc.length-1){const advR=i>=Lc.length-1?true:j>=Rc.length-1?false:(Rc[j+1]-Rc[0])/sr<=(Lc[i+1]-Lc[0])/sl;
    if(advR){up?T(Lp(Lc[i]),Rp(Rc[j]),Rp(Rc[j+1])):T(Lp(Lc[i]),Rp(Rc[j+1]),Rp(Rc[j]));j++}else{up?T(Lp(Lc[i]),Rp(Rc[j]),Lp(Lc[i+1])):T(Lp(Lc[i]),Lp(Lc[i+1]),Rp(Rc[j]));i++}}};
- const lv=[...new Set([0,t,z1,gz,tz])].sort((a,b)=>a-b),steps=(lo,hi)=>{const r=[lo];for(const l of lv)if(l>lo+1e-9&&l<hi-1e-9)r.push(l);r.push(hi);return r};
+ const lv=[...new Set(isS?[0,hT]:cov?[0,ctz,cz,...posts.map(p=>p.h)]:[0,t,z1,gz,tz,...posts.map(p=>p.h),...wells.map(p=>p.h),...unders.map(p=>p.l)])].sort((a,b)=>a-b),steps=(lo,hi)=>{const r=[lo];for(const l of lv)if(l>lo+1e-9&&l<hi-1e-9)r.push(l);r.push(hi);return r};
  const wall=(xa,ya,xb,yb,hBelow,hAbove)=>{const lo=Math.min(hBelow,hAbove),hi=Math.max(hBelow,hAbove),a=[xa,ya],b=[xb,yb],z=steps(lo,hi);
   for(let k=0;k+1<z.length;k++){const l=z[k],h=z[k+1];if(hAbove>hBelow){T([...a,l],[...b,l],[...b,h]);T([...a,l],[...b,h],[...a,h])}else{T([...b,l],[...a,l],[...a,h]);T([...b,l],[...a,h],[...b,h])}}};
+ /* A is the solid below a seam, B the solid above it; each piece one side has and the other lacks gets a wall facing the empty side */
+ const E0={l:0,h:0},sub=(I,J)=>{if(I.h<=I.l)return[];if(J.h<=J.l)return[[I.l,I.h]];const r=[],a=Math.min(I.h,J.l),b=Math.max(I.l,J.h);if(a>I.l)r.push([I.l,a]);if(b<I.h)r.push([b,I.h]);return r},
+  diffW=(xa,ya,xb,yb,A,B)=>{sub(A,B).forEach(([z0,z1])=>wall(xa,ya,xb,yb,z1,z0));sub(B,A).forEach(([z0,z1])=>wall(xa,ya,xb,yb,z0,z1))};
  slabs.forEach((sl,i)=>{const{xa,xb,iv}=sl;
-  iv.forEach((v,k)=>{if(v.h>0){strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),v.h,true);strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),0,false)}
-   const pv=k>0&&Math.abs(iv[k-1].ha-v.la)<1e-9&&Math.abs(iv[k-1].hb-v.lb)<1e-9?iv[k-1].h:0;if(v.h!==pv)wall(xa,v.la,xb,v.lb,pv,v.h);
-   const nv=k<iv.length-1&&Math.abs(iv[k+1].la-v.ha)<1e-9&&Math.abs(iv[k+1].lb-v.hb)<1e-9;if(!nv&&v.h>0)wall(xa,v.ha,xb,v.hb,v.h,0)})});
- const hAt=(sl,y,side)=>{if(!sl)return 0;for(const v of sl.iv){const lo=side?v.lb:v.la,hi=side?v.hb:v.ha;if(y>lo&&y<hi)return v.h}return 0};
+  iv.forEach((v,k)=>{if(v.h>v.l){strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),v.h,true);strip(xa,xb,chain(bx[i],v.la,v.ha),chain(bx[i+1],v.lb,v.hb),v.l,false)}
+   const pi=k>0&&Math.abs(iv[k-1].ha-v.la)<1e-9&&Math.abs(iv[k-1].hb-v.lb)<1e-9?iv[k-1]:E0;if(pi.h!==v.h||pi.l!==v.l)diffW(xa,v.la,xb,v.lb,pi,v);
+   const nv=k<iv.length-1&&Math.abs(iv[k+1].la-v.ha)<1e-9&&Math.abs(iv[k+1].lb-v.hb)<1e-9;if(!nv&&v.h>v.l)diffW(xa,v.ha,xb,v.hb,v,E0)})});
+ const hAt=(sl,y,side)=>{if(!sl)return E0;for(const v of sl.iv){const lo=side?v.lb:v.la,hi=side?v.hb:v.ha;if(y>lo&&y<hi)return v}return E0};
  for(let i=0;i<=n;i++){const ys=bx[i],x=i<n?slabs[i].xa:slabs[n-1].xb;
-  for(let k=0;k+1<ys.length;k++){const y0=ys[k],y1=ys[k+1];if(y1-y0<1e-9)continue;const ym=(y0+y1)/2,hL=hAt(slabs[i-1],ym,1),hR=hAt(slabs[i],ym,0);if(hL===hR)continue;
-   const z=steps(Math.min(hL,hR),Math.max(hL,hR));for(let q=0;q+1<z.length;q++){const l=z[q],h=z[q+1],A=[x,y0,l],B=[x,y1,l],C=[x,y1,h],D=[x,y0,h];if(hL>hR){T(A,B,C);T(A,C,D)}else{T(B,A,D);T(B,D,C)}}}}
- return{tri,t,z1,gz,tz,up,W,H}}
-$('#bstl').onclick=()=>dl('tape-board.stl',trimmed(stl));
+  for(let k=0;k+1<ys.length;k++){const y0=ys[k],y1=ys[k+1];if(y1-y0<1e-9)continue;const ym=(y0+y1)/2,IL=hAt(slabs[i-1],ym,1),IR=hAt(slabs[i],ym,0);if(IL.h===IR.h&&IL.l===IR.l)continue;
+   [[sub(IL,IR),true],[sub(IR,IL),false]].forEach(([ps,lft])=>ps.forEach(([z0,z1])=>{const z=steps(z0,z1);for(let q=0;q+1<z.length;q++){const l=z[q],h=z[q+1],A=[x,y0,l],B=[x,y1,l],C=[x,y1,h],D=[x,y0,h];if(lft){T(A,B,C);T(A,C,D)}else{T(B,A,D);T(B,D,C)}}}))}}
+ /* each clip's lip: a wedge with a flat catch underneath and a ramp on top, so the cover pushes the clip out and it springs back over */
+ const pbox=posts.map(p=>bb3(p.P));
+ /* a solid swept through a row of triangular sections; each face is turned outward against its own segment's middle, which works for curved sweeps too */
+ const sweep3=L=>{const n=L[0].length,F=(p,q,r,ce)=>{const n=[(q[1]-p[1])*(r[2]-p[2])-(q[2]-p[2])*(r[1]-p[1]),(q[2]-p[2])*(r[0]-p[0])-(q[0]-p[0])*(r[2]-p[2]),(q[0]-p[0])*(r[1]-p[1])-(q[1]-p[1])*(r[0]-p[0])],m=[0,1,2].map(k=>(p[k]+q[k]+r[k])/3-ce[k]);n[0]*m[0]+n[1]*m[1]+n[2]*m[2]>0?T(p,q,r):T(p,r,q)};
+  const mid=(A,B)=>[0,1,2].map(k=>(A.reduce((u,p)=>u+p[k],0)+B.reduce((u,p)=>u+p[k],0))/(2*n));
+  [[L[0],mid(L[0],L[1])],[L.at(-1),mid(L.at(-2),L.at(-1))]].forEach(([A,ce])=>{for(let k=1;k+1<n;k++)F(A[0],A[k],A[k+1],ce)});
+  for(let i=0;i+1<L.length;i++){const A=L[i],B=L[i+1],ce=mid(A,B);for(let k=0;k<n;k++){const j=(k+1)%n;F(A[k],A[j],B[j],ce);F(A[k],B[j],B[k],ce)}}
+  pbox.push(bb3(L.flat()))};
+ /* each clip's lip: a flat catch underneath and a ramp on top, so the cover pushes the clip out and it springs back over */
+ wedges.forEach(c=>{const sec=[[bw-.05,zc],[bw+covc+cat,zc],[bw-.05,zc+lh]],at=v=>sec.map(q=>{const p=c.at(q[0],v);return[p[0],p[1],q[1]]});sweep3([at(c.v0+Lb-pl),at(c.v0+Lb)])});
+ const snap={wantP,wantC,pegs:pegs.length,clips:clips.length,ears:sx?EARS.ears.length:0};
+ if(pB||which==='strips-b'){const m=[];for(let k=0;k<tri.length;k+=3){const f=v=>[W-v[0],v[1],v[2]];m.push(f(tri[k]),f(tri[k+2]),f(tri[k+1]))}return isS?{tri:m,t:hT,z1:hT,gz:hT,tz:-1,up,W,H,strip:true,snap}:{tri:m,t,z1,gz,tz,up,W,H,pbox:pbox.map(q=>[W-q[2],q[1],W-q[0],q[3]]),snap,dblB:true}}
+ if(isS)return{tri,t:hT,z1:hT,gz:hT,tz:-1,up,W,H,strip:true,snap};
+ return cov?{tri,t:cz,z1:cz,gz:cz,tz:ctz,up,W,H,cov,snap}:{tri,t,z1,gz,tz,up,W,H,pbox,snap}}
+/* the cover stays flat: pegs hook right on its top surface */
+const stripsMesh=()=>{const a=mesh('strips-t'),b=mesh('strips-b');return{...a,tri:a.tri.concat(b.tri.map(v=>[v[0]+a.W+6,v[1],v[2]]))}};
+const EAR_PEG=1.6,EAR_WALL=.8;let EARc=null;
+/* where each strip's locating ears go (board coordinates). An ear is a small round tab beside the tape with a hole in it;
+   a peg on the other cover comes up through the hole, so the strip cannot slide while the board is put together.
+   Every part and the design check use this same list, so pegs always meet their holes. */
+function stripEars(){
+ if(!(dbl()&&STR()&&$('#snpeg').value!=='off'&&$('#earon').checked))return{ears:[],none:[]};
+ const pf=Math.max(0,+$('#pegc').value||0),hc=Math.max(0,+$('#hcomp').value||0),cc0=Math.max(0,+$('#covc').value||0),hr=(EAR_PEG+2*pf+hc)/2,ER=hr+EAR_WALL,LIP=STRIP_LIP;
+ const C=conn(),TX=allTexts().map(textBox),sig=JSON.stringify([C.sig,S.holes,S.pegs,S.edges,S.W,S.H,TX,pf,hc,cc0]);
+ if(EARc&&EARc.sig===sig)return EARc;
+ const ears=[],none=[],X=C.els.filter(e=>e.sd==='x'),ds=(x,y,a,b)=>ptSeg(x,y,a.x,a.y,b.x,b.y).d,
+  dTr=(x,y,tr)=>tr.pts.length===1?Math.hypot(x-tr.pts[0].x,y-tr.pts[0].y):Math.min(...tr.pts.slice(1).map((b,i)=>ds(x,y,tr.pts[i],b))),
+  inside=(x,y,r)=>{for(let k=0;k<16;k++){const a=k*Math.PI/8;if(inBoard(x+r*Math.cos(a),y+r*Math.sin(a)))return false}return!inBoard(x,y)};
+ S.traces.forEach((tr,ti)=>{if(tr.pts.length<2)return;const sd=tsd(tr),off=tr.w/2+.3+hr,cand=[];let cum=0;
+  const ok=(x,y)=>dTr(x,y,tr)>off-1e-3&&S.traces.every((o,oi)=>oi===ti||dTr(x,y,o)>=ER+o.w/2+LIP+(tsd(o)===sd?.8:cc0+.5))
+   &&X.every(e=>ptSeg(x,y,e.ax,e.ay,e.bx,e.by).d>=ER+e.r+LIP+cc0+.3)&&S.holes.every(h=>Math.hypot(x-h.x,y-h.y)>=ER+h.d/2+.6)
+   &&S.pegs.every(g=>Math.hypot(x-g.x,y-g.y)>=ER+pegRing()+.4)&&TX.every(b=>x<b.x0-ER-.4||x>b.x1+ER+.4||y<b.y0-ER-.4||y>b.y1+ER+.4)
+   &&ears.every(e=>Math.hypot(x-e.x,y-e.y)>=2*ER+.8)&&inside(x,y,ER+.8);
+  for(let i=1;i<tr.pts.length;i++){const a=tr.pts[i-1],b=tr.pts[i],L=Math.hypot(b.x-a.x,b.y-a.y);if(L<1e-6)continue;const d=[(b.x-a.x)/L,(b.y-a.y)/L],n=[-d[1],d[0]];
+   for(let u=Math.min(1,L/2);u<=L-Math.min(1,L/2)+1e-9;u+=.5)for(const k of [1,-1]){const x=+(a.x+d[0]*u+n[0]*off*k).toFixed(3),y=+(a.y+d[1]*u+n[1]*off*k).toFixed(3);cand.push({x,y,s:cum+u})}
+   cum+=L}
+  const pick=(want,away)=>{let best=null,bd=1e9;for(const c of cand){if(away&&Math.abs(c.s-away.s)<Math.max(4,cum*.3))continue;const dd=Math.abs(c.s-want);if(dd<bd&&ok(c.x,c.y)){bd=dd;best=c}}return best};
+  const two=cum>=14,e1=pick(two?cum*.15:cum/2);if(!e1){none.push(ti);return}
+  ears.push({x:e1.x,y:e1.y,sd,ti,hr,ER});
+  if(two){const e2=pick(cum*.85,e1);if(e2)ears.push({x:e2.x,y:e2.y,sd,ti,hr,ER})}});
+ return EARc={sig,ears,none}}
+const STRIP_LIP=.3,pegH=()=>0,pegRing=()=>3;
+const bb3=P=>{const a=[1e9,1e9,-1e9,-1e9];P.forEach(p=>{a[0]=Math.min(a[0],p[0]);a[1]=Math.min(a[1],p[1]);a[2]=Math.max(a[2],p[0]);a[3]=Math.max(a[3],p[1])});return a};
+const covOn=()=>$('#tm').value==='cover',noCov=()=>{if(dbl()){if(thick-Math.max(0,+$('#covr').value||0)>0)return false;alert('Make Cover recess smaller than the plate thickness so the traces have some height.');return true}if(gdep>0)return false;alert('Set Trace height above 0 so the cover has raised traces to fit over.');return true};
+$('#bstl').onclick=()=>{if((covOn()||dbl())&&noCov())return;dl(dbl()?(STR()?'tape-board-bottom-cover.stl':'tape-board-top-piece.stl'):covOn()?'tape-board-base.stl':'tape-board.stl',trimmed(()=>stl(dbl()?(STR()?'bottom':'top'):'base')))};
+$('#bstr').onclick=()=>{if(noCov())return;if(!S.traces.length){alert('There is no tape on this board yet, so there are no strips to print.');return}dl('tape-board-strips.stl',trimmed(()=>stl('strips')))};
+$('#bcov').onclick=()=>{if(noCov())return;dl(dbl()?(STR()?'tape-board-top-cover.stl':'tape-board-bottom-piece.stl'):'tape-board-cover.stl',trimmed(()=>stl(dbl()?(STR()?'top':'bottom'):'cover')))};
+const updCov=()=>{const c=covOn(),d=dbl();$('#covset').style.display=c||d?'':'none';$('#clipset').style.display=d?'none':'';$('#sideseg').style.display=d?'':'none';$('#earset').style.display=d&&STR()&&$('#snpeg').value!=='off'?'':'none';$('#gd').closest('label').style.display=d?'none':'';$('#bcov').style.display=c||d?'':'none';
+ const x=STR();$('#bstl').textContent=d?(x?'Export bottom cover STL':'Export top piece STL'):c?'Export base STL':'Export STL';$('#bcov').textContent=d?(x?'Export top cover STL':'Export bottom piece STL'):'Export cover STL';$('#bstr').style.display=d&&x?'':'none';if(!d&&side!=='t')setSide('t');
+  $('#stlnote').textContent=d&&!STR()?'Two pieces that are each other\'s cover: the top piece has raised lines for the top tape and openings for the bottom tape, and the bottom piece the other way round. Tape both, flip the bottom piece over and press it onto the top piece. Tape cannot cross in this mode. Labels are engraved into the top face.':d?'Three files: a bottom cover, a top cover and the strips (one per tape run, top strips on the left and bottom strips on the right). Tape the strips, drop the bottom strips copper-down into the bottom cover, lay the top strips on over the pegs through their ears, and press the top cover down over the round pegs. Top and bottom tape can cross. Labels are engraved into the top face.':c?'Two files: the base with raised lines for the tape, and a cover that drops over them so the taped traces sit below its surface. Labels are engraved into the cover.':'The STL has raised lines where tape goes (or grooves if you switch Traces to Lowered), plus through-holes for pins.'};
+$('#tm').onchange=()=>{updCov();draw()};$('#snpeg').onchange=()=>{updCov();draw()};$('#earon').onchange=()=>draw();if(!$('#snpeg').value)$('#snpeg').value='peg';updCov();
 $('#bsvg').onclick=()=>dl('tape-board.svg',new Blob([trimmed(svg)],{type:'image/svg+xml'}));
 $('#bsave').onclick=()=>dl('tape-board.json',new Blob([JSON.stringify({...S,custom:CUSTOM,sch:window.TBSCH?window.TBSCH.get():undefined})],{type:'application/json'}));
 $('#bload').onclick=()=>$('#file').click();
-$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.parts&&d.traces){Object.entries(d.custom||{}).forEach(([k,v])=>addCustom(k,v));pend=null;showBar();pushHist();S=norm({W:d.W||60,H:d.H||40,parts:d.parts,traces:d.traces,holes:d.holes,jumpers:d.jumpers,texts:d.texts,edges:d.edges,nets:d.nets});if(d.sch&&window.TBSCH)window.TBSCH.set(d.sch);dims();draw()}}catch(_){alert('That file is not a Tape Board design.')}e.target.value=''};
-$('#bdrc').onclick=runDRC;$('#bcut').onclick=cutList;$('#b3d').onclick=()=>preview();
+$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.parts&&d.traces){Object.entries(d.custom||{}).forEach(([k,v])=>addCustom(k,v));pend=null;showBar();pushHist();S=norm({W:d.W||60,H:d.H||40,parts:d.parts,traces:d.traces,holes:d.holes,pegs:d.pegs,jumpers:d.jumpers,texts:d.texts,edges:d.edges,nets:d.nets});if(d.sch&&window.TBSCH)window.TBSCH.set(d.sch);dims();draw()}}catch(_){alert('That file is not a Tape Board design.')}e.target.value=''};
+$('#bdrc').onclick=runDRC;$('#bcut').onclick=cutList;$('#b3d').onclick=()=>{if(preview.v){preview.v.px=0;preview.v.py=0}preview()};
 function place(parts,a){
  const gap=7.62,maxW=70,out=[],order=parts.map((_,i)=>i);if(a)order.sort(()=>Math.random()-.5);
  let x=5.08,y=5.08,rowH=0;
@@ -858,19 +1076,21 @@ $('#ex').onchange=e=>{if(EX[e.target.value])$('#spec').value=EX[e.target.value]}
 $('#zi').onclick=()=>{zm=Math.min(8,zm*1.25);draw()};$('#zo').onclick=()=>{zm=Math.max(.5,zm/1.25);draw()};$('#zf').onclick=()=>{zm=1;pan={x:0,y:0};draw()};
 function fitted(){
  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const ex=(x,y,r)=>{x0=Math.min(x0,x-r);y0=Math.min(y0,y-r);x1=Math.max(x1,x+r);y1=Math.max(y1,y+r)};
- S.parts.forEach(pt=>padsFull(pt).forEach(p=>ex(p.x,p.y,p.R)));S.traces.forEach(t=>t.pts.forEach(p=>ex(p.x,p.y,t.w/2)));S.holes.forEach(o=>ex(o.x,o.y,o.d/2));
- S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>ex(q.x,q.y,padD/2)));S.texts.forEach(t=>{const b=textBox(t);ex(b.x0,b.y0,0);ex(b.x1,b.y1,0)});S.edges.forEach(e=>e.pts.forEach(p=>ex(p.x,p.y,0)));
+ S.parts.forEach(pt=>padsFull(pt).forEach(p=>ex(p.x,p.y,p.R)));S.traces.forEach(t=>t.pts.forEach(p=>ex(p.x,p.y,t.w/2)));S.holes.forEach(o=>ex(o.x,o.y,o.d/2));S.pegs.forEach(o=>ex(o.x,o.y,pegRing()+.6));
+ S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>ex(q.x,q.y,padD/2)));allTexts().forEach(t=>{const b=textBox(t);ex(b.x0,b.y0,0);ex(b.x1,b.y1,0)});S.edges.forEach(e=>e.pts.forEach(p=>ex(p.x,p.y,0)));
  if(x0>1e8)return null;
  const mg=MG(),sx=Math.floor((x0-mg)/grid+1e-6)*grid,sy=Math.floor((y0-mg)/grid+1e-6)*grid,f=v=>+v.toFixed(3),mv=p=>({x:f(p.x-sx),y:f(p.y-sy)});
  return{W:Math.max(15,+(Math.ceil((x1+mg-sx)/grid-1e-6)*grid).toFixed(2)),H:Math.max(15,+(Math.ceil((y1+mg-sy)/grid-1e-6)*grid).toFixed(2)),
-  parts:S.parts.map(p=>({...p,...mv(p)})),traces:S.traces.map(t=>({...t,pts:t.pts.map(mv)})),holes:S.holes.map(o=>({...o,...mv(o)})),
+  parts:S.parts.map(p=>({...p,...mv(p)})),traces:S.traces.map(t=>({...t,pts:t.pts.map(mv)})),holes:S.holes.map(o=>({...o,...mv(o)})),pegs:S.pegs.map(o=>({...o,...mv(o)})),
   jumpers:S.jumpers.map(j=>({a:mv(j.a),b:mv(j.b)})),texts:S.texts.map(t=>({...t,...mv(t)})),edges:S.edges.map(e=>({...e,pts:e.pts.map(mv)})),nets:S.nets}}
 const MG=()=>Math.max(.6,+$('#mg').value||0);
 function keepPoints(){const P=[],st=Math.min(.5,Math.max(.2,(+$('#mg').value||0)/2)),add=(x,y,r)=>P.push({x,y,r});
  S.parts.forEach(pt=>{const a=padsFull(pt);a.forEach(p=>add(p.x,p.y,p.R));const xs=a.map(p=>p.x),ys=a.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   for(let x=x0;x<=x1+1e-6;x+=1)for(let y=y0;y<=y1+1e-6;y+=1)add(x,y,.5)});
- S.holes.forEach(o=>add(o.x,o.y,o.d/2));S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>add(q.x,q.y,padD/2)));
+ S.holes.forEach(o=>add(o.x,o.y,o.d/2));S.pegs.forEach(o=>add(o.x,o.y,pegRing()+.6));S.jumpers.forEach(j=>[j.a,j.b].forEach(q=>add(q.x,q.y,padD/2)));
  S.traces.forEach(t=>t.pts.forEach((p,i)=>{add(p.x,p.y,t.w/2);if(i){const a=t.pts[i-1],n=Math.ceil(Math.hypot(p.x-a.x,p.y-a.y)/st);for(let k=1;k<n;k++)add(a.x+(p.x-a.x)*k/n,a.y+(p.y-a.y)*k/n,t.w/2)}}));
+ /* engraved text (your own and the automatic part names) needs plate under it too */
+ allTexts().forEach(t=>strokes(t.s,t.x,t.y,t.size,t.rot).forEach(pl=>pl.forEach((p,i)=>{const r=sw(t.size)/2+.4;add(p.x,p.y,r);if(i){const a=pl[i-1],n=Math.ceil(Math.hypot(p.x-a.x,p.y-a.y)/st);for(let k=1;k<n;k++)add(a.x+(p.x-a.x)*k/n,a.y+(p.y-a.y)*k/n,r)}})));
  return P}
 function bridge(P,m){const par=P.map((_,i)=>i),fd=i=>par[i]===i?i:(par[i]=fd(par[i])),d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)-a.r-b.r;
  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++)if(d(P[i],P[j])<2*m)par[fd(i)]=fd(j);
@@ -884,54 +1104,81 @@ function simp(L,tol){const n=L.length;if(n<8)return L;let k=0,bd=0;for(let i=1;i
   for(let i=1;i<P.length-1;i++){const d=Math.abs((P[i][0]-a[0])*dy-(P[i][1]-a[1])*dx)/l;if(d>m){m=d;q=i}}
   if(m<=tol)return[a,b];return dpc(P.slice(0,q+1)).slice(0,-1).concat(dpc(P.slice(q)))};
  return dpc(L.slice(0,k+1)).slice(0,-1).concat(dpc(L.slice(k).concat([L[0]])).slice(0,-1))}
-function msq(F,nx,ny,o,rr){const pt=new Map(),nxt=new Map();
+function msq(F,nx,ny,o,rr,oy=o){const pt=new Map(),nxt=new Map();
  for(let j=0;j<ny-1;j++)for(let i=0;i<nx-1;i++){
   const ci=[i,i+1,i+1,i],cj=[j,j,j+1,j+1],f=ci.map((c,k)=>F[cj[k]*nx+c]),ins=f.map(v=>v<0);if(ins[0]===ins[1]&&ins[1]===ins[2]&&ins[2]===ins[3])continue;
   const id=[(j*nx+i)*2,(j*nx+i+1)*2+1,((j+1)*nx+i)*2,(j*nx+i)*2+1],cr=[];
-  for(let k=0;k<4;k++){const b=(k+1)%4;if(ins[k]!==ins[b]){const t=f[k]/(f[k]-f[b]);cr.push({id:id[k],ex:ins[k],x:o+(ci[k]+(ci[b]-ci[k])*t)*rr,y:o+(cj[k]+(cj[b]-cj[k])*t)*rr})}}
+  for(let k=0;k<4;k++){const b=(k+1)%4;if(ins[k]!==ins[b]){const t=f[k]/(f[k]-f[b]);cr.push({id:id[k],ex:ins[k],x:o+(ci[k]+(ci[b]-ci[k])*t)*rr,y:oy+(cj[k]+(cj[b]-cj[k])*t)*rr})}}
   cr.forEach((c,k)=>{pt.set(c.id,[c.x,c.y]);if(c.ex){for(let q=1;q<=cr.length;q++){const e=cr[(k+q)%cr.length];if(!e.ex){nxt.set(c.id,e.id);break}}}})}
  const seen=new Set(),loops=[];
  for(const st of nxt.keys()){if(seen.has(st))continue;const L=[];let c=st;while(c!==undefined&&!seen.has(c)){seen.add(c);L.push(pt.get(c));c=nxt.get(c)}if(L.length>3)loops.push(L)}
  return loops}
-function outlineLoops(P,m,W,H){const rr=.2,o=-1,nx=Math.ceil((W+2)/rr)+1,ny=Math.ceil((H+2)/rr)+1,F=new Float32Array(nx*ny).fill(1e3);
- for(const p of P){const R=p.r+m,x=p.x,y=H-p.y,i0=Math.max(0,Math.floor((x-R-o)/rr)-1),i1=Math.min(nx-1,Math.ceil((x+R-o)/rr)+1),j0=Math.max(0,Math.floor((y-R-o)/rr)-1),j1=Math.min(ny-1,Math.ceil((y+R-o)/rr)+1);
-  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const v=Math.hypot(o+i*rr-x,o+j*rr-y)-R;if(v<F[j*nx+i])F[j*nx+i]=v}}
- return msq(F,nx,ny,o,rr).map(l=>simp(l,.004))}
+function outlineLoops(P,m,W,H){const rr=.2;let x0=-1,y0=-1,x1=W+1,y1=H+1;
+ P.forEach(p=>{const R=p.r+m+1;x0=Math.min(x0,p.x-R);x1=Math.max(x1,p.x+R);y0=Math.min(y0,H-p.y-R);y1=Math.max(y1,H-p.y+R)});
+ const ox=Math.floor(x0/rr)*rr,oy=Math.floor(y0/rr)*rr,nx=Math.ceil((x1-ox)/rr)+1,ny=Math.ceil((y1-oy)/rr)+1,F=new Float32Array(nx*ny).fill(1e3);
+ for(const p of P){const R=p.r+m,x=p.x,y=H-p.y,i0=Math.max(0,Math.floor((x-R-ox)/rr)-1),i1=Math.min(nx-1,Math.ceil((x+R-ox)/rr)+1),j0=Math.max(0,Math.floor((y-R-oy)/rr)-1),j1=Math.min(ny-1,Math.ceil((y+R-oy)/rr)+1);
+  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const v=Math.hypot(ox+i*rr-x,oy+j*rr-y)-R;if(v<F[j*nx+i])F[j*nx+i]=v}}
+ return msq(F,nx,ny,ox,rr,oy).map(l=>simp(l,.004))}
 const outlineSvg=()=>'<path fill="#fff" fill-rule="evenodd" stroke="#000" stroke-width=".2" d="'+outlineLoops(S.keep,MG(),S.W,S.H).map(l=>'M'+l.map(p=>p[0].toFixed(3)+','+(S.H-p[1]).toFixed(3)).join('L')+'Z').join('')+'"/>';
-const trimmed=fn=>{const sv=S,md=$('#oline').value;if(md!=='full'&&!S.edges.some(e=>!e.cut)){const f=fitted();if(f){S=f;if(md==='tight')S.keep=bridge(keepPoints(),MG())}}try{return fn()}finally{S=sv}};
+const trimmed=fn=>{const sv=S,md=$('#oline').value;if(md!=='full'&&!S.edges.some(e=>!e.cut)){let f=fitted();if(f){S=f;
+  /* part names are placed fresh on the trimmed board and can land somewhere new, so fit again until nothing moves */
+  for(let k=0;k<4;k++){const g=fitted();if(!g||g.W===S.W&&g.H===S.H&&JSON.stringify(g.parts)===JSON.stringify(S.parts))break;S=g}
+  if(md==='tight')S.keep=bridge(keepPoints(),MG())}}try{return fn()}finally{S=sv}};
 $('#bfit').onclick=()=>{if(busy())return;const f=fitted();if(!f){alert('Place something on the board first.');return}pushHist();S=f;zm=1;pan={x:0,y:0};dims();setPend(null,'batch');draw()};
 $('#bundo').onclick=()=>pend?cancelPend():undo();$('#bredo').onclick=()=>{if(!busy())redo()};$('#cok').onclick=()=>confirmPend(false);$('#cext').onclick=()=>confirmPend(true);$('#crot').onclick=rotateCur;$('#brot').onclick=rotateCur;$('#cflip').onclick=flipCur;$('#bflip').onclick=flipCur;$('#cno').onclick=cancelPend;
 $('#bclear').onclick=()=>{if(confirm('Remove everything from the board?')){pend=null;showBar();pushHist();S=norm({W:S.W,H:S.H});cur=null;draw()}};
 /* ---- 3D preview of the exported plate ---- */
-function preview(){const M=trimmed(mesh),box=$('#pv');box.classList.add('open');const c=$('#pvc'),gl=c.getContext('webgl',{antialias:true});
+function preview(){const DB=dbl(),SX=DB&&STR(),B=trimmed(()=>mesh(DB?(SX?'bottom':'top'):'base')),Cv=covOn()?trimmed(()=>mesh('cover')):DB?trimmed(()=>mesh(SX?'top':'bottom')):null,ST=SX?trimmed(()=>mesh('strips-t')):null,SB=SX?trimmed(()=>mesh('strips-b')):null,box=$('#pv');box.classList.add('open');const c=$('#pvc'),gl=c.getContext('webgl',{antialias:true});
+ const V=preview.v||(preview.v={ax:-.95,az:.35,k:1,apart:false});$('#pvsep').style.display=Cv?'':'none';$('#pvsep').textContent=V.apart?'Show assembled':'Show apart';
  if(!gl){$('#pvmsg').textContent='3D preview needs WebGL, which this browser does not offer. The STL export still works.';return}
- $('#pvmsg').textContent=`${(M.tri.length/3).toLocaleString()} triangles. Drag to turn, scroll or use − + to zoom.`;
- const n=M.tri.length,pos=new Float32Array(n*3),nor=new Float32Array(n*3);
- for(let k=0;k<n;k+=3){const a=M.tri[k],b=M.tri[k+1],d=M.tri[k+2],ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=d[0]-a[0],vy=d[1]-a[1],vz=d[2]-a[2];let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;const l=Math.hypot(nx,ny,nz)||1;nx/=l;ny/=l;nz/=l;
-  [a,b,d].forEach((v,i)=>{pos.set(v,(k+i)*3);nor.set([nx,ny,nz],(k+i)*3)})}
+ const parts=[[B,0,0,0]];if(Cv&&DB&&!SX)parts.push(V.apart?[Cv,B.W+6,0,0]:[Cv,0,0,0,v=>[B.W-v[0],v[1],2*B.t-v[2]]]);
+ else if(Cv&&DB){const W2=B.W,t2=B.t;
+  if(V.apart)parts.push([Cv,W2+6,0,0],[ST,0,B.H+6,0],[SB,W2+6,B.H+6,0]);
+  else parts.push([Cv,0,0,0,v=>[W2-v[0],v[1],2*t2-v[2]]],[ST,0,0,0,v=>[v[0],v[1],v[2]+t2]],[SB,0,0,0,v=>[W2-v[0],v[1],t2-v[2]]])}else if(Cv)parts.push([Cv,V.apart?B.W+6:0,0,V.apart?0:B.t]);
+
+ const n=parts.reduce((u,q)=>u+q[0].tri.length,0),pos=new Float32Array(n*3),nor=new Float32Array(n*3),col=new Float32Array(n*3),bb=[1e9,1e9,1e9,-1e9,-1e9,-1e9];
+ $('#pvmsg').textContent=(Cv?(SX?`Covers ${((B.tri.length+Cv.tri.length)/3).toLocaleString()} + strips ${((ST.tri.length+SB.tri.length)/3).toLocaleString()}`:`${DB?'Top piece':'Base'} ${(B.tri.length/3).toLocaleString()} + ${DB?'bottom piece':'cover'} ${(Cv.tri.length/3).toLocaleString()}`):(B.tri.length/3).toLocaleString())+' triangles'+'. Drag to turn, scroll or use − + to zoom, right-drag to move. On a touch screen, pinch to zoom and drag two fingers to move.';
+ const at=(u,v)=>Math.abs(u-v)<.001;let k0=0;
+ parts.forEach(([M,ox,oy,oz,tf])=>{for(let k=0;k<M.tri.length;k+=3){const a=M.tri[k],b=M.tri[k+1],d=M.tri[k+2],A2=tf?tf(a):a,B2=tf?tf(b):b,D2=tf?tf(d):d,ux=B2[0]-A2[0],uy=B2[1]-A2[1],uz=B2[2]-A2[2],vx=D2[0]-A2[0],vy=D2[1]-A2[1],vz=D2[2]-A2[2];let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;const l=Math.hypot(nx,ny,nz)||1;nx/=l;ny/=l;nz/=l;
+  const za=Math.min(a[2],b[2],d[2]),zb=Math.max(a[2],b[2],d[2]),nzo=((b[0]-a[0])*(d[1]-a[1])-(b[1]-a[1])*(d[0]-a[0]))/(Math.hypot((b[1]-a[1])*(d[2]-a[2])-(b[2]-a[2])*(d[1]-a[1]),(b[2]-a[2])*(d[0]-a[0])-(b[0]-a[0])*(d[2]-a[2]),(b[0]-a[0])*(d[1]-a[1])-(b[1]-a[1])*(d[0]-a[0]))||1),top=SX?nzo>.5:(tf?-nz:nz)>.5;let cl;
+  
+  if(M.strip)cl=top&&at(za,M.t)&&at(zb,M.t)?[.88,.57,.31]:[.86,.83,.74];
+  else if(M.cov)cl=top&&at(za,M.tz)&&at(zb,M.tz)?[.05,.2,.16]:[.11,.39,.32];
+  else if(M.pbox&&M.pbox.length&&zb>M.t+.001&&M.pbox.some(q=>{const x=(a[0]+b[0]+d[0])/3,y=(a[1]+b[1]+d[1])/3;return x>q[0]-.05&&x<q[2]+.05&&y>q[1]-.05&&y<q[3]+.05}))cl=[.16,.5,.41];
+  else if(M.up?za>M.t-.001&&zb>M.t+.001:top&&at(za,M.gz)&&at(zb,M.gz))cl=[.88,.57,.31];
+  else if(M.dblB)cl=[.13,.44,.36];
+  else cl=top&&at(za,M.tz)&&at(zb,M.tz)?[.08,.27,.22]:[.16,.5,.41];
+  [A2,B2,D2].forEach((v,i)=>{const j=(k0+k+i)*3,w=[v[0]+ox,v[1]+oy,v[2]+oz];pos.set(w,j);nor.set([nx,ny,nz],j);col.set(cl,j);for(let q=0;q<3;q++){bb[q]=Math.min(bb[q],w[q]);bb[q+3]=Math.max(bb[q+3],w[q])}})}
+  k0+=M.tri.length});
  const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o},pr=gl.createProgram();
- gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec3 p;attribute vec3 n;uniform mat4 M;uniform mat4 R;varying vec3 vn;varying float vz;varying float nz;void main(){vn=(R*vec4(n,0.)).xyz;vz=p.z;nz=n.z;gl_Position=M*vec4(p,1.);}'));
- gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,'precision mediump float;varying vec3 vn;varying float vz;varying float nz;uniform vec4 L;uniform float tz;void main(){vec3 N=normalize(vn);float d=max(dot(N,normalize(vec3(.35,.45,.85))),0.)*.75+.28;vec3 c=vec3(.16,.5,.41);bool cop=L.w>.5?vz>L.x+.001:(abs(vz-L.z)<.001&&nz>.5);if(cop)c=vec3(.88,.57,.31);else if(abs(vz-tz)<.001&&nz>.5)c=vec3(.08,.27,.22);gl_FragColor=vec4(c*d,1.);}'));
+ gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec3 p;attribute vec3 n;attribute vec3 k;uniform mat4 M;uniform mat4 R;varying vec3 vn;varying vec3 vk;void main(){vn=(R*vec4(n,0.)).xyz;vk=k;gl_Position=M*vec4(p,1.);}'));
+ gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,'precision mediump float;varying vec3 vn;varying vec3 vk;void main(){vec3 N=normalize(vn);float d=max(dot(N,normalize(vec3(.35,.45,.85))),0.)*.75+.28;gl_FragColor=vec4(vk*d,1.);}'));
  gl.linkProgram(pr);gl.useProgram(pr);
  const buf=(data,name)=>{const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);const l=gl.getAttribLocation(pr,name);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,3,gl.FLOAT,false,0,0)};
- buf(pos,'p');buf(nor,'n');
- gl.uniform4f(gl.getUniformLocation(pr,'L'),M.t,M.z1,M.gz,M.up?1:0);gl.uniform1f(gl.getUniformLocation(pr,'tz'),M.tz);
+ buf(pos,'p');buf(nor,'n');buf(col,'k');
  const mul=(a,b)=>{const r=new Float32Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+j]*b[i*4+k];r[i*4+j]=s}return r},
   I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]),tr=(x,y,z)=>{const r=I();r[12]=x;r[13]=y;r[14]=z;return r},
   rx=t=>new Float32Array([1,0,0,0,0,Math.cos(t),Math.sin(t),0,0,-Math.sin(t),Math.cos(t),0,0,0,0,1]),rz=t=>new Float32Array([Math.cos(t),Math.sin(t),0,0,-Math.sin(t),Math.cos(t),0,0,0,0,1,0,0,0,0,1]),
   per=(fv,a,nr,fr)=>{const f=1/Math.tan(fv/2);return new Float32Array([f/a,0,0,0,0,f,0,0,0,0,(fr+nr)/(nr-fr),-1,0,0,2*fr*nr/(nr-fr),0])};
- const V=preview.v||(preview.v={ax:-.95,az:.35,k:1});const span=Math.max(M.W,M.H);
+ const span=Math.max(bb[3]-bb[0],bb[4]-bb[1]),cx0=(bb[0]+bb[3])/2,cy0=(bb[1]+bb[4])/2,cz0=(bb[2]+bb[5])/2;
  const render=()=>{const d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*d)||c.height!==Math.round(h*d)){c.width=Math.round(w*d);c.height=Math.round(h*d)}
   gl.viewport(0,0,c.width,c.height);gl.clearColor(.17,.19,.21,1);gl.enable(gl.DEPTH_TEST);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-  const R=mul(rx(V.ax),rz(V.az)),dist=span*1.5*V.k,Mv=mul(per(.8,w/Math.max(1,h),span*.05,span*10),mul(tr(0,0,-dist),mul(R,tr(-M.W/2,-M.H/2,-M.t/2))));
+  const R=mul(rx(V.ax),rz(V.az)),dist=span*1.5*V.k,Mv=mul(per(.8,w/Math.max(1,h),span*.05,span*10),mul(tr(V.px||0,V.py||0,-dist),mul(R,tr(-cx0,-cy0,-cz0))));
   gl.uniformMatrix4fv(gl.getUniformLocation(pr,'M'),false,Mv);gl.uniformMatrix4fv(gl.getUniformLocation(pr,'R'),false,R);gl.drawArrays(gl.TRIANGLES,0,n)};
  preview.render=render;let dg=null;
- c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);dg={x:e.clientX,y:e.clientY}};c.onpointerup=()=>dg=null;
- c.onpointermove=e=>{if(!dg)return;V.az+=(e.clientX-dg.x)*.01;V.ax=Math.max(-3.1,Math.min(0,V.ax+(e.clientY-dg.y)*.01));dg={x:e.clientX,y:e.clientY};render()};
+ const TP=new Map();let g2=null;const two=()=>{const a=[...TP.values()];return{d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,mx:(a[0].x+a[1].x)/2,my:(a[0].y+a[1].y)/2}},
+  move=(dx,dy)=>{const u=2*span*1.5*V.k*Math.tan(.4)/Math.max(1,c.clientHeight);V.px=(V.px||0)+dx*u;V.py=(V.py||0)-dy*u};
+ c.oncontextmenu=e=>e.preventDefault();
+ c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);TP.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(TP.size===2){dg=null;g2={...two(),k:V.k};return}if(TP.size>2||g2)return;dg={x:e.clientX,y:e.clientY,pan:e.pointerType==='mouse'&&(e.button===2||e.button===1||e.shiftKey)}};
+ const lift=e=>{TP.delete(e.pointerId);if(!TP.size){dg=null;g2=null}};c.onpointerup=lift;c.onpointercancel=lift;
+ c.onpointermove=e=>{if(TP.has(e.pointerId))TP.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(g2){if(TP.size<2)return;const q=two();V.k=Math.max(.2,Math.min(4,g2.k*g2.d/q.d));move(q.mx-g2.mx,q.my-g2.my);g2.mx=q.mx;g2.my=q.my;render();return}
+  if(!dg)return;if(dg.pan)move(e.clientX-dg.x,e.clientY-dg.y);else{V.az+=(e.clientX-dg.x)*.01;V.ax=Math.max(-3.1,Math.min(0,V.ax+(e.clientY-dg.y)*.01))}dg={...dg,x:e.clientX,y:e.clientY};render()};
  c.onwheel=e=>{e.preventDefault();V.k=Math.max(.2,Math.min(4,V.k*(e.deltaY<0?.9:1.1)));render()};
  $('#pvi').onclick=()=>{V.k=Math.max(.2,V.k*.8);render()};$('#pvo').onclick=()=>{V.k=Math.min(4,V.k*1.25);render()};
  requestAnimationFrame(render)}
-$('#pvx').onclick=()=>$('#pv').classList.remove('open');addEventListener('resize',()=>{if($('#pv').classList.contains('open')&&preview.render)preview.render()});
+$('#pvx').onclick=()=>$('#pv').classList.remove('open');$('#pvsep').onclick=()=>{preview.v.apart=!preview.v.apart;preview()};addEventListener('resize',()=>{if($('#pv').classList.contains('open')&&preview.render)preview.render()});
 const helpEl=$('#help'),closeHelp=()=>helpEl.classList.remove('open');
 $('#bhelp').onclick=()=>helpEl.classList.add('open');$('#hx').onclick=closeHelp;helpEl.onclick=e=>{if(e.target===helpEl)closeHelp()};
 addEventListener('keydown',e=>{if(helpEl.classList.contains('open')){if(e.key==='Escape')closeHelp();e.stopImmediatePropagation()}
