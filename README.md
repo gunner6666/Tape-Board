@@ -14,6 +14,22 @@ Created by R. Heller · [☕ Support on Buy Me a Coffee](https://buymeacoffee.co
 
 ---
 
+## New in 1.0.2: cover designs
+
+The big one for this release: boards can now be printed with a **cover**, so the copper tape sits *below* the surface instead of on top of it. The tape is protected, the cover acts like solder mask, part names are engraved right into it, and the finished board looks far more like a real PCB. You still get the easy part of a raised board: the tape goes onto raised lines (or separate strips) on the bench, where it's simple to press down and trim.
+
+There are three new cover designs, all picked from the **Traces** setting:
+
+| Design | What you print | What you get |
+| --- | --- | --- |
+| **Raised + cover piece** | A base with raised lines, and a cover with openings shaped like the traces | Tape on one side, recessed below a clean top face |
+| **Double-sided (two pieces)** | Two pieces that are each other's cover | Tape on **both** sides of the board, copper showing on each face |
+| **Double-sided (strips, traces can cross)** | A bottom cover, a top cover, and one flat strip per tape run | Tape on both sides, and top and bottom tape can **cross**, just like a factory double-sided board |
+
+Covers snap on with **round pegs** (plus **clips on the edge** on the single-cover design), so no glue is needed, and the strips have their own small pegs that hold them in place while you put the board together. See the [changelog](#102) for everything else in this release.
+
+---
+
 ## Download
 
 Open the **Releases** page and grab the file for your device:
@@ -35,12 +51,20 @@ Open the **Releases** page and grab the file for your device:
 1. Lay out parts and copper-tape runs on a grid-snapped board — by hand, from a schematic you draw, or automatically from a text list.
 2. Check the design and preview the plate in 3D.
 3. Export an **STL** file.
-4. Print the plate. The STL has raised lines where the tape goes (or grooves, if you prefer), through-holes for pins, and any engraved text.
+4. Print the plate. The STL has raised lines where the tape goes (or grooves, if you prefer), through-holes for pins, and any engraved text. With one of the cover designs you get a cover too (see [New in 1.0.2](#new-in-102-cover-designs)): print the pieces, tape them, then snap the cover on.
 5. Press copper tape onto the lines and solder the parts in.
 
 ---
 
 ## Features
+
+**Board styles**
+
+- **Raised** lines or **Lowered** grooves for the tape, printed as one plate.
+- **Raised + cover piece**: a base plus a cover that leaves the copper recessed below the surface.
+- **Double-sided (two pieces)**: tape on both faces, each piece the other's cover.
+- **Double-sided (strips)**: tape on both faces that can cross, with each run printed as its own strip between two covers.
+- Covers snap on with round pegs (and edge clips on the single cover), no glue. Part names and your own text are engraved into the cover.
 
 **Drawing the board**
 
@@ -182,7 +206,10 @@ The **Load an example** menu has ready-made boards to read through.
 | Setting | What it controls |
 | --- | --- |
 | Plate thickness | Thickness of the printed base |
-| Traces | **Raised** lines for tape to sit on, or **Lowered** grooves |
+| Traces | **Raised** lines for tape to sit on, **Lowered** grooves, **Double-sided (two pieces)** (two pieces that are each other's cover, with tape on both faces; tape cannot cross), **Double-sided (strips)** (tape on both faces and it can cross: each tape run is a printed strip held between a bottom cover and a top cover; in both, draw each side with the Top/Bottom switch while the other side shows as a ghost), or **Raised + cover piece** (a base with raised lines plus a cover that drops over the taped traces so they sit below the surface) |
+| Cover recess / Cover clearance / Min cover strip | Cover designs (Raised + cover piece and both Double-sided modes): how far the copper sits below the cover top, the gap left around traces and pads so it fits, and the thinnest strip of cover allowed between openings (narrower strips are cut away so nothing is too thin to print) |
+| Snap pegs / Snap clips on the edge | Hold the cover (or the other double-sided piece) on without glue. **Round pegs** printed on the base push into round holes through the cover and hold it by a snug fit (**Peg fit**; place them yourself with the **Peg** tool or let the app choose); clips on straight stretches of edge click over the cover (**Clip catch**, cover piece only). Placed automatically in clear spots |
+| Pegs for the strips | Double-sided (strips) only: small ears on each strip with a hole that a peg on the other cover goes through, so the strips stay put during assembly. Untick for plain strips |
 | Trace height | How far the lines rise or sink |
 | Pin hole ⌀ | Size of the through-holes for component legs |
 | Larger solder pads | Optional bigger pads, with their own diameter |
@@ -198,7 +225,10 @@ Very thin tape lines are hard to print. Use at least 0.8 mm for a 0.4 mm nozzle.
 
 ## Files
 
-- **Export STL** — the printable plate.
+- **Export STL** — the printable plate (Raised and Lowered).
+- **Export base STL / Export cover STL** — the two parts of **Raised + cover piece**.
+- **Export top piece STL / Export bottom piece STL** — the two parts of **Double-sided (two pieces)**; the bottom piece is mirrored so it prints traces up.
+- **Export bottom cover STL / Export top cover STL / Export strips STL** — the parts of **Double-sided (strips)**; all strips are in one file, top strips on the left and bottom strips (turned over) on the right, so every strip prints copper side up.
 - **Download SVG template (1:1)** — a full-size drawing to print on paper and check fit, or cut tape against.
 - **Save design / Open design** — a `.json` file holding the board, its connections, imported footprints and your schematic drawing.
 
@@ -213,6 +243,37 @@ Very thin tape lines are hard to print. Use at least 0.8 mm for a 0.4 mm nozzle.
 ---
 
 ## Changelog
+
+### 1.0.2
+
+The headline of this release is **cover designs**: three new ways to print a board so the copper tape sits below the surface, including two double-sided designs, one of them with tape that can cross. Covers snap on without glue.
+
+**New cover designs**
+
+- **Raised + cover piece.** A new Traces setting that exports two parts: a base with raised lines, so the tape is easy to press on and trim, and a cover with openings shaped like the traces and pads that drops over the taped base, so the copper sits below the surface like a lowered board. **Cover recess** sets how far below, **Cover clearance** sets the gap around the tape, and part names, the LED + and your own text are engraved into the cover. **Export base STL** and **Export cover STL** replace Export STL in this mode.
+- **Min cover strip.** Where two openings would leave a strip of cover too thin to print (under 1 mm by default), the strip is cut away and the openings are joined. The base is not changed.
+- **Double-sided (two pieces).** Tape on both sides of the board from two printed pieces that are each other's cover: each piece has raised lines for its own side and openings for the other side's tape. Flip the bottom piece onto the top piece and copper shows on both faces. Includes a **Top / Bottom** switch (or press **B**) with the other side shown as a faint ghost so you can line them up; the bottom side is shown turned over (mirrored), as it will really look, a **Swap side** tool, bottom tape drawn in blue, pads split in half when tape reaches them from both sides, a design check for top and bottom tape that overlap, the side of each run in the tape cut list, and **Export top piece STL** / **Export bottom piece STL**. The bottom piece is exported mirrored so it prints with its traces facing up.
+- **Double-sided (strips, traces can cross).** Tape on both sides of the board, and top and bottom tape can cross. Each tape run is printed as its own flat strip, held between a bottom cover and a top cover; each cover has windows that show the copper set **Cover recess** below the surface and slots behind them with a lip that holds the strips in. Pads reached from both sides get a full pad on each strip, one above the other, so a leg through them is soldered on both faces. Each strip has one or two small ears beside the tape with a hole in each; a peg on the other cover comes up through it, so the strips cannot slide while the board is put together. The ears are placed automatically and shown on the board, and can be turned off with **Pegs for the strips**. The covers are held together by round pegs. Uses the same Top / Bottom drawing tools as the two-piece mode, plus design checks for runs on the same side too close for their strips and for strips with no room for an ear, the side of each run in the tape cut list, and **Export bottom cover STL**, **Export top cover STL** and **Export strips STL** (bottom strips exported turned over so every strip prints copper side up).
+
+**Added**
+
+- **Snap fit for the cover, no glue needed.**
+  - **Round pegs**: solid 3.6 mm posts printed as part of the base (or the lower double-sided piece) that push into round holes through the cover, level with its top, and hold it by a snug fit. **Peg fit** sets the gap around each peg. Push them back out from the top to take the cover off.
+  - **Snap clips on the edge**: springy clips cut into straight stretches of the base edge that click over the cover, with **Clip catch** setting how far they reach over.
+  - Pegs and clips are placed automatically in clear spots, away from tape, text and holes, and Check design says if they do not fit.
+- **Peg tool (G)** to place snap pegs yourself. Move and Erase work on them, they are saved with the design, and Check design warns if one is too close to tape, a hole or text.
+- **Pinch to zoom and two-finger panning** on touch screens, in the board view and the 3D preview. One finger still uses the current tool, and starting a pinch never places or draws anything. The 3D preview can also be moved with right-drag or Shift-drag, and resets its view each time it opens.
+- The 3D preview shows the base and cover (or the double-sided pieces and strips) either fitted together or laid out as printed, with a **Show apart / Show assembled** button.
+
+**Changed**
+
+- **Trace height** now goes up to 3 mm (was 1 mm).
+
+**Fixed**
+
+- The **Text tool** did nothing in the desktop app (and in embedded previews), because it asked for the words with a browser pop-up those don't support. It now opens its own text box.
+- Text could be cut off with the **Fit to used area** and **Cut away unused** export shapes. Automatic part names and the LED + were not counted when sizing the board, Cut away unused ignored text when tracing the outline, and labels that moved after trimming could break the outline into pieces. All text now stays on the plate.
+- The toolbar ran off the right edge of the window at 1500 px wide and narrower, hiding Redo and Clear. Keyboard hints now hide below 1640 px and the app name below 1440 px, so it fits down to about 1280 px.
 
 ### 1.0.1
 
